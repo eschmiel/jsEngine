@@ -1,7 +1,5 @@
+import { Vector } from "./services/vector.js";
 export var degreesToRadians = function (degrees) { return (Math.PI / 180) * degrees; };
-// export const lerp = (start: number, end: number, t: number): number => {
-//     return start * (1 - t) + end * t
-// }
 var Lerp = /** @class */ (function () {
     function Lerp(origin, destination, accelerationRate) {
         this.currentTime = 0;
@@ -19,8 +17,7 @@ var Lerp = /** @class */ (function () {
     Lerp.prototype.lerp = function () {
         return this.origin * (1 - this.currentTime) + this.destination * this.currentTime;
     };
-    Lerp.prototype.redirect = function (destination, accelerationRate) {
-        if (accelerationRate === void 0) { accelerationRate = this.accelerationRate; }
+    Lerp.prototype.redirect = function (destination) {
         this.origin = this.lerp();
         this.destination = destination;
         this.currentTime = 0;
@@ -28,4 +25,11 @@ var Lerp = /** @class */ (function () {
     return Lerp;
 }());
 export { Lerp };
+export var getCenterPosition = function (position, dimensions) {
+    var _a = position.values, x = _a[0], y = _a[1];
+    var _b = dimensions.values, width = _b[0], height = _b[1];
+    var centerX = x + width / 2;
+    var centerY = y + height / 2;
+    return new Vector(centerX, centerY);
+};
 //# sourceMappingURL=util.js.map

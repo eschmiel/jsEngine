@@ -1,4 +1,7 @@
-export default (managers) => {
-    managers.forEach((manager) => manager.update())
-    managers[0].entities[0].collideWithBullets(managers[1])
+import GameState from "./gameState.js"
+
+export default ({ player, enemyBullets }: GameState) => {
+    player.update()
+    enemyBullets.update()
+    player.collideWithBullets(enemyBullets)
 }

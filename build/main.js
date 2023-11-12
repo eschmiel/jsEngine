@@ -1,22 +1,19 @@
-import Ship from "./entities/ship.js";
+import GameState from './gameState.js';
 import update from './update.js';
 import draw from './draw.js';
-import EntityManager from "./entities/entityManager.js";
-import { Bullet, BulletManager } from "./entities/bullet.js";
 (function () {
-    var entityManager = new EntityManager([new Ship(20, 40)]);
-    var enemyBullets = new BulletManager();
-    enemyBullets.bullets[0] = new Bullet(400, 400, 10);
+    var gameState = new GameState();
+    var timeTracker = gameState.timeTracker;
     function game(time) {
-        if (time === void 0) { time = null; }
+        if (time === void 0) { time = 0; }
         window.requestAnimationFrame(game);
-        update([entityManager, enemyBullets]);
-        draw([entityManager, enemyBullets]);
+        timeTracker.trackTime(time);
+        while (timeTracker.isTimeBetweenUpdatesOverTimeLimit()) {
+            update(gameState);
+            timeTracker.logUpdate();
+        }
+        draw(gameState);
     }
     game();
 })();
-function initialize() {
-    var ship = new Ship(20, 40);
-    return ship;
-}
 //# sourceMappingURL=main.js.map

@@ -1,6 +1,7 @@
 import canvas from './services/canvas.js'
 
-export default (managers) => {
+export default ({ player, enemyBullets }) => {
     canvas.clearScreen()
-    managers.forEach((manager) => manager.draw())
+    player.draw()
+    enemyBullets.draw()
 }

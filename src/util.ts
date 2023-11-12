@@ -1,8 +1,6 @@
-export const degreesToRadians = (degrees) => (Math.PI / 180) * degrees
+import { Vector } from "./services/vector.js"
 
-// export const lerp = (start: number, end: number, t: number): number => {
-//     return start * (1 - t) + end * t
-// }
+export const degreesToRadians = (degrees) => (Math.PI / 180) * degrees
 
 export class Lerp {
     currentTime: number
@@ -30,9 +28,19 @@ export class Lerp {
         return this.origin * (1 - this.currentTime) + this.destination * this.currentTime
     }
 
-    redirect(destination, accelerationRate = this.accelerationRate) {
+    redirect(destination: number) {
         this.origin = this.lerp()
         this.destination = destination
         this.currentTime = 0
     }
+}
+
+export const getCenterPosition = (position: Vector, dimensions: Vector) => {
+    const [x, y] = position.values
+    const [width, height] = dimensions.values
+    
+    const centerX = x + width/2
+    const centerY = y + height/2
+
+    return new Vector(centerX, centerY)
 }

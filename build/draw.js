@@ -1,6 +1,8 @@
 import canvas from './services/canvas.js';
-export default (function (managers) {
+export default (function (_a) {
+    var player = _a.player, enemyBullets = _a.enemyBullets;
     canvas.clearScreen();
-    managers.forEach(function (manager) { return manager.draw(); });
+    player.draw();
+    enemyBullets.draw();
 });
 //# sourceMappingURL=draw.js.map
