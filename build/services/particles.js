@@ -1,13 +1,4 @@
-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
-};
-import { Lerp } from "../util.js";
+import { Lerp, getCenterPosition } from "../util.js";
 import canvas from "./canvas.js";
 import { Vector, createDirection } from "./vector.js";
 var TriangleExplosion = /** @class */ (function () {
@@ -28,22 +19,12 @@ var TriangleExplosion = /** @class */ (function () {
 export { TriangleExplosion };
 var TriangleParticle = /** @class */ (function () {
     function TriangleParticle(position, dimensions, direction) {
-        var _this = this;
-        this.getCenterX = function () {
-            var x = _this.position.values[0];
-            var width = _this.dimensions.values[0];
-            return x + width / 2;
-        };
-        this.getCenterY = function () {
-            var y = _this.position.values[1];
-            var height = _this.dimensions.values[1];
-            return y + height / 2;
-        };
         this.position = position.copy();
         this.dimensions = dimensions.copy();
         this.direction = direction.copy();
         this.particleColor = 'black';
         this.rotation = 0;
+        this.rotationSpeed = 25;
         this.speed = 10;
         this.timer = 0;
         this.maxTimer = 45;
@@ -52,14 +33,15 @@ var TriangleParticle = /** @class */ (function () {
     TriangleParticle.prototype.createTrianglePoints = function () {
         var _a = this.position.values, x = _a[0], y = _a[1];
         var _b = this.dimensions.values, width = _b[0], height = _b[1];
+        var _c = getCenterPosition(this.position, this.dimensions).values, centerX = _c[0], centerY = _c[1];
         return [
-            new (Vector.bind.apply(Vector, __spreadArray([void 0], this.position.values, false)))(),
-            new Vector(x + width, this.getCenterY()),
+            this.position.copy(),
+            new Vector(x + width, centerY),
             new Vector(x, y + height)
         ];
     };
     TriangleParticle.prototype.update = function () {
-        this.rotation += 25;
+        this.rotation += this.rotationSpeed;
         if (this.rotation > 360)
             this.rotation -= 360;
         this.speed = this.accelerationLerp.run();
@@ -69,12 +51,13 @@ var TriangleParticle = /** @class */ (function () {
             this.timer += 1;
     };
     TriangleParticle.prototype.draw = function () {
+        var _a = getCenterPosition(this.position, this.dimensions).values, centerX = _a[0], centerY = _a[1];
         canvas.save();
         canvas.context.globalAlpha = 0;
         if (this.maxTimer > this.timer)
             canvas.context.globalAlpha = 1 - this.timer / this.maxTimer;
         var trianglePoints = this.createTrianglePoints();
-        canvas.rotate(this.rotation, this.getCenterX(), this.getCenterY());
+        canvas.rotate(this.rotation, centerX, centerY);
         canvas.strokeTriangle(trianglePoints, this.particleColor);
         canvas.restore();
     };

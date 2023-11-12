@@ -1,4 +1,4 @@
-import { Lerp } from "../util.js";
+import { Lerp, getCenterPosition } from "../util.js";
 import canvas from "./canvas.js";
 import { Vector, createDirection } from "./vector.js";
 
@@ -25,6 +25,7 @@ class TriangleParticle {
     dimensions: Vector
     direction: Vector
     rotation: number
+    rotationSpeed: number;
     particleColor: string;
     speed: number;
     timer: number;
@@ -37,6 +38,7 @@ class TriangleParticle {
         this.direction = direction.copy()
         this.particleColor = 'black'
         this.rotation =0
+        this.rotationSpeed = 25
         this.speed = 10
         this.timer = 0
         this.maxTimer = 45
@@ -46,29 +48,17 @@ class TriangleParticle {
     createTrianglePoints() {
         const [x, y] = this.position.values
         const [width, height] = this.dimensions.values
+        const [centerX, centerY] = getCenterPosition(this.position, this.dimensions).values
+
         return [
-            new Vector(...this.position.values),
-            new Vector(x + width, this.getCenterY()),
+            this.position.copy(),
+            new Vector(x + width, centerY),
             new Vector(x, y + height)
         ]
     }
 
-    getCenterX = () => {
-        const x = this.position.values[0]
-        const width = this.dimensions.values[0]
-        
-        return x + width/2
-    }
-
-    getCenterY = () => {
-        const y = this.position.values[1]
-        const height = this.dimensions.values[1]
-
-        return y + height/2
-    }
-
     update() {
-        this.rotation += 25;
+        this.rotation += this.rotationSpeed;
         if(this.rotation > 360) this.rotation -= 360
         this.speed = this.accelerationLerp.run()
         const distanceInDirection = this.direction.multiplyByScalar(this.speed)
@@ -77,12 +67,15 @@ class TriangleParticle {
     }
 
     draw() {
+        const [centerX, centerY] = getCenterPosition(this.position, this.dimensions).values
+
         canvas.save()
+
         canvas.context.globalAlpha = 0
         if(this.maxTimer > this.timer) canvas.context.globalAlpha = 1 - this.timer / this.maxTimer
         const trianglePoints = this.createTrianglePoints()
 
-        canvas.rotate(this.rotation, this.getCenterX(), this.getCenterY())
+        canvas.rotate(this.rotation, centerX, centerY)
         canvas.strokeTriangle(trianglePoints, this.particleColor)
 
         canvas.restore()
