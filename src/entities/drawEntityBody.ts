@@ -19,12 +19,11 @@ export const createTrianglePointsForEntityBody = (body: EntityBody) => {
 }
 
 export const drawEntityBodyTriangle = (body: EntityBody, drawType: EntityBodyTriangleDrawTypes = EntityBodyTriangleDrawTypes.Fill, color: string = 'black') => {
-    const [centerX, centerY] = body.getCenterPosition()
     const trianglePoints = createTrianglePointsForEntityBody(body)
     
     canvas.save()
 
-    canvas.rotate(body.rotation, centerX, centerY)
+    canvas.rotate(body.rotation, body.getCenterPositionVector())
 
     switch(drawType){
         case EntityBodyTriangleDrawTypes.Fill:

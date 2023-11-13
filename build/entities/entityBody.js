@@ -1,3 +1,12 @@
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 import { Vector, createDirection } from '../services/vector.js';
 var EntityBody = /** @class */ (function () {
     function EntityBody(position, dimensions) {
@@ -18,12 +27,18 @@ var EntityBody = /** @class */ (function () {
         var centerY = y + height / 2;
         return [centerX, centerY];
     };
+    EntityBody.prototype.getCenterPositionVector = function () {
+        return new (Vector.bind.apply(Vector, __spreadArray([void 0], this.getCenterPosition(), false)))();
+    };
     EntityBody.prototype.getEndPosition = function () {
         var _a = this.position.values, x = _a[0], y = _a[1];
         var _b = this.dimensions.values, width = _b[0], height = _b[1];
         var endX = x + width;
         var endY = y + height;
         return [endX, endY];
+    };
+    EntityBody.prototype.getEndPositionVector = function () {
+        return new (Vector.bind.apply(Vector, __spreadArray([void 0], this.getEndPosition(), false)))();
     };
     EntityBody.prototype.adjustRotation = function (change) {
         this.rotation += change;

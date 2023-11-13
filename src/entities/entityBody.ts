@@ -28,6 +28,10 @@ export class EntityBody {
 
         return [centerX, centerY]
     }
+
+    getCenterPositionVector() {
+        return new Vector(...this.getCenterPosition())
+    }
     
     getEndPosition() { 
         const [x, y] = this.position.values
@@ -37,6 +41,10 @@ export class EntityBody {
         const endY = y + height
 
         return [endX, endY]
+    }
+
+    getEndPositionVector() {
+        return new Vector(...this.getEndPosition())
     }
 
     adjustRotation(change) {

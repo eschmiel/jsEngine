@@ -18,10 +18,9 @@ export var createTrianglePointsForEntityBody = function (body) {
 export var drawEntityBodyTriangle = function (body, drawType, color) {
     if (drawType === void 0) { drawType = EntityBodyTriangleDrawTypes.Fill; }
     if (color === void 0) { color = 'black'; }
-    var _a = body.getCenterPosition(), centerX = _a[0], centerY = _a[1];
     var trianglePoints = createTrianglePointsForEntityBody(body);
     canvas.save();
-    canvas.rotate(body.rotation, centerX, centerY);
+    canvas.rotate(body.rotation, body.getCenterPositionVector());
     switch (drawType) {
         case EntityBodyTriangleDrawTypes.Fill:
             canvas.fillTriangle(trianglePoints, color);

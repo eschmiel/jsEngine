@@ -35,7 +35,7 @@ export class CollisionBox {
 
     draw() {
         canvas.save()
-        canvas.rotate2(this.entity.rotation, this.getCenterPosition())
+        canvas.rotate(this.entity.rotation, this.getCenterPosition())
         canvas.drawRectangle(this.getPosition(), this.dimensions, 'red')
         canvas.restore()
     }

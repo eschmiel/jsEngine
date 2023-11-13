@@ -60,7 +60,7 @@ var TriangleParticle = /** @class */ (function () {
             if (this.maxTimer > this.timer)
                 canvas.context.globalAlpha = 1 - this.timer / this.maxTimer;
             var trianglePoints = this.createTrianglePoints();
-            canvas.rotate(this.rotation, centerX, centerY);
+            canvas.rotate(this.rotation, new Vector(centerX, centerY));
             canvas.strokeTriangle(trianglePoints, this.particleColor);
             canvas.restore();
         }

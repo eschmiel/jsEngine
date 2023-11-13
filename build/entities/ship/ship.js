@@ -19,7 +19,7 @@ var Ship = /** @class */ (function () {
         this.shipColor = "black";
         this.alive = true;
         this.collisionBox = new CollisionBox(new Vector(0, 0), dimensions.copy(), this.body);
-        this.music = new Audio('./Skull_Break.wav');
+        // this.music = new Audio('./Skull_Break.wav')
     }
     Ship.prototype.createTrianglePoints = function () {
         var _a = this.body.getPosition(), x = _a[0], y = _a[1];
@@ -48,7 +48,7 @@ var Ship = /** @class */ (function () {
     Ship.prototype.control = function () {
         if (Controller.ArrowUp) {
             this.accelerator.setDirection(AcceleratorDirection.Forward);
-            this.music.play();
+            // this.music.play()
         }
         if (Controller.ArrowDown)
             this.accelerator.setDirection(AcceleratorDirection.Backward);
