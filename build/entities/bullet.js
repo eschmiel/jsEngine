@@ -1,16 +1,16 @@
 import canvas from "../services/canvas.js";
-import { CollisionBox } from "../services/collisions.js";
+import { CollisionBox } from "../services/collisions/collisionBox.js";
 import { Vector } from "../services/vector.js";
+import { EntityBody } from "./entityBody.js";
 var Bullet = /** @class */ (function () {
-    function Bullet(x, y, radius) {
-        this.position = new Vector(x, y);
-        this.dimensions = new Vector(radius * 2, radius * 2);
+    function Bullet(position, radius) {
+        this.body = new EntityBody(position.copy(), new Vector(radius * 2, radius * 2));
         this.radius = radius;
-        this.collisionBox = new CollisionBox(new Vector(0, 0), this.dimensions, this);
+        this.collisionBox = new CollisionBox(new Vector(0, 0), this.body.dimensions, this.body);
     }
     Bullet.prototype.update = function () { };
     Bullet.prototype.draw = function () {
-        canvas.fillCircle(this.position, this.radius, 'blue');
+        canvas.fillCircle(this.body.position, this.radius, 'blue');
     };
     return Bullet;
 }());

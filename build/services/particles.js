@@ -41,25 +41,29 @@ var TriangleParticle = /** @class */ (function () {
         ];
     };
     TriangleParticle.prototype.update = function () {
-        this.rotation += this.rotationSpeed;
-        if (this.rotation > 360)
-            this.rotation -= 360;
-        this.speed = this.accelerationLerp.run();
-        var distanceInDirection = this.direction.multiplyByScalar(this.speed);
-        this.position = this.position.addVector(distanceInDirection);
-        if (this.timer <= this.maxTimer)
-            this.timer += 1;
+        if (this.timer < this.maxTimer) {
+            this.rotation += this.rotationSpeed;
+            if (this.rotation > 360)
+                this.rotation -= 360;
+            this.speed = this.accelerationLerp.run();
+            var distanceInDirection = this.direction.multiplyByScalar(this.speed);
+            this.position = this.position.addVector(distanceInDirection);
+            if (this.timer <= this.maxTimer)
+                this.timer += 1;
+        }
     };
     TriangleParticle.prototype.draw = function () {
-        var _a = getCenterPosition(this.position, this.dimensions).values, centerX = _a[0], centerY = _a[1];
-        canvas.save();
-        canvas.context.globalAlpha = 0;
-        if (this.maxTimer > this.timer)
-            canvas.context.globalAlpha = 1 - this.timer / this.maxTimer;
-        var trianglePoints = this.createTrianglePoints();
-        canvas.rotate(this.rotation, centerX, centerY);
-        canvas.strokeTriangle(trianglePoints, this.particleColor);
-        canvas.restore();
+        if (this.timer < this.maxTimer) {
+            var _a = getCenterPosition(this.position, this.dimensions).values, centerX = _a[0], centerY = _a[1];
+            canvas.save();
+            canvas.context.globalAlpha = 0;
+            if (this.maxTimer > this.timer)
+                canvas.context.globalAlpha = 1 - this.timer / this.maxTimer;
+            var trianglePoints = this.createTrianglePoints();
+            canvas.rotate(this.rotation, centerX, centerY);
+            canvas.strokeTriangle(trianglePoints, this.particleColor);
+            canvas.restore();
+        }
     };
     return TriangleParticle;
 }());

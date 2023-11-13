@@ -33,6 +33,12 @@ export class Lerp {
         this.destination = destination
         this.currentTime = 0
     }
+
+    reset() {
+        this.origin = 0
+        this.currentTime = 0
+        this.destination = 0
+    }
 }
 
 export const getCenterPosition = (position: Vector, dimensions: Vector) => {

@@ -22,6 +22,11 @@ var Lerp = /** @class */ (function () {
         this.destination = destination;
         this.currentTime = 0;
     };
+    Lerp.prototype.reset = function () {
+        this.origin = 0;
+        this.currentTime = 0;
+        this.destination = 0;
+    };
     return Lerp;
 }());
 export { Lerp };

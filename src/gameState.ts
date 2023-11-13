@@ -1,6 +1,7 @@
 import { Bullet, BulletManager } from "./entities/bullet.js"
-import Ship from "./entities/ship.js"
+import Ship from "./entities/ship/ship.js"
 import { TimeTracker } from "./services/timeTracker.js"
+import { Vector } from "./services/vector.js"
 
 export default class GameState {
     player: Ship
@@ -12,6 +13,6 @@ export default class GameState {
         this.enemyBullets = new BulletManager(),
         this.timeTracker = new TimeTracker()
 
-        this.enemyBullets.bullets.push(new Bullet(400, 400, 10))
+        this.enemyBullets.bullets.push(new Bullet(new Vector(400, 400,), 10))
     }
 }
