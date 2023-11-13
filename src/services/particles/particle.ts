@@ -4,7 +4,7 @@ import { Accelerator } from "../accelerator.js";
 import { ParticleTypes } from "./particles";
 import { EntityBodyTriangleDrawTypes, drawEntityBodyTriangle } from "../../entities/drawEntityBody.js";
 
-class Particle {
+export class Particle {
     direction: Vector
     accelerator: Accelerator;
     body: EntityBody
