@@ -36,7 +36,7 @@ export default class Ship {
         this.alive = true
 
         this.collisionBox = new CollisionBox(new Vector(0,0), dimensions.copy(), this.body)
-        // this.music = new Audio('./Skull_Break.wav')
+        this.music = new Audio('./Skull_Break.wav')
     }
 
     createTrianglePoints() {
@@ -66,7 +66,7 @@ export default class Ship {
 
     control() {
         if(Controller.ArrowUp) {this.accelerator.setDirection(AcceleratorDirection.Forward)
-        // this.music.play()
+        this.music.play()
         }
         if(Controller.ArrowDown) this.accelerator.setDirection(AcceleratorDirection.Backward)
         if(Controller.ArrowLeft) this.body.adjustRotation(-11)
