@@ -6,10 +6,14 @@ export var AcceleratorDirection;
     AcceleratorDirection["Stop"] = "stop";
 })(AcceleratorDirection || (AcceleratorDirection = {}));
 var Accelerator = /** @class */ (function () {
-    function Accelerator(targetSpeed, accelerationRate) {
-        this.targetSpeed = targetSpeed;
-        this.direction = AcceleratorDirection.Stop;
-        this.lerp = new Lerp(0, 0, accelerationRate);
+    function Accelerator(startingSpeed, maxSpeed, accelerationRate, direction) {
+        if (startingSpeed === void 0) { startingSpeed = 0; }
+        if (maxSpeed === void 0) { maxSpeed = 0; }
+        if (accelerationRate === void 0) { accelerationRate = .01; }
+        if (direction === void 0) { direction = AcceleratorDirection.Stop; }
+        this.maxSpeed = maxSpeed;
+        this.lerp = new Lerp(startingSpeed, maxSpeed, accelerationRate);
+        this.setDirection(direction);
     }
     Accelerator.prototype.getCurrentLerpTarget = function () {
         return this.lerp.destination;
@@ -25,10 +29,10 @@ var Accelerator = /** @class */ (function () {
             return;
         switch (newDirection) {
             case AcceleratorDirection.Forward:
-                this.lerp.redirect(this.targetSpeed);
+                this.lerp.redirect(this.maxSpeed);
                 break;
             case AcceleratorDirection.Backward:
-                this.lerp.redirect(-this.targetSpeed);
+                this.lerp.redirect(-this.maxSpeed);
                 break;
             case AcceleratorDirection.Stop:
                 this.lerp.redirect(0);

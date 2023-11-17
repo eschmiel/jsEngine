@@ -6,15 +6,21 @@ export enum AcceleratorDirection {
     Stop = 'stop'
 }
 
+export type AcceleratorSettings = {
+    maxSpeed?: number,
+    accelerationRate?: number,
+    startingSpeed?: number,
+    direction?: AcceleratorDirection
+}
 export class Accelerator {
-    targetSpeed: number
+    maxSpeed: number
     direction: AcceleratorDirection
     lerp: Lerp
 
-    constructor(targetSpeed: number, accelerationRate: number) {
-        this.targetSpeed = targetSpeed
-        this.direction = AcceleratorDirection.Stop
-        this.lerp = new Lerp(0, 0, accelerationRate)
+    constructor(startingSpeed:number = 0, maxSpeed: number = 0, accelerationRate: number = .01, direction: AcceleratorDirection = AcceleratorDirection.Stop) {
+        this.maxSpeed = maxSpeed
+        this.lerp = new Lerp(startingSpeed, maxSpeed, accelerationRate)
+        this.setDirection(direction)
     }
 
     getCurrentLerpTarget(){
@@ -34,10 +40,10 @@ export class Accelerator {
 
         switch(newDirection) {
             case AcceleratorDirection.Forward:
-                this.lerp.redirect(this.targetSpeed)
+                this.lerp.redirect(this.maxSpeed)
                 break;
             case AcceleratorDirection.Backward:
-                this.lerp.redirect(-this.targetSpeed)
+                this.lerp.redirect(-this.maxSpeed)
                 break;
             case AcceleratorDirection.Stop:
                 this.lerp.redirect(0)

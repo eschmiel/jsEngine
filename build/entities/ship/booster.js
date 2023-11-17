@@ -9,7 +9,7 @@ var Booster = /** @class */ (function () {
         this.coolDownTimer = 0;
         this.boostSpeed = boostSpeed;
         this.direction = createDirection();
-        this.accelerator = new Accelerator(this.boostSpeed, .3);
+        this.accelerator = new Accelerator(0, this.boostSpeed, .3);
     }
     Booster.prototype.activate = function (angle) {
         if (angle === void 0) { angle = 0; }

@@ -1,18 +1,41 @@
 import { EntityBody } from "../../entities/entityBody.js";
 import { Accelerator } from "../accelerator.js";
 import { EntityBodyTriangleDrawTypes, drawEntityBodyTriangle } from "../../entities/drawEntityBody.js";
+import { Fader } from "../fader.js";
 var Particle = /** @class */ (function () {
-    function Particle(position, dimensions, direction, maxspeed, accelerationRate) {
-        this.body = new EntityBody(position.copy(), dimensions.copy());
-        this.direction = direction.copy();
-        this.accelerator = new Accelerator(0, .01);
+    function Particle(options) {
+        var _a = options.body, body = _a === void 0 ? defaultParticleOptions.body : _a, _b = options.color, color = _b === void 0 ? defaultParticleOptions.color : _b, _c = options.maxTime, maxTime = _c === void 0 ? defaultParticleOptions.maxTime : _c, faderSettings = options.faderSettings, acceleratorSettings = options.acceleratorSettings;
+        var startingAlpha = faderSettings.startingAlpha, targetAlpha = faderSettings.targetAlpha, fadeRate = faderSettings.fadeRate;
+        var startingSpeed = acceleratorSettings.startingSpeed, maxSpeed = acceleratorSettings.maxSpeed, accelerationRate = acceleratorSettings.accelerationRate, direction = acceleratorSettings.direction;
+        this.body = isEntityBody(body) ? body.copy() : new EntityBody(body);
+        this.accelerator = new Accelerator(startingSpeed, maxSpeed, accelerationRate, direction);
+        this.color = color;
+        this.timer = 0;
+        this.maxTime = maxTime;
+        this.fader = new Fader(startingAlpha, targetAlpha, fadeRate);
+        this.transparency = this.fader.getStartingAlpha();
     }
     Particle.prototype.update = function () {
+        this.body.speed = this.accelerator.run();
         this.body.update();
+        this.transparency = this.fader.run();
+        this.timer++;
     };
     Particle.prototype.draw = function () {
-        drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Stroke);
+        drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Stroke, this.color, this.transparency);
+    };
+    Particle.prototype.outOfTime = function () {
+        return this.timer >= this.maxTime;
     };
     return Particle;
 }());
+export { Particle };
+function isEntityBody(input) {
+    return input.update !== undefined;
+}
+var defaultParticleOptions = {
+    body: new EntityBody(),
+    color: 'black',
+    maxTime: 5
+};
 //# sourceMappingURL=particle.js.map

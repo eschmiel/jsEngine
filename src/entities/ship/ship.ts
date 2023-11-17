@@ -7,6 +7,8 @@ import { EntityBody } from '../entityBody.js';
 import { Accelerator, AcceleratorDirection } from '../../services/accelerator.js';
 import { Booster } from './booster.js';
 import { EntityBodyTriangleDrawTypes, drawEntityBodyTriangle } from '../drawEntityBody.js';
+import { ParticleEffectsManager } from '../../services/particles/particleEffectsManager.js';
+import { CircleExplosionOptions } from '../../services/particles/particles.js';
 
 // Vector tutorial
 // https://www.gamedev.net/tutorials/programming/math-and-physics/vector-maths-for-game-dev-beginners-r5442/
@@ -24,13 +26,19 @@ export default class Ship {
     collisionBox: CollisionBox
     music: HTMLAudioElement
 
-    constructor(x, y) {
-        const dimensions = new Vector(28, 25)
+    particleEffectsManager: ParticleEffectsManager
 
-        this.body = new EntityBody(new Vector(x,y), dimensions.copy())
-        this.maxSpeed = 15;
-        this.accelerator = new Accelerator(this.maxSpeed, .04)
-        this.booster = new Booster(this, 30, 100)
+    constructor(x, y, particleEffectsManager: ParticleEffectsManager) {
+        const dimensions = new Vector(28, 25)
+        this.particleEffectsManager = particleEffectsManager
+
+        const entityBodyOptions = {
+            position: new Vector(x, y),
+            dimensions: dimensions.copy()
+        }
+        this.body = new EntityBody(entityBodyOptions)
+        this.accelerator = new Accelerator(0, 15, .04)
+        this.booster = new Booster(this, 30, 100) 
 
         this.shipColor = "black"
         this.alive = true
@@ -52,7 +60,7 @@ export default class Ship {
     }
 
     draw() {
-        this.alive ? drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Fill) : this.deathExplosion.draw()
+        this.alive ? drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Fill) : null
     }
 
     update() {
@@ -61,7 +69,7 @@ export default class Ship {
             this.booster.update()
             this.control()
             this.body.speed = this.accelerator.run()
-        } else { this.deathExplosion.update()}
+        } 
     }
 
     control() {
@@ -89,10 +97,12 @@ export default class Ship {
 
     die() {
         this.alive = false
-        this.deathExplosion = new TriangleExplosion(this.body.position.copy(), new Vector(10, 10), 7)
+        // this.deathExplosion = new TriangleExplosion(this.body.position.copy(), new Vector(10, 10), 7)
+        const options: CircleExplosionOptions = {
+            particleSize:  new Vector(10, 10),
+            particleNumber: 7,
+            startDistanceFromOrigin: 5
+        }
+        this.particleEffectsManager.createCircleExplosionEffect(this.body.position.copy(), options)
     }
 }
-
-const jank = () => {
-    return document.querySelector("audio");
-  }

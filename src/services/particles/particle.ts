@@ -1,25 +1,74 @@
-import { EntityBody } from "../../entities/entityBody.js";
-import { Vector } from "../vector.js";
-import { Accelerator } from "../accelerator.js";
-import { ParticleTypes } from "./particles";
+import { EntityBodyOptions, EntityBody } from "../../entities/entityBody.js";
+import { Accelerator, AcceleratorSettings } from "../accelerator.js";
 import { EntityBodyTriangleDrawTypes, drawEntityBodyTriangle } from "../../entities/drawEntityBody.js";
+import { Fader, FaderSettings } from "../fader.js";
 
 export class Particle {
-    direction: Vector
+    color: string;
+    maxTime: number
     accelerator: Accelerator;
-    body: EntityBody
+    fader: Fader;
+    body: EntityBody;
+    timer: number;
+    transparency: number;
 
-    constructor(position: Vector, dimensions: Vector, direction: Vector, maxspeed: number, accelerationRate: number,) {
-        this.body = new EntityBody(position.copy(), dimensions.copy())
-        this.direction = direction.copy()
-        this.accelerator = new Accelerator(0, .01)
+    constructor(options: ParticleOptions) {
+        const { 
+            body = defaultParticleOptions.body,
+            color = defaultParticleOptions.color, 
+            maxTime = defaultParticleOptions.maxTime,
+            faderSettings,
+            acceleratorSettings
+        } = options
+
+        const { startingAlpha, targetAlpha, fadeRate } = faderSettings
+        const { startingSpeed, maxSpeed, accelerationRate, direction} = acceleratorSettings
+
+        this.body = isEntityBody(body) ? body.copy() : new EntityBody(body)
+        this.accelerator = new Accelerator(startingSpeed, maxSpeed, accelerationRate, direction)
+        this.color = color
+        this.timer = 0
+        this.maxTime = maxTime
+        this.fader = new Fader(startingAlpha, targetAlpha, fadeRate)
+        this.transparency = this.fader.getStartingAlpha()
     }
 
     update() {
+        this.body.speed = this.accelerator.run()
         this.body.update()
+        this.transparency = this.fader.run()
+        this.timer++
     }
 
     draw() {
-        drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Stroke)
+        drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Stroke, this.color, this.transparency)
     }
+
+    outOfTime() {
+        return this.timer >= this.maxTime
+    }
+}
+
+function isEntityBody(input: EntityBodyOptions | EntityBody): input is EntityBody {
+    return (input as EntityBody).update !== undefined
+}
+
+
+
+// Types and defaults
+
+
+
+export type ParticleOptions = {
+    body?: EntityBodyOptions | EntityBody
+    color?: string,
+    maxTime?: number,
+    faderSettings?: FaderSettings,
+    acceleratorSettings?: AcceleratorSettings
+}
+
+const defaultParticleOptions: ParticleOptions = {
+    body: new EntityBody(),
+    color: 'black',
+    maxTime: 5
 }

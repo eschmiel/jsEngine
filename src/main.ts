@@ -17,7 +17,6 @@ import draw from './draw.js'
         update(gameState)
         timeTracker.logUpdate()
       }
-
       draw(gameState)
   }
 

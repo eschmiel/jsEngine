@@ -15,11 +15,13 @@ export var createTrianglePointsForEntityBody = function (body) {
         new Vector(x, endY)
     ];
 };
-export var drawEntityBodyTriangle = function (body, drawType, color) {
+export var drawEntityBodyTriangle = function (body, drawType, color, transparency) {
     if (drawType === void 0) { drawType = EntityBodyTriangleDrawTypes.Fill; }
     if (color === void 0) { color = 'black'; }
+    if (transparency === void 0) { transparency = 1; }
     var trianglePoints = createTrianglePointsForEntityBody(body);
     canvas.save();
+    canvas.context.globalAlpha = transparency;
     canvas.rotate(body.rotation, body.getCenterPositionVector());
     switch (drawType) {
         case EntityBodyTriangleDrawTypes.Fill:

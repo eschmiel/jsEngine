@@ -17,6 +17,7 @@ export class Lerp {
     }
 
     run() {
+        if(this.currentTime >= 1) return this.destination
         const value = this.lerp()
         this.currentTime += this.accelerationRate
         if(this.currentTime > 1) this.currentTime = 1
@@ -49,4 +50,8 @@ export const getCenterPosition = (position: Vector, dimensions: Vector) => {
     const centerY = y + height/2
 
     return new Vector(centerX, centerY)
+}
+
+export const getPropertyName = (property) => {
+    return Object.keys({property})[0]
 }

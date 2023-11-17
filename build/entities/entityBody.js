@@ -9,14 +9,15 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 import { Vector, createDirection } from '../services/vector.js';
 var EntityBody = /** @class */ (function () {
-    function EntityBody(position, dimensions) {
-        if (position === void 0) { position = new Vector(0, 0); }
-        if (dimensions === void 0) { dimensions = new Vector(0, 0); }
-        this.position = position.copy();
-        this.dimensions = dimensions.copy();
-        this.rotation = 0;
-        this.rotationSpeed = 0;
-        this.speed = 0;
+    function EntityBody(options) {
+        if (options === void 0) { options = defaultEntityBodyOptions; }
+        var _a, _b;
+        var position = options.position, dimensions = options.dimensions, rotation = options.rotation, rotationSpeed = options.rotationSpeed, speed = options.speed;
+        this.position = (_a = position === null || position === void 0 ? void 0 : position.copy()) !== null && _a !== void 0 ? _a : defaultEntityBodyOptions.position.copy();
+        this.dimensions = (_b = dimensions === null || dimensions === void 0 ? void 0 : dimensions.copy()) !== null && _b !== void 0 ? _b : defaultEntityBodyOptions.dimensions.copy();
+        this.rotation = rotation !== null && rotation !== void 0 ? rotation : defaultEntityBodyOptions.rotation;
+        this.rotationSpeed = rotationSpeed !== null && rotationSpeed !== void 0 ? rotationSpeed : defaultEntityBodyOptions.rotationSpeed;
+        this.speed = speed !== null && speed !== void 0 ? speed : defaultEntityBodyOptions.speed;
     }
     EntityBody.prototype.getPosition = function () { return this.position.values.map(function (value) { return value; }); };
     EntityBody.prototype.getDimensions = function () { return this.dimensions.values.map(function (value) { return value; }); };
@@ -59,7 +60,24 @@ var EntityBody = /** @class */ (function () {
         this.rotate();
         this.move();
     };
+    EntityBody.prototype.copy = function () {
+        var copyBodyOptions = {
+            position: this.position.copy(),
+            dimensions: this.dimensions.copy(),
+            rotation: this.rotation,
+            rotationSpeed: this.rotationSpeed,
+            speed: this.speed
+        };
+        return new EntityBody(copyBodyOptions);
+    };
     return EntityBody;
 }());
 export { EntityBody };
+var defaultEntityBodyOptions = {
+    position: new Vector(0, 0),
+    dimensions: new Vector(10, 10),
+    rotation: 0,
+    rotationSpeed: 0,
+    speed: 0
+};
 //# sourceMappingURL=entityBody.js.map

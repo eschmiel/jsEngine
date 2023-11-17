@@ -1,16 +1,20 @@
 export type Manageable = {
-    update: () => {}
-    draw: () => {}
+    update: () => void
+    draw: () => void
 }
 
-export class Manager {
-    managedObjects: Manageable[]
+export class Manager<Type extends Manageable> {
+    managedObjects: Type[]
 
     constructor() {
         this.managedObjects = []
     }
 
-    run() {
+    push(obj: Type) {
+        this.managedObjects.push(obj)
+    }
+
+    update() {
         this.managedObjects.forEach((object) => object.update())
     }
 

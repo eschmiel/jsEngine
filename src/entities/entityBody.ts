@@ -7,13 +7,14 @@ export class EntityBody {
     rotationSpeed: number;
     speed: number;
 
-    constructor(position: Vector = new Vector(0,0), dimensions: Vector = new Vector(0,0)) {
-        this.position = position.copy()
-        this.dimensions = dimensions.copy()
-        this.rotation = 0
-        this.rotationSpeed = 0
-        this.speed = 0
-        
+    constructor(options: EntityBodyOptions = defaultEntityBodyOptions) {
+        const { position, dimensions, rotation, rotationSpeed, speed } = options
+
+        this.position = position?.copy() ?? defaultEntityBodyOptions.position.copy() 
+        this.dimensions = dimensions?.copy() ?? defaultEntityBodyOptions.dimensions.copy() 
+        this.rotation = rotation ?? defaultEntityBodyOptions.rotation
+        this.rotationSpeed = rotationSpeed ?? defaultEntityBodyOptions.rotationSpeed
+        this.speed = speed ?? defaultEntityBodyOptions.speed
     }
 
     getPosition() { return this.position.values.map((value) => value) }
@@ -68,4 +69,38 @@ export class EntityBody {
         this.rotate()
         this.move()
     }
+
+    copy() {
+        const copyBodyOptions = {
+            position: this.position.copy(),
+            dimensions: this.dimensions.copy(),
+            rotation: this.rotation,
+            rotationSpeed: this.rotationSpeed,
+            speed: this.speed
+        }
+
+        return new EntityBody(copyBodyOptions)
+    }
+}
+
+
+
+// Types and defaults
+
+
+
+export type EntityBodyOptions = {
+    position?: Vector,
+    dimensions?: Vector,
+    rotation?: number,
+    rotationSpeed?: number,
+    speed?: number    
+}
+
+const defaultEntityBodyOptions = {
+    position: new Vector(0,0),
+    dimensions: new Vector(10, 10),
+    rotation: 0,
+    rotationSpeed: 0,
+    speed: 0    
 }

@@ -1,6 +1,6 @@
 import { Accelerator, AcceleratorDirection } from "../../services/accelerator.js"
 import { Vector, createDirection } from "../../services/vector.js"
-import { EntityBody } from "../entityBody"
+import { EntityBody } from "../entityBody.js"
 
 type Boostable = {
     body: EntityBody
@@ -22,7 +22,7 @@ export class Booster {
         this.coolDownTimer = 0
         this.boostSpeed = boostSpeed
         this.direction = createDirection()
-        this.accelerator = new Accelerator(this.boostSpeed, .3)
+        this.accelerator = new Accelerator(0, this.boostSpeed, .3)
     }
 
     activate(angle = 0) {

@@ -2,7 +2,6 @@ import { Vector } from '../../services/vector.js';
 import Controller from '../../services/controller.js';
 import { colliding } from '../../services/collisions/collisions.js';
 import { CollisionBox } from '../../services/collisions/collisionBox.js';
-import { TriangleExplosion } from '../../services/particles/triangleExplosion.js';
 import { EntityBody } from '../entityBody.js';
 import { Accelerator, AcceleratorDirection } from '../../services/accelerator.js';
 import { Booster } from './booster.js';
@@ -10,11 +9,15 @@ import { EntityBodyTriangleDrawTypes, drawEntityBodyTriangle } from '../drawEnti
 // Vector tutorial
 // https://www.gamedev.net/tutorials/programming/math-and-physics/vector-maths-for-game-dev-beginners-r5442/
 var Ship = /** @class */ (function () {
-    function Ship(x, y) {
+    function Ship(x, y, particleEffectsManager) {
         var dimensions = new Vector(28, 25);
-        this.body = new EntityBody(new Vector(x, y), dimensions.copy());
-        this.maxSpeed = 15;
-        this.accelerator = new Accelerator(this.maxSpeed, .04);
+        this.particleEffectsManager = particleEffectsManager;
+        var entityBodyOptions = {
+            position: new Vector(x, y),
+            dimensions: dimensions.copy()
+        };
+        this.body = new EntityBody(entityBodyOptions);
+        this.accelerator = new Accelerator(0, 15, .04);
         this.booster = new Booster(this, 30, 100);
         this.shipColor = "black";
         this.alive = true;
@@ -32,7 +35,7 @@ var Ship = /** @class */ (function () {
         ];
     };
     Ship.prototype.draw = function () {
-        this.alive ? drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Fill) : this.deathExplosion.draw();
+        this.alive ? drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Fill) : null;
     };
     Ship.prototype.update = function () {
         if (this.alive) {
@@ -40,9 +43,6 @@ var Ship = /** @class */ (function () {
             this.booster.update();
             this.control();
             this.body.speed = this.accelerator.run();
-        }
-        else {
-            this.deathExplosion.update();
         }
     };
     Ship.prototype.control = function () {
@@ -78,12 +78,15 @@ var Ship = /** @class */ (function () {
     };
     Ship.prototype.die = function () {
         this.alive = false;
-        this.deathExplosion = new TriangleExplosion(this.body.position.copy(), new Vector(10, 10), 7);
+        // this.deathExplosion = new TriangleExplosion(this.body.position.copy(), new Vector(10, 10), 7)
+        var options = {
+            particleSize: new Vector(10, 10),
+            particleNumber: 7,
+            startDistanceFromOrigin: 5
+        };
+        this.particleEffectsManager.createCircleExplosionEffect(this.body.position.copy(), options);
     };
     return Ship;
 }());
 export default Ship;
-var jank = function () {
-    return document.querySelector("audio");
-};
 //# sourceMappingURL=ship.js.map

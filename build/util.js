@@ -8,6 +8,8 @@ var Lerp = /** @class */ (function () {
         this.accelerationRate = accelerationRate;
     }
     Lerp.prototype.run = function () {
+        if (this.currentTime >= 1)
+            return this.destination;
         var value = this.lerp();
         this.currentTime += this.accelerationRate;
         if (this.currentTime > 1)
@@ -36,5 +38,8 @@ export var getCenterPosition = function (position, dimensions) {
     var centerX = x + width / 2;
     var centerY = y + height / 2;
     return new Vector(centerX, centerY);
+};
+export var getPropertyName = function (property) {
+    return Object.keys({ property: property })[0];
 };
 //# sourceMappingURL=util.js.map
