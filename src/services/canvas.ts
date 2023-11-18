@@ -18,17 +18,7 @@ class Canvas {
         this.canvas.setAttribute("height", this.height.toString())
     }
 
-    rotate(degrees, centerX = 0, centerY = 0) {
-        // context.rotate uses radans as the unit of measurement for its rotation.
-        // This statement converts degrees into radans.
-        const radians = degreesToRadians(degrees)
-
-        this.context.translate(centerX, centerY)
-        this.context.rotate(radians)
-        this.context.translate(-centerX, -centerY)
-    }
-
-    rotate2(degrees, centerPosition: Vector) {
+    rotate(degrees, centerPosition: Vector) {
         // context.rotate uses radans as the unit of measurement for its rotation.
         // This statement converts degrees into radans.
         const radians = degreesToRadians(degrees)

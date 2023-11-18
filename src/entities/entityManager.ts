@@ -1,4 +1,4 @@
-import { CollisionBox } from "../services/collisions.js";
+import { CollisionBox } from "../services/collisions/collisionBox.js";
 import { Vector } from "../services/vector.js";
 
 export interface Entity {

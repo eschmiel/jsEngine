@@ -35,6 +35,7 @@ var Vector = /** @class */ (function () {
 }());
 export { Vector };
 export var createDirection = function (degrees) {
+    if (degrees === void 0) { degrees = 0; }
     var radians = degreesToRadians(degrees);
     return new Vector(Math.cos(radians), Math.sin(radians));
 };

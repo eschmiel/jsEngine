@@ -27,7 +27,7 @@ export class Vector {
     }
 }
 
-export const createDirection = (degrees) => { 
+export const createDirection = (degrees = 0) => { 
     const radians = degreesToRadians(degrees)
     return new Vector(Math.cos(radians), Math.sin(radians))  
 }

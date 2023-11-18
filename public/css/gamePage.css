@@ -8,16 +8,6 @@
     width: 300px; */
   }
   
-  #scratchPad {
-    z-index: -1;
-    border: 1px solid;
-    margin: auto;
-    display: flex; 
-    justify-content: center;
-    height: 300px;
-    width: 300px;
-  }
-  
   body {
     margin: 0;
     padding: 0;

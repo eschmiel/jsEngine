@@ -8,17 +8,7 @@ var Canvas = /** @class */ (function () {
         this.canvas.setAttribute("width", this.width.toString());
         this.canvas.setAttribute("height", this.height.toString());
     }
-    Canvas.prototype.rotate = function (degrees, centerX, centerY) {
-        if (centerX === void 0) { centerX = 0; }
-        if (centerY === void 0) { centerY = 0; }
-        // context.rotate uses radans as the unit of measurement for its rotation.
-        // This statement converts degrees into radans.
-        var radians = degreesToRadians(degrees);
-        this.context.translate(centerX, centerY);
-        this.context.rotate(radians);
-        this.context.translate(-centerX, -centerY);
-    };
-    Canvas.prototype.rotate2 = function (degrees, centerPosition) {
+    Canvas.prototype.rotate = function (degrees, centerPosition) {
         // context.rotate uses radans as the unit of measurement for its rotation.
         // This statement converts degrees into radans.
         var radians = degreesToRadians(degrees);
