@@ -14,7 +14,6 @@ import { CircleExplosionOptions } from '../../services/particles/effects/circleE
 
 export default class Ship {
     body: EntityBody;
-    maxSpeed: number;
     accelerator: Accelerator;
     booster: Booster;
 
@@ -23,7 +22,7 @@ export default class Ship {
 
     collisionBox: CollisionBox
 
-    particleEffectsManager: ParticleEffectsManager
+    particleEffectsManager: ParticleEffectsManager// try to get rid of this
 
     constructor(x, y, particleEffectsManager: ParticleEffectsManager) {
         const dimensions = new Vector(28, 25)
