@@ -1,5 +1,5 @@
-import { AcceleratorSettings } from "../../accelerator.js"
-import { FaderSettings } from "../../fader.js"
+import { AcceleratorSettings } from "../../lerpers/accelerator.js"
+import { FaderSettings } from "../../lerpers/fader.js"
 import { Vector } from "../../vector.js"
 
 export function getCircleExplosionParticleConfig() {

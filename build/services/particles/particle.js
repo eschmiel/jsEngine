@@ -1,7 +1,7 @@
 import { EntityBody } from "../../entities/entityBody.js";
-import { Accelerator } from "../accelerator.js";
+import { Accelerator } from "../lerpers/accelerator.js";
 import { EntityBodyTriangleDrawTypes, drawEntityBodyTriangle } from "../../entities/drawEntityBody.js";
-import { Fader } from "../fader.js";
+import { Fader } from "../lerpers/fader.js";
 var Particle = /** @class */ (function () {
     function Particle(options) {
         var _a = options.body, body = _a === void 0 ? defaultParticleOptions.body : _a, _b = options.color, color = _b === void 0 ? defaultParticleOptions.color : _b, _c = options.maxTime, maxTime = _c === void 0 ? defaultParticleOptions.maxTime : _c, faderSettings = options.faderSettings, acceleratorSettings = options.acceleratorSettings;

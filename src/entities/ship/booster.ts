@@ -1,4 +1,4 @@
-import { Accelerator, AcceleratorDirection } from "../../services/accelerator.js"
+import { Accelerator, AcceleratorDirection } from "../../services/lerpers/accelerator.js"
 import { Vector, createDirection } from "../../services/vector.js"
 import { EntityBody } from "../entityBody.js"
 

@@ -3,7 +3,7 @@ import Controller from '../../services/controller.js';
 import { colliding } from '../../services/collisions/collisions.js';
 import { CollisionBox } from '../../services/collisions/collisionBox.js';
 import { EntityBody } from '../entityBody.js';
-import { Accelerator, AcceleratorDirection } from '../../services/accelerator.js';
+import { Accelerator, AcceleratorDirection } from '../../services/lerpers/accelerator.js';
 import { Booster } from './booster.js';
 import { EntityBodyTriangleDrawTypes, drawEntityBodyTriangle } from '../drawEntityBody.js';
 // Vector tutorial
@@ -22,7 +22,6 @@ var Ship = /** @class */ (function () {
         this.shipColor = "black";
         this.alive = true;
         this.collisionBox = new CollisionBox(new Vector(0, 0), dimensions.copy(), this.body);
-        // this.music = new Audio('./Skull_Break.wav')
     }
     Ship.prototype.createTrianglePoints = function () {
         var _a = this.body.getPosition(), x = _a[0], y = _a[1];
@@ -48,7 +47,6 @@ var Ship = /** @class */ (function () {
     Ship.prototype.control = function () {
         if (Controller.ArrowUp) {
             this.accelerator.setDirection(AcceleratorDirection.Forward);
-            // this.music.play()
         }
         if (Controller.ArrowDown)
             this.accelerator.setDirection(AcceleratorDirection.Backward);
@@ -78,7 +76,6 @@ var Ship = /** @class */ (function () {
     };
     Ship.prototype.die = function () {
         this.alive = false;
-        // this.deathExplosion = new TriangleExplosion(this.body.position.copy(), new Vector(10, 10), 7)
         var options = {
             particleSize: new Vector(10, 10),
             particleNumber: 7,

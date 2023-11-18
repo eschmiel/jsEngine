@@ -1,4 +1,4 @@
-import { Lerp } from "../util.js"
+import { Lerp } from "./lerp.js"
 
 export enum AcceleratorDirection {
     Forward = 'forward',

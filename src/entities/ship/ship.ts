@@ -2,13 +2,12 @@ import { Vector } from '../../services/vector.js';
 import Controller from '../../services/controller.js'
 import { colliding } from '../../services/collisions/collisions.js';
 import { CollisionBox } from '../../services/collisions/collisionBox.js';
-import { TriangleExplosion } from '../../services/particles/triangleExplosion.js';
 import { EntityBody } from '../entityBody.js';
-import { Accelerator, AcceleratorDirection } from '../../services/accelerator.js';
+import { Accelerator, AcceleratorDirection } from '../../services/lerpers/accelerator.js';
 import { Booster } from './booster.js';
 import { EntityBodyTriangleDrawTypes, drawEntityBodyTriangle } from '../drawEntityBody.js';
 import { ParticleEffectsManager } from '../../services/particles/particleEffectsManager.js';
-import { CircleExplosionOptions } from '../../services/particles/particles.js';
+import { CircleExplosionOptions } from '../../services/particles/effects/circleExplosion.js';
 
 // Vector tutorial
 // https://www.gamedev.net/tutorials/programming/math-and-physics/vector-maths-for-game-dev-beginners-r5442/
@@ -21,10 +20,8 @@ export default class Ship {
 
     shipColor: string
     alive: boolean
-    deathExplosion: TriangleExplosion
 
     collisionBox: CollisionBox
-    music: HTMLAudioElement
 
     particleEffectsManager: ParticleEffectsManager
 
@@ -44,7 +41,6 @@ export default class Ship {
         this.alive = true
 
         this.collisionBox = new CollisionBox(new Vector(0,0), dimensions.copy(), this.body)
-        // this.music = new Audio('./Skull_Break.wav')
     }
 
     createTrianglePoints() {
@@ -74,7 +70,6 @@ export default class Ship {
 
     control() {
         if(Controller.ArrowUp) {this.accelerator.setDirection(AcceleratorDirection.Forward)
-        // this.music.play()
         }
         if(Controller.ArrowDown) this.accelerator.setDirection(AcceleratorDirection.Backward)
         if(Controller.ArrowLeft) this.body.adjustRotation(-11)
@@ -97,7 +92,6 @@ export default class Ship {
 
     die() {
         this.alive = false
-        // this.deathExplosion = new TriangleExplosion(this.body.position.copy(), new Vector(10, 10), 7)
         const options: CircleExplosionOptions = {
             particleSize:  new Vector(10, 10),
             particleNumber: 7,

@@ -1,5 +1,5 @@
-import { Lerp } from "../util.js";
-import { validateIsBetweenOneAndZero } from "../utilities/validation.js";
+import { Lerp } from "./lerp.js";
+import { validateIsBetweenOneAndZero } from "../../utilities/validation.js";
 
 export class Fader{
     lerp: Lerp

@@ -1,7 +1,6 @@
 import { Vector } from "../vector.js"
-import { createCircleExplosionEffect } from "./circleExplosion.js"
+import { createCircleExplosionEffect, CircleExplosionOptions } from "./effects/circleExplosion.js"
 import { ParticleEffect } from "./particleEffect.js"
-import { CircleExplosionOptions } from "./particles.js"
 
 export class ParticleEffectsManager {
     particleEffects: ParticleEffect[]

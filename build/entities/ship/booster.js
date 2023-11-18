@@ -1,4 +1,4 @@
-import { Accelerator, AcceleratorDirection } from "../../services/accelerator.js";
+import { Accelerator, AcceleratorDirection } from "../../services/lerpers/accelerator.js";
 import { createDirection } from "../../services/vector.js";
 var Booster = /** @class */ (function () {
     function Booster(target, boostSpeed, coolDown) {

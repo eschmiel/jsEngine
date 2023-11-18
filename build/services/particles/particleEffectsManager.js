@@ -1,4 +1,4 @@
-import { createCircleExplosionEffect } from "./circleExplosion.js";
+import { createCircleExplosionEffect } from "./effects/circleExplosion.js";
 var ParticleEffectsManager = /** @class */ (function () {
     function ParticleEffectsManager() {
         this.particleEffects = [];

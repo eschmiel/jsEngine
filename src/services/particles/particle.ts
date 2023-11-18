@@ -1,7 +1,7 @@
 import { EntityBodyOptions, EntityBody } from "../../entities/entityBody.js";
-import { Accelerator, AcceleratorSettings } from "../accelerator.js";
+import { Accelerator, AcceleratorSettings } from "../lerpers/accelerator.js";
 import { EntityBodyTriangleDrawTypes, drawEntityBodyTriangle } from "../../entities/drawEntityBody.js";
-import { Fader, FaderSettings } from "../fader.js";
+import { Fader, FaderSettings } from "../lerpers/fader.js";
 
 export class Particle {
     color: string;
