@@ -1,0 +1,16 @@
+- entityBody.move(velocity) {
+    this.position = this.position.addVector(velocity)
+}
+- get rid of rotation speed, handle that at the ship level.
+- Bodies don't auto update
+
+- Player Class that has a ship. Manage bullet manager here?
+
+----
+
+- Get rendering system hooked up with event loop
+
+----
+
+- Correct bullet alignment
+- Add walls, have bullets hit walls

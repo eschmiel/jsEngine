@@ -22,7 +22,19 @@ var ParticleEffectsManager = /** @class */ (function () {
         var particleEffect = createCircleExplosionEffect(position, options);
         this.add(particleEffect);
     };
+    ParticleEffectsManager.prototype.onNotify = function (event, data) {
+        switch (event) {
+            case ParticleEffectsManagerEvents.CircleExplosion:
+                this.createCircleExplosionEffect(data.position, data.options);
+                break;
+            default:
+        }
+    };
     return ParticleEffectsManager;
 }());
 export { ParticleEffectsManager };
+export var ParticleEffectsManagerEvents;
+(function (ParticleEffectsManagerEvents) {
+    ParticleEffectsManagerEvents[ParticleEffectsManagerEvents["CircleExplosion"] = 0] = "CircleExplosion";
+})(ParticleEffectsManagerEvents || (ParticleEffectsManagerEvents = {}));
 //# sourceMappingURL=particleEffectsManager.js.map

@@ -18,3 +18,7 @@ export const colliding = (box1: CollisionBox, box2: CollisionBox) => {
         && endY1 > startY2
     )
 }
+
+export type Collidable = {
+    collisionBox: CollisionBox
+}

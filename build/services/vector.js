@@ -28,6 +28,10 @@ var Vector = /** @class */ (function () {
         var newValues = this.values.map(function (value) { return value * scalar; });
         return new (Vector.bind.apply(Vector, __spreadArray([void 0], newValues, false)))();
     };
+    Vector.prototype.multiplyVector = function (vector) {
+        var newValues = this.values.map(function (value, index) { return value * vector.values[index]; });
+        return new (Vector.bind.apply(Vector, __spreadArray([void 0], newValues, false)))();
+    };
     Vector.prototype.copy = function () {
         return new (Vector.bind.apply(Vector, __spreadArray([void 0], this.values, false)))();
     };
@@ -38,5 +42,11 @@ export var createDirection = function (degrees) {
     if (degrees === void 0) { degrees = 0; }
     var radians = degreesToRadians(degrees);
     return new Vector(Math.cos(radians), Math.sin(radians));
+};
+export var createVelocity = function (degrees, speed) {
+    if (degrees === void 0) { degrees = 0; }
+    if (speed === void 0) { speed = 0; }
+    var direction = createDirection(degrees);
+    return direction.multiplyByScalar(speed);
 };
 //# sourceMappingURL=vector.js.map

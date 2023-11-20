@@ -7,7 +7,8 @@ class Controller {
     s: boolean;
     a: boolean;
     d: boolean;
-    
+    ' ': boolean;
+
     constructor() {
         document.addEventListener("keydown", (event) => this[event.key] = true )
         document.addEventListener("keyup", (event) => this[event.key] = false )
