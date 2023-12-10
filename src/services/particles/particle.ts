@@ -1,6 +1,5 @@
 import { EntityBodyOptions, EntityBody } from "../../entities/entityBody.js";
 import { Accelerator, AcceleratorSettings } from "../lerpers/accelerator.js";
-import { EntityBodyTriangleDrawTypes, drawEntityBodyTriangle } from "../../entities/drawEntityBody.js";
 import { Fader, FaderSettings } from "../lerpers/fader.js";
 
 export class Particle {
@@ -38,10 +37,6 @@ export class Particle {
         this.body.update()
         this.transparency = this.fader.run()
         this.timer++
-    }
-
-    draw() {
-        // drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Stroke, this.color, this.transparency)
     }
 
     outOfTime() {

@@ -3,7 +3,7 @@ import GameState from "./gameState.js"
 export default ({ player, enemyBullets, particleEffectsManager }: GameState) => {
     player.update()
     enemyBullets.update()
-    // player.collideWithBullets(enemyBullets)
+    player.ship.collideWithBullets(enemyBullets)
     particleEffectsManager.update()
     enemyBullets.checkForBulletCollisions(player.ship)
 }

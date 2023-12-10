@@ -1,4 +1,4 @@
-import { Vector } from "../services/vector.js";
+import { Vector } from "../services/math/vector.js";
 export var EntityBodyTriangleDrawTypes;
 (function (EntityBodyTriangleDrawTypes) {
     EntityBodyTriangleDrawTypes["Stroke"] = "stroke";

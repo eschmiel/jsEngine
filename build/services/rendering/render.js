@@ -1,4 +1,4 @@
-import Canvas from "../canvas.js";
+import Canvas from "./canvas.js";
 var RenderingSystem = /** @class */ (function () {
     function RenderingSystem() {
         this.canvas = new Canvas();

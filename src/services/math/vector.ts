@@ -1,4 +1,4 @@
-import { degreesToRadians } from '../util.js'
+import { degreesToRadians } from '../../util.js'
 
 export class Vector {
     values: number[]

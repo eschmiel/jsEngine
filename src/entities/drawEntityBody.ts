@@ -1,5 +1,5 @@
-import canvas from "../services/canvas.js"
-import { Vector } from "../services/vector.js"
+import canvas from "../services/rendering/canvas.js"
+import { Vector } from "../services/math/vector.js"
 import { EntityBody } from "./entityBody.js"
 
 export enum EntityBodyTriangleDrawTypes {

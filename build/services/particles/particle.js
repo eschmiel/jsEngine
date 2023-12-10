@@ -20,9 +20,6 @@ var Particle = /** @class */ (function () {
         this.transparency = this.fader.run();
         this.timer++;
     };
-    Particle.prototype.draw = function () {
-        // drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Stroke, this.color, this.transparency)
-    };
     Particle.prototype.outOfTime = function () {
         return this.timer >= this.maxTime;
     };

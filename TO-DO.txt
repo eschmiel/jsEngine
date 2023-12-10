@@ -8,9 +8,9 @@
 
 ----
 
--[IN PROGRESS] Get rendering system hooked up with event loop
-- - get enemy bullets hooked up to rendering system
-- - get particle effects hooked up to rendering system
+-[DONE] Get rendering system hooked up with event loop
+- -[DONE] get enemy bullets hooked up to rendering system
+- -[DONE] get particle effects hooked up to rendering system
 - - phase out draw entity body stuff
 
 - Use circle collision detection instead

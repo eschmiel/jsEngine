@@ -1,4 +1,4 @@
-import { Vector, createDirection } from "../../vector.js";
+import { Vector, createDirection } from "../../math/vector.js";
 import { Particle } from "../particle.js";
 import { getCircleExplosionParticleConfig } from '../configs/circleExplosionParticleConfig.js';
 import { ParticleEffect } from "../particleEffect.js";

@@ -1,5 +1,5 @@
-import { rotatePoint } from "../../services/transformations.js";
-import { Vector } from "../../services/vector.js";
+import { rotatePoint } from "../../services/math/transformations.js";
+import { Vector } from "../../services/math/vector.js";
 export function renderShip(renderingSystem, ship) {
     if (ship.alive) {
         var trianglePoints = getTrianglePoints(ship);

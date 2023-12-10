@@ -1,4 +1,4 @@
-import { Vector, createDirection } from '../../services/vector.js';
+import { Vector, createDirection } from '../../services/math/vector.js';
 import Controller from '../../services/controller.js'
 import { colliding } from '../../services/collisions/collisions.js';
 import { CollisionBox } from '../../services/collisions/collisionBox.js';
@@ -10,7 +10,7 @@ import { Observable } from '../../services/observable.js';
 import { Observer } from '../../services/types.js';
 import { BulletManagerEvents } from '../bullets/bulletManager.js';
 import { CreateBulletOptions } from '../bullets/bullet.js';
-import { rotatePoint } from '../../services/transformations.js';
+import { rotatePoint } from '../../services/math/transformations.js';
 import { EntityTypes } from '../entityTypes.js';
 
 // Vector tutorial

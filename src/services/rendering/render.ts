@@ -1,5 +1,5 @@
-import Canvas from "../canvas.js";
-import { Vector } from "../vector.js";
+import Canvas from "./canvas.js";
+import { Vector } from "../math/vector.js";
 
 export class RenderingSystem {
     canvas: Canvas

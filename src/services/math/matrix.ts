@@ -1,4 +1,4 @@
-import { degreesToRadians } from "../util.js";
+import { degreesToRadians } from "../../util.js";
 import { Vector } from "./vector.js";
 
 export class Matrix {

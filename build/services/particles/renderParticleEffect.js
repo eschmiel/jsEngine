@@ -1,5 +1,5 @@
-import { rotatePoint } from "../transformations.js";
-import { Vector } from "../vector.js";
+import { rotatePoint } from "../math/transformations.js";
+import { Vector } from "../math/vector.js";
 export function renderParticleEffect(renderingSystem, particleEffect) {
     particleEffect.particles.forEach(function (particle) {
         var trianglePoints = getTrianglePoints(particle);

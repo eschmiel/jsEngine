@@ -2,7 +2,7 @@ import { CollisionBox } from "../../services/collisions/collisionBox.js";
 import { colliding } from "../../services/collisions/collisions.js";
 import { Observable } from "../../services/observable.js";
 import { CircleExplosionEventData, ParticleEffectsManagerEvents } from "../../services/particles/particleEffectsManager.js";
-import { Vector } from "../../services/vector.js";
+import { Vector } from "../../services/math/vector.js";
 import { Observer } from "../../types.js";
 import { EntityBody, EntityBodyOptions } from "../entityBody.js";
 import { BulletManagerEvents } from "./bulletManager.js";

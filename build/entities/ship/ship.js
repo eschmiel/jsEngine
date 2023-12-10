@@ -1,4 +1,4 @@
-import { Vector, createDirection } from '../../services/vector.js';
+import { Vector, createDirection } from '../../services/math/vector.js';
 import Controller from '../../services/controller.js';
 import { colliding } from '../../services/collisions/collisions.js';
 import { CollisionBox } from '../../services/collisions/collisionBox.js';
@@ -8,7 +8,7 @@ import { Booster } from './booster.js';
 import { ParticleEffectsManagerEvents } from '../../services/particles/particleEffectsManager.js';
 import { Observable } from '../../services/observable.js';
 import { BulletManagerEvents } from '../bullets/bulletManager.js';
-import { rotatePoint } from '../../services/transformations.js';
+import { rotatePoint } from '../../services/math/transformations.js';
 // Vector tutorial
 // https://www.gamedev.net/tutorials/programming/math-and-physics/vector-maths-for-game-dev-beginners-r5442/
 var Ship = /** @class */ (function () {

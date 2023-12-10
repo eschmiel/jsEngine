@@ -7,8 +7,8 @@ var Player = /** @class */ (function () {
     Player.prototype.createShip = function (position, particleEffectsManager) {
         var _a = position.values, x = _a[0], y = _a[1];
         this.bulletManager = new BulletManager();
-        this.bulletManager.addObserver(particleEffectsManager);
         this.ship = new Ship(x, y);
+        this.bulletManager.addObserver(particleEffectsManager);
         this.ship.addObserver(particleEffectsManager);
         this.ship.addObserver(this.bulletManager);
     };

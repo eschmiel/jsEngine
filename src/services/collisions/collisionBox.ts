@@ -1,5 +1,4 @@
-import { Vector } from "../vector.js";
-import canvas from "../canvas.js";
+import { Vector } from "../math/vector.js";
 import { EntityBody } from "../../entities/entityBody.js";
 
 export class CollisionBox {
@@ -31,13 +30,6 @@ export class CollisionBox {
         const centerY = y + height / 2
         
         return new Vector(centerX, centerY)
-    }
-
-    draw() {
-        // canvas.save()
-        // canvas.rotate(this.entity.rotation, this.getCenterPosition())
-        // canvas.drawRectangle(this.getPosition(), this.dimensions, 'red')
-        // canvas.restore()
     }
 
     onCollision(entity:EntityBody) {}

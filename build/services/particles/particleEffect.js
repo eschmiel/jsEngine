@@ -10,9 +10,6 @@ var ParticleEffect = /** @class */ (function () {
                 _this.remove(particle);
         });
     };
-    ParticleEffect.prototype.draw = function () {
-        this.particles.forEach(function (particle) { return particle.draw(); });
-    };
     ParticleEffect.prototype.add = function (particle) {
         this.particles.push(particle);
     };

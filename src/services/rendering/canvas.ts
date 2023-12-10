@@ -1,5 +1,5 @@
-import { degreesToRadians } from '../util.js'
-import { Vector } from './vector.js';
+import { degreesToRadians } from '../../util.js'
+import { Vector } from '../math/vector.js';
 
 class Canvas {
     canvas: HTMLCanvasElement;

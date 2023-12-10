@@ -1,6 +1,6 @@
 import { RenderingSystem } from "../rendering/render.js";
-import { rotatePoint } from "../transformations.js";
-import { Vector } from "../vector.js";
+import { rotatePoint } from "../math/transformations.js";
+import { Vector } from "../math/vector.js";
 import { Particle } from "./particle.js";
 import { ParticleEffect } from "./particleEffect.js";
 

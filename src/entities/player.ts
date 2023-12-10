@@ -1,5 +1,5 @@
 import { ParticleEffectsManager } from "../services/particles/particleEffectsManager.js"
-import { Vector } from "../services/vector.js"
+import { Vector } from "../services/math/vector.js"
 import { BulletManager } from "./bullets/bulletManager.js"
 import Ship from "./ship/ship.js"
 
@@ -15,8 +15,9 @@ export class Player {
     createShip(position: Vector, particleEffectsManager: ParticleEffectsManager) {
         const [x, y] = position.values
         this.bulletManager = new BulletManager()
-        this.bulletManager.addObserver(particleEffectsManager)
         this.ship = new Ship(x, y)
+        
+        this.bulletManager.addObserver(particleEffectsManager)
         this.ship.addObserver(particleEffectsManager)
         this.ship.addObserver(this.bulletManager)
     }

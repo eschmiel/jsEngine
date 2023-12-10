@@ -1,6 +1,6 @@
 import { RenderingSystem } from "../../services/rendering/render.js";
-import { rotatePoint } from "../../services/transformations.js";
-import { Vector } from "../../services/vector.js";
+import { rotatePoint } from "../../services/math/transformations.js";
+import { Vector } from "../../services/math/vector.js";
 import Ship from "./ship.js";
 
 export function renderShip(renderingSystem: RenderingSystem, ship: Ship) {

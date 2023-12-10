@@ -1,5 +1,5 @@
 import { ObserverEventData, ObserverEventType } from "../types.js"
-import { Vector } from "../vector.js"
+import { Vector } from "../math/vector.js"
 import { createCircleExplosionEffect, CircleExplosionOptions } from "./effects/circleExplosion.js"
 import { ParticleEffect } from "./particleEffect.js"
 
@@ -15,10 +15,6 @@ export class ParticleEffectsManager {
             particleEffect.update()
             if(!particleEffect.particleCount()) this.remove(particleEffect)
         })
-    }
-
-    draw() {
-        this.particleEffects.forEach((particleEffect) => particleEffect.draw())
     }
 
     add(particleEffect) { this.particleEffects.push(particleEffect) }

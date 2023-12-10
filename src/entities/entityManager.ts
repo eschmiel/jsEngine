@@ -1,5 +1,5 @@
 import { CollisionBox } from "../services/collisions/collisionBox.js";
-import { Vector } from "../services/vector.js";
+import { Vector } from "../services/math/vector.js";
 
 export interface Entity {
     position: Vector,

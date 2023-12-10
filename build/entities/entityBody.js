@@ -7,7 +7,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-import { Vector, createDirection } from '../services/vector.js';
+import { Vector, createDirection } from '../services/math/vector.js';
 var EntityBody = /** @class */ (function () {
     function EntityBody(options) {
         if (options === void 0) { options = defaultEntityBodyOptions; }

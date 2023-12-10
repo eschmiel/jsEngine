@@ -1,4 +1,4 @@
-import { Vector } from "../services/vector.js";
+import { Vector } from "../services/math/vector.js";
 var NullEntity = /** @class */ (function () {
     function NullEntity() {
         this.position = new Vector(0, 0);

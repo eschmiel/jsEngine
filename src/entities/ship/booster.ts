@@ -1,5 +1,5 @@
 import { Accelerator, AcceleratorDirection } from "../../services/lerpers/accelerator.js"
-import { Vector, createDirection } from "../../services/vector.js"
+import { Vector, createDirection } from "../../services/math/vector.js"
 import { EntityBody } from "../entityBody.js"
 
 type Boostable = {

@@ -1,4 +1,4 @@
-import { Vector } from "../../vector.js";
+import { Vector } from "../../math/vector.js";
 export function getCircleExplosionParticleConfig() {
     var particleBodyOptions = {
         position: new Vector(0, 0),

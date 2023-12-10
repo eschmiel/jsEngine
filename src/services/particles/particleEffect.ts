@@ -14,10 +14,6 @@ export class ParticleEffect {
         })
     }
 
-    draw() {
-        this.particles.forEach((particle) => particle.draw())
-    }
-
     add(particle) {
         this.particles.push(particle)
     }

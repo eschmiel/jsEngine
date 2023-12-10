@@ -1,4 +1,4 @@
-import { Vector, createDirection } from '../services/vector.js'
+import { Vector, createDirection } from '../services/math/vector.js'
 
 export class EntityBody {
     position: Vector;

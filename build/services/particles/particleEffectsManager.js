@@ -11,9 +11,6 @@ var ParticleEffectsManager = /** @class */ (function () {
                 _this.remove(particleEffect);
         });
     };
-    ParticleEffectsManager.prototype.draw = function () {
-        this.particleEffects.forEach(function (particleEffect) { return particleEffect.draw(); });
-    };
     ParticleEffectsManager.prototype.add = function (particleEffect) { this.particleEffects.push(particleEffect); };
     ParticleEffectsManager.prototype.remove = function (particleEffectToRemove) {
         this.particleEffects = this.particleEffects.filter(function (particleEffect) { return particleEffect !== particleEffectToRemove; });
