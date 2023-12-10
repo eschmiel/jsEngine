@@ -50,6 +50,10 @@ export default class Ship {
             this.booster.update()
             this.control()
             this.body.speed = this.accelerator.run()
+            if(this.body.position.values[0] < 0 
+            || this.body.position.values[0] > 1000
+            || this.body.position.values[1] < 0 
+            || this.body.position.values[1] > 600 ) { this.die() }
         } 
     }
 

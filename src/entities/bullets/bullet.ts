@@ -28,6 +28,10 @@ export class Bullet {
 
     update() {
         this.body.move(this.velocity)
+        if(this.body.position.values[0] < 0 
+            || this.body.position.values[0] > 1000
+            || this.body.position.values[1] < 0 
+            || this.body.position.values[1] > 600 ) { this.hit() }
     }
 
     addObserver(observer: Observer){
