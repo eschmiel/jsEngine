@@ -1,7 +1,9 @@
 import GameState from './gameState.js';
 import update from './update.js';
 import draw from './draw.js';
+import { RenderingSystem } from './services/rendering/render.js';
 (function () {
+    var renderingSystem = new RenderingSystem();
     var gameState = new GameState();
     var timeTracker = gameState.timeTracker;
     function game(time) {
@@ -12,7 +14,7 @@ import draw from './draw.js';
             update(gameState);
             timeTracker.logUpdate();
         }
-        draw(gameState);
+        draw(gameState, renderingSystem);
     }
     game();
 })();

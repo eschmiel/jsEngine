@@ -46,6 +46,6 @@ export enum ParticleEffectsManagerEvents {
     CircleExplosion
 }
 
-export type CircleExplosionEventData = {position: Vector, options: CircleExplosionOptions}
+export type CircleExplosionEventData = {position: Vector, options?: CircleExplosionOptions}
 
 export type ParticleEffectsManagerEventData = CircleExplosionEventData

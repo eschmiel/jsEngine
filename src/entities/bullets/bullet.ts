@@ -1,4 +1,3 @@
-import canvas from "../../services/canvas.js";
 import { CollisionBox } from "../../services/collisions/collisionBox.js";
 import { colliding } from "../../services/collisions/collisions.js";
 import { Observable } from "../../services/observable.js";
@@ -6,6 +5,7 @@ import { CircleExplosionEventData, ParticleEffectsManagerEvents } from "../../se
 import { Vector } from "../../services/vector.js";
 import { Observer } from "../../types.js";
 import { EntityBody, EntityBodyOptions } from "../entityBody.js";
+import { BulletManagerEvents } from "./bulletManager.js";
 
 export class Bullet {
     body: EntityBody;
@@ -21,17 +21,13 @@ export class Bullet {
         }
 
         this.body = new EntityBody(bodyOptions)
-        this.collisionBox = new CollisionBox(new Vector(), dimensions.copy(), this.body)
+        this.collisionBox = new CollisionBox(new Vector(0, 0), dimensions.copy(), this.body)
         this.velocity = direction.multiplyByScalar(speed)
         this.observable = new Observable()
     }
 
     update() {
         this.body.move(this.velocity)
-    }
-
-    draw() {
-        canvas.fillCircle(this.body.position, this.body.dimensions.values[0], 'blue')
     }
 
     addObserver(observer: Observer){
@@ -52,6 +48,7 @@ export class Bullet {
             }
         }
         this.observable.notify(ParticleEffectsManagerEvents.CircleExplosion, options)
+        this.observable.notify(BulletManagerEvents.remove, this)
     }
 }
 

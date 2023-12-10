@@ -41,7 +41,7 @@ export class Particle {
     }
 
     draw() {
-        drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Stroke, this.color, this.transparency)
+        // drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Stroke, this.color, this.transparency)
     }
 
     outOfTime() {

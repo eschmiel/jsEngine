@@ -5,4 +5,5 @@ export default ({ player, enemyBullets, particleEffectsManager }: GameState) => 
     enemyBullets.update()
     // player.collideWithBullets(enemyBullets)
     particleEffectsManager.update()
+    enemyBullets.checkForBulletCollisions(player.ship)
 }

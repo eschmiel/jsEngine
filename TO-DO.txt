@@ -8,9 +8,18 @@
 
 ----
 
-- Get rendering system hooked up with event loop
+-[IN PROGRESS] Get rendering system hooked up with event loop
+- - get enemy bullets hooked up to rendering system
+- - get particle effects hooked up to rendering system
+- - phase out draw entity body stuff
+
+- Use circle collision detection instead
 
 ----
 
-- Correct bullet alignment
+-[DONE] Correct bullet alignment
 - Add walls, have bullets hit walls
+
+*****
+
+-[DONE] Matrix Math util

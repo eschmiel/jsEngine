@@ -1,6 +1,5 @@
 import { EntityBody } from "../../entities/entityBody.js";
 import { Accelerator } from "../lerpers/accelerator.js";
-import { EntityBodyTriangleDrawTypes, drawEntityBodyTriangle } from "../../entities/drawEntityBody.js";
 import { Fader } from "../lerpers/fader.js";
 var Particle = /** @class */ (function () {
     function Particle(options) {
@@ -22,7 +21,7 @@ var Particle = /** @class */ (function () {
         this.timer++;
     };
     Particle.prototype.draw = function () {
-        drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Stroke, this.color, this.transparency);
+        // drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Stroke, this.color, this.transparency)
     };
     Particle.prototype.outOfTime = function () {
         return this.timer >= this.maxTime;

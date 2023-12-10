@@ -1,20 +1,21 @@
 import { Collidable, colliding } from "../../services/collisions/collisions.js"
-import { ParticleEffectsManager } from "../../services/particles/particleEffectsManager.js"
+import { Observable } from "../../services/observable.js"
+import { Observer } from "../../services/types.js"
 import { ObserverEventData, ObserverEventType } from "../../types.js"
 import { CreateBulletOptions, Bullet, isCreateBulletOptions } from "./bullet.js"
 
 export class BulletManager {    
     bullets: Bullet[]
-    particleEffectsManager: ParticleEffectsManager
+    observable: Observable
 
-    constructor(particleEffectsManager: ParticleEffectsManager) {
-        this.particleEffectsManager = particleEffectsManager
+    constructor() {
+        this.observable = new Observable()
         this.bullets = []
     }
 
     add(options: CreateBulletOptions){
         const newBullet = new Bullet(options)
-        newBullet.addObserver(this.particleEffectsManager)
+        newBullet.addObserver(this)
         this.bullets.push(newBullet)
     }
 
@@ -23,6 +24,8 @@ export class BulletManager {
     }
 
     onNotify(event: ObserverEventType, data: ObserverEventData){
+        this.observable.notify(event, data)
+
         switch(event) {
             case BulletManagerEvents.create:
                 if(isCreateBulletOptions(data)) this.add(data)
@@ -49,8 +52,8 @@ export class BulletManager {
         this.bullets.forEach((bullet) => bullet.update())
     }
 
-    draw() {
-        this.bullets.forEach((bullet) => bullet.draw())
+    addObserver(observer: Observer) {
+        this.observable.add(observer)
     }
 }
 

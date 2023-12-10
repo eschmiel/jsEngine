@@ -22,9 +22,12 @@ export class Vector {
         return new Vector(...newValues)
     }
 
-    multiplyVector(vector: Vector) {
-        const newValues = this.values.map((value, index) => value * vector.values[index])
-        return new Vector(...newValues)
+    getDotProduct(vector: Vector) {
+        if(vector.values.length !== this.values.length) throw new Error("vector.getDotProduct(vector) failed. The parameter vector must have the same number of values as the vector it's trying to get the dot product with")
+        let dotProduct = 0
+        this.values.forEach((value, index) => dotProduct += value * vector.values[index])
+
+        return dotProduct
     }
 
     copy() {

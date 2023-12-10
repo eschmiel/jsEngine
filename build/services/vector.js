@@ -28,9 +28,12 @@ var Vector = /** @class */ (function () {
         var newValues = this.values.map(function (value) { return value * scalar; });
         return new (Vector.bind.apply(Vector, __spreadArray([void 0], newValues, false)))();
     };
-    Vector.prototype.multiplyVector = function (vector) {
-        var newValues = this.values.map(function (value, index) { return value * vector.values[index]; });
-        return new (Vector.bind.apply(Vector, __spreadArray([void 0], newValues, false)))();
+    Vector.prototype.getDotProduct = function (vector) {
+        if (vector.values.length !== this.values.length)
+            throw new Error("vector.getDotProduct(vector) failed. The parameter vector must have the same number of values as the vector it's trying to get the dot product with");
+        var dotProduct = 0;
+        this.values.forEach(function (value, index) { return dotProduct += value * vector.values[index]; });
+        return dotProduct;
     };
     Vector.prototype.copy = function () {
         return new (Vector.bind.apply(Vector, __spreadArray([void 0], this.values, false)))();

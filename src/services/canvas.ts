@@ -42,7 +42,7 @@ class Canvas {
     }
 
     strokeTriangle(points: Vector[], color = 'black') {
-        this.context.fillStyle = color
+        this.context.strokeStyle = color
 
         this.context.beginPath()
 
@@ -94,4 +94,4 @@ class Canvas {
       }
 }
 
-export default new Canvas()
+export default Canvas

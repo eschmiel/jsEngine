@@ -5,33 +5,30 @@ import { CollisionBox } from '../../services/collisions/collisionBox.js';
 import { EntityBody } from '../entityBody.js';
 import { Accelerator, AcceleratorDirection } from '../../services/lerpers/accelerator.js';
 import { Booster } from './booster.js';
-import { EntityBodyTriangleDrawTypes, drawEntityBodyTriangle } from '../drawEntityBody.js';
-import { CircleExplosionEventData, ParticleEffectsManager, ParticleEffectsManagerEvents } from '../../services/particles/particleEffectsManager.js';
-import { CircleExplosionOptions } from '../../services/particles/effects/circleExplosion.js';
+import { CircleExplosionEventData, ParticleEffectsManagerEvents } from '../../services/particles/particleEffectsManager.js';
 import { Observable } from '../../services/observable.js';
 import { Observer } from '../../services/types.js';
 import { BulletManagerEvents } from '../bullets/bulletManager.js';
 import { CreateBulletOptions } from '../bullets/bullet.js';
+import { rotatePoint } from '../../services/transformations.js';
+import { EntityTypes } from '../entityTypes.js';
 
 // Vector tutorial
 // https://www.gamedev.net/tutorials/programming/math-and-physics/vector-maths-for-game-dev-beginners-r5442/
 
 export default class Ship {
+    type: EntityTypes.ship
     body: EntityBody;
     accelerator: Accelerator;
     booster: Booster;
 
-    shipColor: string
     alive: boolean
 
     collisionBox: CollisionBox
     observable: Observable
 
-    particleEffectsManager: ParticleEffectsManager// try to get rid of this
-
-    constructor(x, y, particleEffectsManager: ParticleEffectsManager) {
+    constructor(x, y) {
         const dimensions = new Vector(28, 25)
-        this.particleEffectsManager = particleEffectsManager
 
         const entityBodyOptions = {
             position: new Vector(x, y),
@@ -41,27 +38,10 @@ export default class Ship {
         this.accelerator = new Accelerator(0, 15, .04)
         this.booster = new Booster(this, 30, 100) 
 
-        this.shipColor = "black"
         this.alive = true
 
         this.observable = new Observable()
         this.collisionBox = new CollisionBox(new Vector(0,0), dimensions.copy(), this.body)
-    }
-
-    createTrianglePoints() {
-        const [x, y] = this.body.getPosition()
-        const [centerX, centerY] = this.body.getCenterPosition()
-        const [endX, endY] = this.body.getEndPosition()
-
-        return [
-            this.body.position.copy(),
-            new Vector(endX, centerY),
-            new Vector(x, endY)
-        ]
-    }
-
-    draw() {
-        this.alive ? drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Fill) : null
     }
 
     update() {
@@ -89,39 +69,30 @@ export default class Ship {
     }
 
     shoot(){
-        console.log('beep')
+        const [shipWidth, shipHeight] = this.body.getDimensions()
+        const bullet1ShipOffset = new Vector(shipWidth/2 - 16, 6)
+        const bullet2ShipOffset = new Vector(shipWidth/2 - 16, -6)
+        
+        this.createBullet(bullet1ShipOffset)
+        this.createBullet(bullet2ShipOffset)
+    }
+
+    createBullet(shipPositionOffset) {
         const direction = createDirection(this.body.rotation)
 
-        const rotatedXAxis = createDirection(this.body.rotation)
-        const rotatedYAxis = createDirection(this.body.rotation + 90)
-        const rotatedX = rotatedXAxis.multiplyByScalar(this.body.position.values[0])
-        const rotatedY = rotatedYAxis.multiplyByScalar(this.body.position.values[1])
-        const rotatedPosition = rotatedX.addVector(rotatedY)
-        let startingPosition = this.body.position.copy()//.multiplyByScalar(-20 + this.body.dimensions.values[0])
-        // startingPosition.values[1]+=5
+        const rotatedPosition = rotatePoint(shipPositionOffset, this.body.rotation)
+        const bulletPosition = rotatedPosition.addVector(this.body.position)
 
-        startingPosition = startingPosition.multiplyVector(direction)
-        const bullet1Options: CreateBulletOptions = {
-            position: rotatedPosition,
-            dimensions: new Vector(5, 5),
+        const bulletOptions: CreateBulletOptions = {
+            position: bulletPosition,
+            dimensions: new Vector(3, 3),
             speed: 20,
             direction: direction
         }
 
-        const bullet2Positon = this.body.position.copy()
-        const startingPosition2 = this.body.position.copy().addVector(direction.multiplyByScalar(-20 + this.body.dimensions.values[0]))
-        startingPosition2.values[1]+=19
-
-        bullet2Positon.values[0] += this.body.dimensions.values[0]
-        const bullet2Options: CreateBulletOptions = {
-            position: startingPosition2,
-            dimensions: new Vector(5, 5),
-            speed: 20,
-            direction: direction
-        }
-        this.observable.notify(BulletManagerEvents.create, bullet1Options)
-        // this.observable.notify(BulletManagerEvents.create, bullet2Options)
+        this.observable.notify(BulletManagerEvents.create, bulletOptions)
     }
+
     collideWithBullets(bulletManager) {
         if(this.alive){
             bulletManager.bullets.forEach((bullet) => {
@@ -141,7 +112,6 @@ export default class Ship {
             }
         }
         this.observable.notify(ParticleEffectsManagerEvents.CircleExplosion, options)
-        // this.particleEffectsManager.createCircleExplosionEffect(this.body.position.copy(), options)
     }
 
     addObserver(observer: Observer) {

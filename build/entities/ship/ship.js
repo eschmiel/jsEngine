@@ -5,16 +5,15 @@ import { CollisionBox } from '../../services/collisions/collisionBox.js';
 import { EntityBody } from '../entityBody.js';
 import { Accelerator, AcceleratorDirection } from '../../services/lerpers/accelerator.js';
 import { Booster } from './booster.js';
-import { EntityBodyTriangleDrawTypes, drawEntityBodyTriangle } from '../drawEntityBody.js';
 import { ParticleEffectsManagerEvents } from '../../services/particles/particleEffectsManager.js';
 import { Observable } from '../../services/observable.js';
 import { BulletManagerEvents } from '../bullets/bulletManager.js';
+import { rotatePoint } from '../../services/transformations.js';
 // Vector tutorial
 // https://www.gamedev.net/tutorials/programming/math-and-physics/vector-maths-for-game-dev-beginners-r5442/
 var Ship = /** @class */ (function () {
-    function Ship(x, y, particleEffectsManager) {
+    function Ship(x, y) {
         var dimensions = new Vector(28, 25);
-        this.particleEffectsManager = particleEffectsManager;
         var entityBodyOptions = {
             position: new Vector(x, y),
             dimensions: dimensions.copy()
@@ -22,24 +21,10 @@ var Ship = /** @class */ (function () {
         this.body = new EntityBody(entityBodyOptions);
         this.accelerator = new Accelerator(0, 15, .04);
         this.booster = new Booster(this, 30, 100);
-        this.shipColor = "black";
         this.alive = true;
         this.observable = new Observable();
         this.collisionBox = new CollisionBox(new Vector(0, 0), dimensions.copy(), this.body);
     }
-    Ship.prototype.createTrianglePoints = function () {
-        var _a = this.body.getPosition(), x = _a[0], y = _a[1];
-        var _b = this.body.getCenterPosition(), centerX = _b[0], centerY = _b[1];
-        var _c = this.body.getEndPosition(), endX = _c[0], endY = _c[1];
-        return [
-            this.body.position.copy(),
-            new Vector(endX, centerY),
-            new Vector(x, endY)
-        ];
-    };
-    Ship.prototype.draw = function () {
-        this.alive ? drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Fill) : null;
-    };
     Ship.prototype.update = function () {
         if (this.alive) {
             this.body.update();
@@ -72,34 +57,23 @@ var Ship = /** @class */ (function () {
             this.shoot();
     };
     Ship.prototype.shoot = function () {
-        console.log('beep');
+        var _a = this.body.getDimensions(), shipWidth = _a[0], shipHeight = _a[1];
+        var bullet1ShipOffset = new Vector(shipWidth / 2 - 16, 6);
+        var bullet2ShipOffset = new Vector(shipWidth / 2 - 16, -6);
+        this.createBullet(bullet1ShipOffset);
+        this.createBullet(bullet2ShipOffset);
+    };
+    Ship.prototype.createBullet = function (shipPositionOffset) {
         var direction = createDirection(this.body.rotation);
-        var rotatedXAxis = createDirection(this.body.rotation);
-        var rotatedYAxis = createDirection(this.body.rotation + 90);
-        var rotatedX = rotatedXAxis.multiplyByScalar(this.body.position.values[0]);
-        var rotatedY = rotatedYAxis.multiplyByScalar(this.body.position.values[1]);
-        var rotatedPosition = rotatedX.addVector(rotatedY);
-        var startingPosition = this.body.position.copy(); //.multiplyByScalar(-20 + this.body.dimensions.values[0])
-        // startingPosition.values[1]+=5
-        startingPosition = startingPosition.multiplyVector(direction);
-        var bullet1Options = {
-            position: rotatedPosition,
-            dimensions: new Vector(5, 5),
+        var rotatedPosition = rotatePoint(shipPositionOffset, this.body.rotation);
+        var bulletPosition = rotatedPosition.addVector(this.body.position);
+        var bulletOptions = {
+            position: bulletPosition,
+            dimensions: new Vector(3, 3),
             speed: 20,
             direction: direction
         };
-        var bullet2Positon = this.body.position.copy();
-        var startingPosition2 = this.body.position.copy().addVector(direction.multiplyByScalar(-20 + this.body.dimensions.values[0]));
-        startingPosition2.values[1] += 19;
-        bullet2Positon.values[0] += this.body.dimensions.values[0];
-        var bullet2Options = {
-            position: startingPosition2,
-            dimensions: new Vector(5, 5),
-            speed: 20,
-            direction: direction
-        };
-        this.observable.notify(BulletManagerEvents.create, bullet1Options);
-        // this.observable.notify(BulletManagerEvents.create, bullet2Options)
+        this.observable.notify(BulletManagerEvents.create, bulletOptions);
     };
     Ship.prototype.collideWithBullets = function (bulletManager) {
         var _this = this;
@@ -121,7 +95,6 @@ var Ship = /** @class */ (function () {
             }
         };
         this.observable.notify(ParticleEffectsManagerEvents.CircleExplosion, options);
-        // this.particleEffectsManager.createCircleExplosionEffect(this.body.position.copy(), options)
     };
     Ship.prototype.addObserver = function (observer) {
         this.observable.add(observer);

@@ -4,5 +4,6 @@ export default (function (_a) {
     enemyBullets.update();
     // player.collideWithBullets(enemyBullets)
     particleEffectsManager.update();
+    enemyBullets.checkForBulletCollisions(player.ship);
 });
 //# sourceMappingURL=update.js.map

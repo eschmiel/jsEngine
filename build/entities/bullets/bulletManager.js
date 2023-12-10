@@ -1,19 +1,21 @@
 import { colliding } from "../../services/collisions/collisions.js";
+import { Observable } from "../../services/observable.js";
 import { Bullet, isCreateBulletOptions } from "./bullet.js";
 var BulletManager = /** @class */ (function () {
-    function BulletManager(particleEffectsManager) {
-        this.particleEffectsManager = particleEffectsManager;
+    function BulletManager() {
+        this.observable = new Observable();
         this.bullets = [];
     }
     BulletManager.prototype.add = function (options) {
         var newBullet = new Bullet(options);
-        newBullet.addObserver(this.particleEffectsManager);
+        newBullet.addObserver(this);
         this.bullets.push(newBullet);
     };
     BulletManager.prototype.remove = function (bulletToRemove) {
         this.bullets = this.bullets.filter(function (bullet) { return bullet !== bulletToRemove; });
     };
     BulletManager.prototype.onNotify = function (event, data) {
+        this.observable.notify(event, data);
         switch (event) {
             case BulletManagerEvents.create:
                 if (isCreateBulletOptions(data))
@@ -39,8 +41,8 @@ var BulletManager = /** @class */ (function () {
     BulletManager.prototype.update = function () {
         this.bullets.forEach(function (bullet) { return bullet.update(); });
     };
-    BulletManager.prototype.draw = function () {
-        this.bullets.forEach(function (bullet) { return bullet.draw(); });
+    BulletManager.prototype.addObserver = function (observer) {
+        this.observable.add(observer);
     };
     return BulletManager;
 }());

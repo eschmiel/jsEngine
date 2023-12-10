@@ -5,9 +5,10 @@ var Player = /** @class */ (function () {
         this.id = id;
     }
     Player.prototype.createShip = function (position, particleEffectsManager) {
-        this.bulletManager = new BulletManager(particleEffectsManager);
-        // this.ship = new Ship(20, 40, particleEffectsManager)
-        this.ship = new Ship(0, 0, particleEffectsManager);
+        var _a = position.values, x = _a[0], y = _a[1];
+        this.bulletManager = new BulletManager();
+        this.bulletManager.addObserver(particleEffectsManager);
+        this.ship = new Ship(x, y);
         this.ship.addObserver(particleEffectsManager);
         this.ship.addObserver(this.bulletManager);
     };
@@ -15,11 +16,6 @@ var Player = /** @class */ (function () {
         var _a, _b;
         (_a = this.ship) === null || _a === void 0 ? void 0 : _a.update();
         (_b = this.bulletManager) === null || _b === void 0 ? void 0 : _b.update();
-    };
-    Player.prototype.draw = function () {
-        var _a, _b;
-        (_a = this.ship) === null || _a === void 0 ? void 0 : _a.draw();
-        (_b = this.bulletManager) === null || _b === void 0 ? void 0 : _b.draw();
     };
     return Player;
 }());

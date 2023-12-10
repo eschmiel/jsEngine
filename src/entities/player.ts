@@ -13,9 +13,10 @@ export class Player {
     }
 
     createShip(position: Vector, particleEffectsManager: ParticleEffectsManager) {
-        this.bulletManager = new BulletManager(particleEffectsManager)
-        // this.ship = new Ship(20, 40, particleEffectsManager)
-        this.ship = new Ship(0, 0, particleEffectsManager)
+        const [x, y] = position.values
+        this.bulletManager = new BulletManager()
+        this.bulletManager.addObserver(particleEffectsManager)
+        this.ship = new Ship(x, y)
         this.ship.addObserver(particleEffectsManager)
         this.ship.addObserver(this.bulletManager)
     }
@@ -23,10 +24,5 @@ export class Player {
     update(){
         this.ship?.update()
         this.bulletManager?.update()
-    }
-
-    draw() {
-        this.ship?.draw()
-        this.bulletManager?.draw()
     }
 }

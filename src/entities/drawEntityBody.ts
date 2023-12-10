@@ -19,23 +19,23 @@ export const createTrianglePointsForEntityBody = (body: EntityBody) => {
 }
 
 export const drawEntityBodyTriangle = (body: EntityBody, drawType: EntityBodyTriangleDrawTypes = EntityBodyTriangleDrawTypes.Fill, color: string = 'black', transparency = 1) => {
-    const trianglePoints = createTrianglePointsForEntityBody(body)
+    // const trianglePoints = createTrianglePointsForEntityBody(body)
     
-    canvas.save()
-    canvas.context.globalAlpha = transparency
+    // canvas.save()
+    // canvas.context.globalAlpha = transparency
     
-    canvas.rotate(body.rotation, body.getCenterPositionVector())
+    // canvas.rotate(body.rotation, body.getCenterPositionVector())
 
-    switch(drawType){
-        case EntityBodyTriangleDrawTypes.Fill:
-            canvas.fillTriangle(trianglePoints, color)
-            break;
-        case EntityBodyTriangleDrawTypes.Stroke:
-            canvas.strokeTriangle(trianglePoints, color)
-            break;
-        default:
-            throw new Error(`drawEntityBodyTriangle called with unsupported drawType parameter: ${drawType}`)
-    }
+    // switch(drawType){
+    //     case EntityBodyTriangleDrawTypes.Fill:
+    //         canvas.fillTriangle(trianglePoints, color)
+    //         break;
+    //     case EntityBodyTriangleDrawTypes.Stroke:
+    //         canvas.strokeTriangle(trianglePoints, color)
+    //         break;
+    //     default:
+    //         throw new Error(`drawEntityBodyTriangle called with unsupported drawType parameter: ${drawType}`)
+    // }
 
-    canvas.restore()
+    // canvas.restore()
 }

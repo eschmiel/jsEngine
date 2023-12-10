@@ -1,5 +1,4 @@
 import { Vector } from "../vector.js";
-import canvas from "../canvas.js";
 import { EntityBody } from "../../entities/entityBody.js";
 var CollisionBox = /** @class */ (function () {
     function CollisionBox(offsetPosition, dimensions, entity) {
@@ -21,10 +20,10 @@ var CollisionBox = /** @class */ (function () {
         return new Vector(centerX, centerY);
     };
     CollisionBox.prototype.draw = function () {
-        canvas.save();
-        canvas.rotate(this.entity.rotation, this.getCenterPosition());
-        canvas.drawRectangle(this.getPosition(), this.dimensions, 'red');
-        canvas.restore();
+        // canvas.save()
+        // canvas.rotate(this.entity.rotation, this.getCenterPosition())
+        // canvas.drawRectangle(this.getPosition(), this.dimensions, 'red')
+        // canvas.restore()
     };
     CollisionBox.prototype.onCollision = function (entity) { };
     return CollisionBox;

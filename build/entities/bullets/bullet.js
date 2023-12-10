@@ -1,10 +1,10 @@
-import canvas from "../../services/canvas.js";
 import { CollisionBox } from "../../services/collisions/collisionBox.js";
 import { colliding } from "../../services/collisions/collisions.js";
 import { Observable } from "../../services/observable.js";
 import { ParticleEffectsManagerEvents } from "../../services/particles/particleEffectsManager.js";
 import { Vector } from "../../services/vector.js";
 import { EntityBody } from "../entityBody.js";
+import { BulletManagerEvents } from "./bulletManager.js";
 var Bullet = /** @class */ (function () {
     function Bullet(options) {
         var position = options.position, direction = options.direction, dimensions = options.dimensions, speed = options.speed;
@@ -13,15 +13,12 @@ var Bullet = /** @class */ (function () {
             dimensions: dimensions.copy()
         };
         this.body = new EntityBody(bodyOptions);
-        this.collisionBox = new CollisionBox(new Vector(), dimensions.copy(), this.body);
+        this.collisionBox = new CollisionBox(new Vector(0, 0), dimensions.copy(), this.body);
         this.velocity = direction.multiplyByScalar(speed);
         this.observable = new Observable();
     }
     Bullet.prototype.update = function () {
         this.body.move(this.velocity);
-    };
-    Bullet.prototype.draw = function () {
-        canvas.fillCircle(this.body.position, this.body.dimensions.values[0], 'blue');
     };
     Bullet.prototype.addObserver = function (observer) {
         this.observable.add(observer);
@@ -39,6 +36,7 @@ var Bullet = /** @class */ (function () {
             }
         };
         this.observable.notify(ParticleEffectsManagerEvents.CircleExplosion, options);
+        this.observable.notify(BulletManagerEvents.remove, this);
     };
     return Bullet;
 }());
