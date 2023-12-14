@@ -1,6 +1,6 @@
 import { AcceleratorSettings } from "../../lerpers/accelerator.js"
 import { FaderSettings } from "../../lerpers/fader.js"
-import { Vector } from "../../vector.js"
+import { Vector } from "../../math/vector.js"
 
 export function getCircleExplosionParticleConfig() {
     const particleBodyOptions = {

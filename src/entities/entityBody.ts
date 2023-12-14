@@ -1,4 +1,4 @@
-import { Vector, createDirection } from '../services/vector.js'
+import { Vector, createDirection } from '../services/math/vector.js'
 
 export class EntityBody {
     position: Vector;
@@ -55,7 +55,7 @@ export class EntityBody {
         if(this.rotation > 360) this.rotation -= 360
     }
 
-    move() {
+    moveOld() {
         const direction = createDirection(this.rotation)
         const distanceInDirection = direction.multiplyByScalar(this.speed)
         this.position = this.position.addVector(distanceInDirection) 
@@ -65,9 +65,13 @@ export class EntityBody {
         this.rotation += this.rotationSpeed
     }
 
+    move(velocity: Vector) {
+        this.position = this.position.addVector(velocity)
+    }
+
     update() {
         this.rotate()
-        this.move()
+        this.moveOld()
     }
 
     copy() {

@@ -7,7 +7,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-import { Vector, createDirection } from '../services/vector.js';
+import { Vector, createDirection } from '../services/math/vector.js';
 var EntityBody = /** @class */ (function () {
     function EntityBody(options) {
         if (options === void 0) { options = defaultEntityBodyOptions; }
@@ -48,7 +48,7 @@ var EntityBody = /** @class */ (function () {
         if (this.rotation > 360)
             this.rotation -= 360;
     };
-    EntityBody.prototype.move = function () {
+    EntityBody.prototype.moveOld = function () {
         var direction = createDirection(this.rotation);
         var distanceInDirection = direction.multiplyByScalar(this.speed);
         this.position = this.position.addVector(distanceInDirection);
@@ -56,9 +56,12 @@ var EntityBody = /** @class */ (function () {
     EntityBody.prototype.rotate = function () {
         this.rotation += this.rotationSpeed;
     };
+    EntityBody.prototype.move = function (velocity) {
+        this.position = this.position.addVector(velocity);
+    };
     EntityBody.prototype.update = function () {
         this.rotate();
-        this.move();
+        this.moveOld();
     };
     EntityBody.prototype.copy = function () {
         var copyBodyOptions = {

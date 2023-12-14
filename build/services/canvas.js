@@ -28,7 +28,7 @@ var Canvas = /** @class */ (function () {
     };
     Canvas.prototype.strokeTriangle = function (points, color) {
         if (color === void 0) { color = 'black'; }
-        this.context.fillStyle = color;
+        this.context.strokeStyle = color;
         this.context.beginPath();
         this.context.moveTo(points[0].values[0], points[0].values[1]);
         this.context.lineTo(points[1].values[0], points[1].values[1]);
@@ -71,5 +71,5 @@ var Canvas = /** @class */ (function () {
     };
     return Canvas;
 }());
-export default new Canvas();
+export default Canvas;
 //# sourceMappingURL=canvas.js.map

@@ -1,8 +1,6 @@
 import GameState from "./gameState.js"
 
-export default ({ player, enemyBullets, particleEffectsManager }: GameState) => {
+export default ({ player}: GameState) => {
     player.update()
-    enemyBullets.update()
-    player.collideWithBullets(enemyBullets)
-    particleEffectsManager.update()
+
 }

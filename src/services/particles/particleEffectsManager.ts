@@ -1,23 +1,23 @@
-import { Vector } from "../vector.js"
+import { ObserverEventData, ObserverEventType } from "../../services/observable.js"
+import { Vector } from "../math/vector.js"
+import { Renderer } from "../rendering/render.js"
 import { createCircleExplosionEffect, CircleExplosionOptions } from "./effects/circleExplosion.js"
 import { ParticleEffect } from "./particleEffect.js"
 
 export class ParticleEffectsManager {
+    renderer: Renderer
     particleEffects: ParticleEffect[]
 
-    constructor() {
+    constructor(renderer: Renderer) {
+        this.renderer = renderer
         this.particleEffects = []
     }
 
-    update() {
+    run() {
         this.particleEffects.forEach((particleEffect) => { 
-            particleEffect.update()
+            particleEffect.run()
             if(!particleEffect.particleCount()) this.remove(particleEffect)
         })
-    }
-
-    draw() {
-        this.particleEffects.forEach((particleEffect) => particleEffect.draw())
     }
 
     add(particleEffect) { this.particleEffects.push(particleEffect) }
@@ -27,7 +27,28 @@ export class ParticleEffectsManager {
     }
 
     createCircleExplosionEffect(position: Vector, options: CircleExplosionOptions) {
-        const particleEffect = createCircleExplosionEffect(position, options)
+        const particleEffect = createCircleExplosionEffect(this.renderer, position, options)
         this.add(particleEffect)
     }
+
+    onNotify(event: ObserverEventType, data: ObserverEventData) {
+        switch(event){
+            case ParticleEffectsManagerEvents.CircleExplosion:
+                if(isParticleEffectsManagerEventData(data)) this.createCircleExplosionEffect(data.position, data.options)
+                break
+            default:
+        }
+    }
+}
+
+export enum ParticleEffectsManagerEvents {
+    CircleExplosion
+}
+
+export type CircleExplosionEventData = {position: Vector, options?: CircleExplosionOptions}
+
+export type ParticleEffectsManagerEventData = CircleExplosionEventData
+
+function isParticleEffectsManagerEventData(input: ObserverEventData): input is ParticleEffectsManagerEventData {
+    return (input as ParticleEffectsManagerEventData).position !== undefined
 }

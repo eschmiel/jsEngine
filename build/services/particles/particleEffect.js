@@ -2,16 +2,13 @@ var ParticleEffect = /** @class */ (function () {
     function ParticleEffect() {
         this.particles = [];
     }
-    ParticleEffect.prototype.update = function () {
+    ParticleEffect.prototype.run = function () {
         var _this = this;
         this.particles.forEach(function (particle) {
-            particle.update();
+            particle.run();
             if (particle.outOfTime())
                 _this.remove(particle);
         });
-    };
-    ParticleEffect.prototype.draw = function () {
-        this.particles.forEach(function (particle) { return particle.draw(); });
     };
     ParticleEffect.prototype.add = function (particle) {
         this.particles.push(particle);

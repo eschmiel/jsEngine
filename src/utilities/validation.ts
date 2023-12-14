@@ -1,4 +1,4 @@
-import { getPropertyName } from "../util.js"
+import { getPropertyName } from "./util.js"
 
 export const validateIsBetweenOneAndZero = (value: number, message: string = "ERROR") => {
     if(value > 1 || value < 0) {

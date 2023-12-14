@@ -1,4 +1,3 @@
-import canvas from "../services/canvas.js";
 import { CollisionBox } from "../services/collisions/collisionBox.js";
 import { Vector } from "../services/vector.js";
 import { EntityBody } from "./entityBody.js";
@@ -14,7 +13,7 @@ var Bullet = /** @class */ (function () {
     }
     Bullet.prototype.update = function () { };
     Bullet.prototype.draw = function () {
-        canvas.fillCircle(this.body.position, this.radius, 'blue');
+        // canvas.fillCircle(this.body.position, this.radius, 'blue')
     };
     return Bullet;
 }());

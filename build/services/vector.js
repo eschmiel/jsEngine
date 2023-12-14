@@ -28,6 +28,13 @@ var Vector = /** @class */ (function () {
         var newValues = this.values.map(function (value) { return value * scalar; });
         return new (Vector.bind.apply(Vector, __spreadArray([void 0], newValues, false)))();
     };
+    Vector.prototype.getDotProduct = function (vector) {
+        if (vector.values.length !== this.values.length)
+            throw new Error("vector.getDotProduct(vector) failed. The parameter vector must have the same number of values as the vector it's trying to get the dot product with");
+        var dotProduct = 0;
+        this.values.forEach(function (value, index) { return dotProduct += value * vector.values[index]; });
+        return dotProduct;
+    };
     Vector.prototype.copy = function () {
         return new (Vector.bind.apply(Vector, __spreadArray([void 0], this.values, false)))();
     };
@@ -38,5 +45,11 @@ export var createDirection = function (degrees) {
     if (degrees === void 0) { degrees = 0; }
     var radians = degreesToRadians(degrees);
     return new Vector(Math.cos(radians), Math.sin(radians));
+};
+export var createVelocity = function (degrees, speed) {
+    if (degrees === void 0) { degrees = 0; }
+    if (speed === void 0) { speed = 0; }
+    var direction = createDirection(degrees);
+    return direction.multiplyByScalar(speed);
 };
 //# sourceMappingURL=vector.js.map

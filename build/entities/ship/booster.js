@@ -1,5 +1,5 @@
 import { Accelerator, AcceleratorDirection } from "../../services/lerpers/accelerator.js";
-import { createDirection } from "../../services/vector.js";
+import { createDirection } from "../../services/math/vector.js";
 var Booster = /** @class */ (function () {
     function Booster(target, boostSpeed, coolDown) {
         if (coolDown === void 0) { coolDown = 100; }

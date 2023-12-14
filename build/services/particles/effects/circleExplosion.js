@@ -1,20 +1,20 @@
-import { Vector, createDirection } from "../../vector.js";
+import { Vector, createDirection } from "../../math/vector.js";
 import { Particle } from "../particle.js";
 import { getCircleExplosionParticleConfig } from '../configs/circleExplosionParticleConfig.js';
 import { ParticleEffect } from "../particleEffect.js";
-export var createCircleExplosionEffect = function (position, options) {
+export var createCircleExplosionEffect = function (renderer, position, options) {
     if (options === void 0) { options = defaultCircleExplosionOptions; }
     var particleNumber = options.particleNumber;
     var particleDegreeGap = 360 / particleNumber;
     var particleEffect = new ParticleEffect();
     for (var i = 1; i <= particleNumber; i++) {
         var projectedAngle = particleDegreeGap * i;
-        var particle = createCircleExplosionParticle(position, projectedAngle, options);
+        var particle = createCircleExplosionParticle(renderer, position, projectedAngle, options);
         particleEffect.add(particle);
     }
     return particleEffect;
 };
-function createCircleExplosionParticle(position, projectedAngle, circleExplosionOptions) {
+function createCircleExplosionParticle(renderer, position, projectedAngle, circleExplosionOptions) {
     if (position === void 0) { position = new Vector(0, 0); }
     if (projectedAngle === void 0) { projectedAngle = 0; }
     if (circleExplosionOptions === void 0) { circleExplosionOptions = defaultCircleExplosionOptions; }
@@ -24,7 +24,7 @@ function createCircleExplosionParticle(position, projectedAngle, circleExplosion
     particleOptions.body.position = position.addVector(direction.multiplyByScalar(startDistanceFromOrigin));
     particleOptions.body.dimensions = particleSize.copy();
     particleOptions.body.rotation = projectedAngle;
-    return new Particle(particleOptions);
+    return new Particle(renderer, particleOptions);
 }
 ///// Types and defaults
 export var ParticleTypes;

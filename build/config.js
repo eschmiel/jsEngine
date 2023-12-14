@@ -1,2 +1,2 @@
-export var debugging = false;
+export var debugging = true;
 //# sourceMappingURL=config.js.map

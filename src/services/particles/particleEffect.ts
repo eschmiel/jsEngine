@@ -7,15 +7,11 @@ export class ParticleEffect {
         this.particles = []
     }
 
-    update() {
+    run() {
         this.particles.forEach((particle) => {
-            particle.update()
+            particle.run()
             if(particle.outOfTime()) this.remove(particle)
         })
-    }
-
-    draw() {
-        this.particles.forEach((particle) => particle.draw())
     }
 
     add(particle) {

@@ -1,32 +1,36 @@
-import { Vector } from '../../services/vector.js';
+import { Vector, createDirection } from '../../services/math/vector.js';
 import Controller from '../../services/controller.js'
 import { colliding } from '../../services/collisions/collisions.js';
 import { CollisionBox } from '../../services/collisions/collisionBox.js';
 import { EntityBody } from '../entityBody.js';
 import { Accelerator, AcceleratorDirection } from '../../services/lerpers/accelerator.js';
 import { Booster } from './booster.js';
-import { EntityBodyTriangleDrawTypes, drawEntityBodyTriangle } from '../drawEntityBody.js';
-import { ParticleEffectsManager } from '../../services/particles/particleEffectsManager.js';
-import { CircleExplosionOptions } from '../../services/particles/effects/circleExplosion.js';
+import { CircleExplosionEventData, ParticleEffectsManagerEvents } from '../../services/particles/particleEffectsManager.js';
+import { Observable, Observer, ObserverEventData, ObserverEventType  } from '../../services/observable.js';
+import { Bullet } from '../bullets/bullet.js';
+import { rotatePoint } from '../../services/math/transformations.js';
+import { EntityTypes } from '../entityTypes.js';
+import { Timer } from '../../services/timer.js';
 
 // Vector tutorial
 // https://www.gamedev.net/tutorials/programming/math-and-physics/vector-maths-for-game-dev-beginners-r5442/
 
 export default class Ship {
+    type: EntityTypes.ship
     body: EntityBody;
     accelerator: Accelerator;
     booster: Booster;
 
-    shipColor: string
     alive: boolean
+    respawning: boolean
 
     collisionBox: CollisionBox
+    observable: Observable
+    respawnTimer: Timer
 
-    particleEffectsManager: ParticleEffectsManager// try to get rid of this
-
-    constructor(x, y, particleEffectsManager: ParticleEffectsManager) {
+    constructor(x, y, options: CreateShipOptions) {
+        
         const dimensions = new Vector(28, 25)
-        this.particleEffectsManager = particleEffectsManager
 
         const entityBodyOptions = {
             position: new Vector(x, y),
@@ -36,26 +40,15 @@ export default class Ship {
         this.accelerator = new Accelerator(0, 15, .04)
         this.booster = new Booster(this, 30, 100) 
 
-        this.shipColor = "black"
         this.alive = true
 
+        this.observable = new Observable()
         this.collisionBox = new CollisionBox(new Vector(0,0), dimensions.copy(), this.body)
-    }
-
-    createTrianglePoints() {
-        const [x, y] = this.body.getPosition()
-        const [centerX, centerY] = this.body.getCenterPosition()
-        const [endX, endY] = this.body.getEndPosition()
-
-        return [
-            this.body.position.copy(),
-            new Vector(endX, centerY),
-            new Vector(x, endY)
-        ]
-    }
-
-    draw() {
-        this.alive ? drawEntityBodyTriangle(this.body, EntityBodyTriangleDrawTypes.Fill) : null
+        this.respawning = options?.respawn
+        this.respawnTimer = new Timer(60, ShipEvents.doneSpawning)
+        this.respawnTimer.addObserver(this)
+        
+        if(this.respawning) this.respawnTimer.activate()
     }
 
     update() {
@@ -64,7 +57,12 @@ export default class Ship {
             this.booster.update()
             this.control()
             this.body.speed = this.accelerator.run()
+            if(this.body.position.values[0] < 0 
+            || this.body.position.values[0] > 1000
+            || this.body.position.values[1] < 0 
+            || this.body.position.values[1] > 600 ) { this.die() }
         } 
+        if(this.respawning) this.respawnTimer.update()
     }
 
     control() {
@@ -79,23 +77,86 @@ export default class Ship {
         if(Controller.s) this.booster.activate(180) 
         if(Controller.a) this.booster.activate(270) 
         if(Controller.d) this.booster.activate(90) 
+        if(Controller[' ']) this.shoot()
+    }
+
+    shoot(){
+        const [shipWidth, shipHeight] = this.body.getDimensions()
+        const bullet1ShipOffset = new Vector(shipWidth/2 - 16, 6)
+        const bullet2ShipOffset = new Vector(shipWidth/2 - 16, -6)
+        
+        const bullet1 = this.createBullet(bullet1ShipOffset)
+        const bullet2 = this.createBullet(bullet2ShipOffset)
+        
+        this.observable.notify(ShipEvents.shoot, bullet1)
+        this.observable.notify(ShipEvents.shoot, bullet2)
+    }
+
+    createBullet(shipPositionOffset) {
+        const direction = createDirection(this.body.rotation)
+
+        const rotatedPosition = rotatePoint(shipPositionOffset, this.body.rotation)
+        const bulletPosition = rotatedPosition.addVector(this.body.position)
+
+        return new Bullet ({
+            position: bulletPosition,
+            dimensions: new Vector(3, 3),
+            speed: 20,
+            direction: direction
+        })
     }
 
     collideWithBullets(bulletManager) {
         if(this.alive){
             bulletManager.bullets.forEach((bullet) => {
-                if(colliding(bullet.collisionBox, this.collisionBox)) this.die()
+                if(colliding(bullet.collisionBox, this.collisionBox)) {
+                    this.die()
+                }
             })
         }
     }
 
     die() {
+        if(this.respawning) return
         this.alive = false
-        const options: CircleExplosionOptions = {
-            particleSize:  new Vector(10, 10),
-            particleNumber: 7,
-            startDistanceFromOrigin: 5
+        const options: CircleExplosionEventData = {
+            position: this.body.position.copy(),
+            options: {
+                particleSize:  new Vector(10, 10),
+                particleNumber: 7,
+                startDistanceFromOrigin: 5
+            }
         }
-        this.particleEffectsManager.createCircleExplosionEffect(this.body.position.copy(), options)
+        this.observable.notify(ParticleEffectsManagerEvents.CircleExplosion, options)
+        this.observable.notify(ShipEvents.death)       
     }
+
+    onNotify(eventType:ObserverEventType, eventData:ObserverEventData) {
+        switch(eventType) {
+            case ShipEvents.doneSpawning:
+                this.respawning = false
+                break;
+            default:
+        }
+    }
+
+    addObserver(observer: Observer) {
+        this.observable.add(observer)
+    }
+}
+
+
+
+// Types and Enums
+
+
+
+export enum ShipEvents {
+    death = 'death',
+    doneSpawning = 'done spawning',
+    shoot = 'shoot'
+}
+
+export type CreateShipOptions = {
+    respawn: boolean
 }

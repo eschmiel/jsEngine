@@ -1,5 +1,4 @@
-import canvas from "../services/canvas.js";
-import { Vector } from "../services/vector.js";
+import { Vector } from "../services/math/vector.js";
 export var EntityBodyTriangleDrawTypes;
 (function (EntityBodyTriangleDrawTypes) {
     EntityBodyTriangleDrawTypes["Stroke"] = "stroke";
@@ -16,23 +15,23 @@ export var createTrianglePointsForEntityBody = function (body) {
     ];
 };
 export var drawEntityBodyTriangle = function (body, drawType, color, transparency) {
+    // const trianglePoints = createTrianglePointsForEntityBody(body)
     if (drawType === void 0) { drawType = EntityBodyTriangleDrawTypes.Fill; }
     if (color === void 0) { color = 'black'; }
     if (transparency === void 0) { transparency = 1; }
-    var trianglePoints = createTrianglePointsForEntityBody(body);
-    canvas.save();
-    canvas.context.globalAlpha = transparency;
-    canvas.rotate(body.rotation, body.getCenterPositionVector());
-    switch (drawType) {
-        case EntityBodyTriangleDrawTypes.Fill:
-            canvas.fillTriangle(trianglePoints, color);
-            break;
-        case EntityBodyTriangleDrawTypes.Stroke:
-            canvas.strokeTriangle(trianglePoints, color);
-            break;
-        default:
-            throw new Error("drawEntityBodyTriangle called with unsupported drawType parameter: ".concat(drawType));
-    }
-    canvas.restore();
+    // canvas.save()
+    // canvas.context.globalAlpha = transparency
+    // canvas.rotate(body.rotation, body.getCenterPositionVector())
+    // switch(drawType){
+    //     case EntityBodyTriangleDrawTypes.Fill:
+    //         canvas.fillTriangle(trianglePoints, color)
+    //         break;
+    //     case EntityBodyTriangleDrawTypes.Stroke:
+    //         canvas.strokeTriangle(trianglePoints, color)
+    //         break;
+    //     default:
+    //         throw new Error(`drawEntityBodyTriangle called with unsupported drawType parameter: ${drawType}`)
+    // }
+    // canvas.restore()
 };
 //# sourceMappingURL=drawEntityBody.js.map
