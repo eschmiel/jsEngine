@@ -1,4 +1,4 @@
-import { degreesToRadians } from '../../util.js'
+import { degreesToRadians } from '../../utilities/util.js'
 import { Vector } from '../math/vector.js';
 
 class Canvas {

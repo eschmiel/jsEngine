@@ -1,4 +1,4 @@
-import { degreesToRadians } from '../../util.js';
+import { degreesToRadians } from '../../utilities/util.js';
 var Canvas = /** @class */ (function () {
     function Canvas() {
         this.canvas = document.getElementById("gameCanvas");

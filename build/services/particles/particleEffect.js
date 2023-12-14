@@ -2,10 +2,10 @@ var ParticleEffect = /** @class */ (function () {
     function ParticleEffect() {
         this.particles = [];
     }
-    ParticleEffect.prototype.update = function () {
+    ParticleEffect.prototype.run = function () {
         var _this = this;
         this.particles.forEach(function (particle) {
-            particle.update();
+            particle.run();
             if (particle.outOfTime())
                 _this.remove(particle);
         });

@@ -1,10 +1,10 @@
-import { degreesToRadians } from '../../util.js'
+import { degreesToRadians } from '../../utilities/util.js'
 
 export class Vector {
     values: number[]
 
     constructor(...values: number[]) {
-        this.values = structuredClone(values)
+        this.values = values
     }
 
     addVector(vector: Vector) {

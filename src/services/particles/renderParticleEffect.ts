@@ -1,13 +1,13 @@
-import { RenderingSystem } from "../rendering/render.js";
+import { Renderer } from "../rendering/render.js";
 import { rotatePoint } from "../math/transformations.js";
 import { Vector } from "../math/vector.js";
 import { Particle } from "./particle.js";
 import { ParticleEffect } from "./particleEffect.js";
 
-export function renderParticleEffect(renderingSystem: RenderingSystem, particleEffect: ParticleEffect){
+export function renderParticleEffect(renderer: Renderer, particleEffect: ParticleEffect){
     particleEffect.particles.forEach((particle) => {
         const trianglePoints = getTrianglePoints(particle)
-        renderingSystem.renderStrokeTriangle(trianglePoints, `rgb(0 0 0 / ${particle.transparency})`)
+        renderer.renderStrokeTriangle(trianglePoints, `rgb(0 0 0 / ${particle.transparency})`)
     })
 }
 

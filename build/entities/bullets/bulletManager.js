@@ -1,13 +1,11 @@
 import { colliding } from "../../services/collisions/collisions.js";
 import { Observable } from "../../services/observable.js";
-import { Bullet, isCreateBulletOptions } from "./bullet.js";
 var BulletManager = /** @class */ (function () {
     function BulletManager() {
         this.observable = new Observable();
         this.bullets = [];
     }
-    BulletManager.prototype.add = function (options) {
-        var newBullet = new Bullet(options);
+    BulletManager.prototype.add = function (newBullet) {
         newBullet.addObserver(this);
         this.bullets.push(newBullet);
     };
@@ -16,22 +14,11 @@ var BulletManager = /** @class */ (function () {
     };
     BulletManager.prototype.onNotify = function (event, data) {
         this.observable.notify(event, data);
-        switch (event) {
-            case BulletManagerEvents.create:
-                if (isCreateBulletOptions(data))
-                    this.add(data);
-                break;
-            case BulletManagerEvents.remove:
-                if (isBullet(data))
-                    this.remove(data);
-                break;
-            default:
-        }
     };
     BulletManager.prototype.checkForBulletCollisions = function (collisionTarget) {
         var hit = false;
         this.bullets.forEach(function (bullet) {
-            if (colliding(bullet.collisionBox, collisionTarget.collisionBox)) {
+            if (colliding(bullet.collisionBox, collisionTarget === null || collisionTarget === void 0 ? void 0 : collisionTarget.collisionBox)) {
                 bullet.hit();
                 hit = true;
             }
@@ -48,7 +35,7 @@ var BulletManager = /** @class */ (function () {
 }());
 export { BulletManager };
 // Types
-function isBullet(input) {
+export function isBullet(input) {
     return input.hit !== undefined;
 }
 export var BulletManagerEvents;

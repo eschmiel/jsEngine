@@ -1,9 +1,9 @@
 import { rotatePoint } from "../math/transformations.js";
 import { Vector } from "../math/vector.js";
-export function renderParticleEffect(renderingSystem, particleEffect) {
+export function renderParticleEffect(renderer, particleEffect) {
     particleEffect.particles.forEach(function (particle) {
         var trianglePoints = getTrianglePoints(particle);
-        renderingSystem.renderStrokeTriangle(trianglePoints, "rgb(0 0 0 / ".concat(particle.transparency, ")"));
+        renderer.renderStrokeTriangle(trianglePoints, "rgb(0 0 0 / ".concat(particle.transparency, ")"));
     });
 }
 function getTrianglePoints(particle) {

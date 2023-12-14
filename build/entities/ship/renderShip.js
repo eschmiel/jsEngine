@@ -3,7 +3,9 @@ import { Vector } from "../../services/math/vector.js";
 export function renderShip(renderingSystem, ship) {
     if (ship.alive) {
         var trianglePoints = getTrianglePoints(ship);
-        renderingSystem.renderFillTriangle(trianglePoints, 'black');
+        if (!ship.respawning || !(ship.respawnTimer.currentTime % 20 === 0)) {
+            renderingSystem.renderFillTriangle(trianglePoints);
+        }
     }
 }
 function getTrianglePoints(ship) {

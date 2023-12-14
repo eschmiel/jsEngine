@@ -1,11 +1,9 @@
 import { CollisionBox } from "../../services/collisions/collisionBox.js";
 import { colliding } from "../../services/collisions/collisions.js";
-import { Observable } from "../../services/observable.js";
+import { Observable, Observer } from "../../services/observable.js";
 import { CircleExplosionEventData, ParticleEffectsManagerEvents } from "../../services/particles/particleEffectsManager.js";
 import { Vector } from "../../services/math/vector.js";
-import { Observer } from "../../types.js";
 import { EntityBody, EntityBodyOptions } from "../entityBody.js";
-import { BulletManagerEvents } from "./bulletManager.js";
 
 export class Bullet {
     body: EntityBody;
@@ -52,7 +50,7 @@ export class Bullet {
             }
         }
         this.observable.notify(ParticleEffectsManagerEvents.CircleExplosion, options)
-        this.observable.notify(BulletManagerEvents.remove, this)
+        this.observable.notify(BulletEvents.hit, this)
     }
 }
 
@@ -78,4 +76,8 @@ export function isCreateBulletOptions(input): input is CreateBulletOptions {
     || (input as CreateBulletOptions).direction !== undefined
     || (input as CreateBulletOptions).dimensions !== undefined
     || (input as CreateBulletOptions).speed !== undefined
+}
+
+export enum BulletEvents {
+    hit = 'hit'
 }

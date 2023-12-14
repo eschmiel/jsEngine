@@ -4,7 +4,6 @@ import { Observable } from "../../services/observable.js";
 import { ParticleEffectsManagerEvents } from "../../services/particles/particleEffectsManager.js";
 import { Vector } from "../../services/math/vector.js";
 import { EntityBody } from "../entityBody.js";
-import { BulletManagerEvents } from "./bulletManager.js";
 var Bullet = /** @class */ (function () {
     function Bullet(options) {
         var position = options.position, direction = options.direction, dimensions = options.dimensions, speed = options.speed;
@@ -42,7 +41,7 @@ var Bullet = /** @class */ (function () {
             }
         };
         this.observable.notify(ParticleEffectsManagerEvents.CircleExplosion, options);
-        this.observable.notify(BulletManagerEvents.remove, this);
+        this.observable.notify(BulletEvents.hit, this);
     };
     return Bullet;
 }());
@@ -56,4 +55,8 @@ export function isCreateBulletOptions(input) {
         || input.dimensions !== undefined
         || input.speed !== undefined;
 }
+export var BulletEvents;
+(function (BulletEvents) {
+    BulletEvents["hit"] = "hit";
+})(BulletEvents || (BulletEvents = {}));
 //# sourceMappingURL=bullet.js.map

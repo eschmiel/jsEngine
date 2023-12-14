@@ -1,0 +1,66 @@
+Date : 2023-12-12 17:50:13
+Directory : c:\development\game_development\jsEngine\src
+Total : 31 files,  146 codes, -9 comments, 37 blanks, all 174 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| TypeScript |         31 |        146 |         -9 |         37 |        174 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                    | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                       |         31 |        146 |         -9 |         37 |        174 |
+| . (Files)                                                                               |          5 |          7 |         -1 |          0 |          6 |
+| entities                                                                                |         10 |        -40 |         -9 |         -2 |        -51 |
+| entities (Files)                                                                        |          5 |        -77 |         -1 |        -17 |        -95 |
+| entities\bullets                                                                        |          3 |          4 |          0 |          1 |          5 |
+| entities\ship                                                                           |          2 |         33 |         -8 |         14 |         39 |
+| services                                                                                |         16 |        179 |          1 |         39 |        219 |
+| services (Files)                                                                        |          5 |        -40 |         -1 |        -20 |        -61 |
+| services\collisions                                                                     |          2 |         -2 |          0 |          0 |         -2 |
+| services\math                                                                           |          3 |         86 |          0 |         22 |        108 |
+| services\particles                                                                      |          3 |         16 |          0 |          4 |         20 |
+| services\rendering                                                                      |          3 |        119 |          2 |         33 |        154 |
++-----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                | language   | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\development\game_development\jsEngine\src\draw.ts                                    | TypeScript |         -1 |         -1 |          0 |         -2 |
+| c:\development\game_development\jsEngine\src\entities\bullet.ts                         | TypeScript |        -38 |          0 |         -6 |        -44 |
+| c:\development\game_development\jsEngine\src\entities\bullets\bullet.ts                 | TypeScript |          2 |          0 |         -1 |          1 |
+| c:\development\game_development\jsEngine\src\entities\bullets\bulletManager.ts          | TypeScript |         -7 |          0 |          0 |         -7 |
+| c:\development\game_development\jsEngine\src\entities\bullets\renderBullets.ts          | TypeScript |          9 |          0 |          2 |         11 |
+| c:\development\game_development\jsEngine\src\entities\drawEntityBody.ts                 | TypeScript |        -34 |          0 |         -7 |        -41 |
+| c:\development\game_development\jsEngine\src\entities\entityManager.ts                  | TypeScript |        -42 |          0 |        -10 |        -52 |
+| c:\development\game_development\jsEngine\src\entities\entityTypes.ts                    | TypeScript |          4 |          0 |          0 |          4 |
+| c:\development\game_development\jsEngine\src\entities\player.ts                         | TypeScript |         33 |         -1 |          6 |         38 |
+| c:\development\game_development\jsEngine\src\entities\ship\renderShip.ts                | TypeScript |         23 |          0 |          6 |         29 |
+| c:\development\game_development\jsEngine\src\entities\ship\ship.ts                      | TypeScript |         10 |         -8 |          8 |         10 |
+| c:\development\game_development\jsEngine\src\gameState.ts                               | TypeScript |          5 |         -2 |          1 |          4 |
+| c:\development\game_development\jsEngine\src\main.ts                                    | TypeScript |          2 |          0 |         -1 |          1 |
+| c:\development\game_development\jsEngine\src\services\canvas.ts                         | TypeScript |        -71 |         -2 |        -24 |        -97 |
+| c:\development\game_development\jsEngine\src\services\collisions\collisionBox.ts        | TypeScript |         -7 |          0 |         -1 |         -8 |
+| c:\development\game_development\jsEngine\src\services\collisions\renderCollisionBox.ts  | TypeScript |          5 |          0 |          1 |          6 |
+| c:\development\game_development\jsEngine\src\services\math\matrix.ts                    | TypeScript |         42 |          0 |         10 |         52 |
+| c:\development\game_development\jsEngine\src\services\math\transformations.ts           | TypeScript |          8 |          0 |          2 |         10 |
+| c:\development\game_development\jsEngine\src\services\math\vector.ts                    | TypeScript |         36 |          0 |         10 |         46 |
+| c:\development\game_development\jsEngine\src\services\particles\particle.ts             | TypeScript |         -4 |          0 |         -1 |         -5 |
+| c:\development\game_development\jsEngine\src\services\particles\particleEffect.ts       | TypeScript |         -3 |          0 |         -1 |         -4 |
+| c:\development\game_development\jsEngine\src\services\particles\renderParticleEffect.ts | TypeScript |         23 |          0 |          6 |         29 |
+| c:\development\game_development\jsEngine\src\services\rendering\canvas.ts               | TypeScript |         71 |          2 |         24 |         97 |
+| c:\development\game_development\jsEngine\src\services\rendering\render.ts               | TypeScript |         33 |          0 |          7 |         40 |
+| c:\development\game_development\jsEngine\src\services\rendering\renderGameObjects.ts    | TypeScript |         15 |          0 |          2 |         17 |
+| c:\development\game_development\jsEngine\src\services\respawner.ts                      | TypeScript |         35 |          1 |         11 |         47 |
+| c:\development\game_development\jsEngine\src\services\timer.ts                          | TypeScript |         36 |          0 |          5 |         41 |
+| c:\development\game_development\jsEngine\src\services\types.ts                          | TypeScript |         -6 |          0 |         -3 |         -9 |
+| c:\development\game_development\jsEngine\src\services\vector.ts                         | TypeScript |        -34 |          0 |         -9 |        -43 |
+| c:\development\game_development\jsEngine\src\types.ts                                   | TypeScript |          2 |          0 |          0 |          2 |
+| c:\development\game_development\jsEngine\src\update.ts                                  | TypeScript |         -1 |          2 |          0 |          1 |
+| Total                                                                                   |            |        146 |         -9 |         37 |        174 |
++-----------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

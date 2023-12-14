@@ -1,7 +1,7 @@
 import Canvas from "./canvas.js";
 import { Vector } from "../math/vector.js";
 
-export class RenderingSystem {
+export class Renderer {
     canvas: Canvas
 
     constructor() {
@@ -25,6 +25,12 @@ export class RenderingSystem {
     renderFillCircle(position: Vector, radius: number, color: string = 'black') {
         this.canvas.save()
         this.canvas.fillCircle(position, radius, color)
+        this.canvas.restore()
+    }
+
+    renderRectangle(position: Vector, dimensions: Vector, color: string = 'black', type?: string) {
+        this.canvas.save()
+        this.canvas.drawRectangle(position, dimensions, color)
         this.canvas.restore()
     }
 

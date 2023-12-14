@@ -1,4 +1,4 @@
-import { degreesToRadians } from "../../util.js";
+import { degreesToRadians } from "../../utilities/util.js";
 import { Vector } from "./vector.js";
 
 export class Matrix {
@@ -10,7 +10,7 @@ export class Matrix {
         if(isVector(initialValues)) {
             this.values.push([...initialValues.values])
         } else if(isMultiDimenisonalArray(initialValues)) {
-            this.values = structuredClone(initialValues)
+            this.values = initialValues.map((row) => [...row])
         } else {
             this.values.push([...initialValues])
         }

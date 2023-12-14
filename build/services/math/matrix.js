@@ -7,7 +7,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-import { degreesToRadians } from "../../util.js";
+import { degreesToRadians } from "../../utilities/util.js";
 import { Vector } from "./vector.js";
 var Matrix = /** @class */ (function () {
     function Matrix(initialValues) {
@@ -16,7 +16,7 @@ var Matrix = /** @class */ (function () {
             this.values.push(__spreadArray([], initialValues.values, true));
         }
         else if (isMultiDimenisonalArray(initialValues)) {
-            this.values = structuredClone(initialValues);
+            this.values = initialValues.map(function (row) { return __spreadArray([], row, true); });
         }
         else {
             this.values.push(__spreadArray([], initialValues, true));

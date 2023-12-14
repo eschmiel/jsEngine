@@ -7,14 +7,14 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-import { degreesToRadians } from '../../util.js';
+import { degreesToRadians } from '../../utilities/util.js';
 var Vector = /** @class */ (function () {
     function Vector() {
         var values = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             values[_i] = arguments[_i];
         }
-        this.values = structuredClone(values);
+        this.values = values;
     }
     Vector.prototype.addVector = function (vector) {
         var newValues = this.values.map(function (value, index) { return value + vector.values[index]; });

@@ -18,8 +18,16 @@
 ----
 
 -[DONE] Correct bullet alignment
-- Add walls, have bullets hit walls
+-[DONE] Add walls, have bullets hit walls
 
 *****
 
 -[DONE] Matrix Math util
+
+-Temporary invincibility on respawn. Blink while invincible.
+-On screen life counter
+
+*****
+
+~Adapting to new rendering system
+- Get particle effects rendering with new rendering system

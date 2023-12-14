@@ -1,8 +1,11 @@
 import { EntityBody } from "../../entities/entityBody.js";
 import { Accelerator } from "../lerpers/accelerator.js";
 import { Fader } from "../lerpers/fader.js";
+import { rotatePoint } from "../math/transformations.js";
+import { Vector } from "../math/vector.js";
 var Particle = /** @class */ (function () {
-    function Particle(options) {
+    function Particle(renderer, options) {
+        this.renderer = renderer;
         var _a = options.body, body = _a === void 0 ? defaultParticleOptions.body : _a, _b = options.color, color = _b === void 0 ? defaultParticleOptions.color : _b, _c = options.maxTime, maxTime = _c === void 0 ? defaultParticleOptions.maxTime : _c, faderSettings = options.faderSettings, acceleratorSettings = options.acceleratorSettings;
         var startingAlpha = faderSettings.startingAlpha, targetAlpha = faderSettings.targetAlpha, fadeRate = faderSettings.fadeRate;
         var startingSpeed = acceleratorSettings.startingSpeed, maxSpeed = acceleratorSettings.maxSpeed, accelerationRate = acceleratorSettings.accelerationRate, direction = acceleratorSettings.direction;
@@ -14,11 +17,25 @@ var Particle = /** @class */ (function () {
         this.fader = new Fader(startingAlpha, targetAlpha, fadeRate);
         this.transparency = this.fader.getStartingAlpha();
     }
-    Particle.prototype.update = function () {
+    Particle.prototype.run = function () {
         this.body.speed = this.accelerator.run();
         this.body.update();
         this.transparency = this.fader.run();
         this.timer++;
+        var trianglePoints = this.getTrianglePoints();
+        this.renderer.renderStrokeTriangle(trianglePoints, "rgb(0 0 0 / ".concat(this.transparency, ")"));
+    };
+    Particle.prototype.getTrianglePoints = function () {
+        var _a = this.body.getDimensions(), width = _a[0], height = _a[1];
+        var _b = this.body, rotation = _b.rotation, position = _b.position;
+        var pointsFromPointOfRotation = [
+            new Vector(-width / 2, height / 2),
+            new Vector(width / 2, 0),
+            new Vector(-width / 2, -height / 2)
+        ];
+        var rotatedPoints = pointsFromPointOfRotation.map(function (point) { return rotatePoint(point, rotation); });
+        var pointsOffsetFromShipPosition = rotatedPoints.map(function (point) { return point.addVector(position); });
+        return pointsOffsetFromShipPosition;
     };
     Particle.prototype.outOfTime = function () {
         return this.timer >= this.maxTime;
@@ -26,12 +43,12 @@ var Particle = /** @class */ (function () {
     return Particle;
 }());
 export { Particle };
-function isEntityBody(input) {
-    return input.update !== undefined;
-}
 var defaultParticleOptions = {
     body: new EntityBody(),
     color: 'black',
     maxTime: 5
 };
+function isEntityBody(input) {
+    return input.update !== undefined;
+}
 //# sourceMappingURL=particle.js.map

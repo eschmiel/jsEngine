@@ -1,8 +1,6 @@
 import { Collidable, colliding } from "../../services/collisions/collisions.js"
-import { Observable } from "../../services/observable.js"
-import { Observer } from "../../services/types.js"
-import { ObserverEventData, ObserverEventType } from "../../types.js"
-import { CreateBulletOptions, Bullet, isCreateBulletOptions } from "./bullet.js"
+import { Observable, Observer, ObserverEventData, ObserverEventType } from "../../services/observable.js"
+import { CreateBulletOptions, Bullet } from "./bullet.js"
 
 export class BulletManager {    
     bullets: Bullet[]
@@ -13,8 +11,7 @@ export class BulletManager {
         this.bullets = []
     }
 
-    add(options: CreateBulletOptions){
-        const newBullet = new Bullet(options)
+    add(newBullet: Bullet){
         newBullet.addObserver(this)
         this.bullets.push(newBullet)
     }
@@ -25,22 +22,12 @@ export class BulletManager {
 
     onNotify(event: ObserverEventType, data: ObserverEventData){
         this.observable.notify(event, data)
-
-        switch(event) {
-            case BulletManagerEvents.create:
-                if(isCreateBulletOptions(data)) this.add(data)
-                break;
-            case BulletManagerEvents.remove:
-                if(isBullet(data)) this.remove(data)
-                break
-            default:
-        }
     }
 
     checkForBulletCollisions(collisionTarget: Collidable) {
         let hit = false
         this.bullets.forEach((bullet) => {
-            if(colliding(bullet.collisionBox, collisionTarget.collisionBox)){
+            if(colliding(bullet.collisionBox, collisionTarget?.collisionBox)){
                 bullet.hit()
                 hit = true
             }
@@ -63,7 +50,7 @@ export class BulletManager {
 
 
 
-function isBullet(input: ObserverEventData): input is Bullet {
+export function isBullet(input: ObserverEventData): input is Bullet {
     return (input as Bullet).hit !== undefined
 }
 
