@@ -4,7 +4,7 @@ import { getCircleExplosionParticleConfig } from '../configs/circleExplosionPart
 import { ParticleEffect } from "../particleEffect.js";
 import { Renderer } from "../../rendering/render.js";
 
-export const createCircleExplosionEffect = (renderer: Renderer, position: Vector, options: CircleExplosionOptions = defaultCircleExplosionOptions) => {
+export const createCircleExplosionEffect = (position: Vector, options: CircleExplosionOptions = defaultCircleExplosionOptions) => {
     const { particleNumber } = options
     const particleDegreeGap = 360/particleNumber
 
@@ -12,14 +12,14 @@ export const createCircleExplosionEffect = (renderer: Renderer, position: Vector
 
     for ( let i = 1; i <= particleNumber; i++ ) {
         const projectedAngle = particleDegreeGap * i
-        const particle = createCircleExplosionParticle(renderer, position, projectedAngle, options)
+        const particle = createCircleExplosionParticle(position, projectedAngle, options)
         particleEffect.add(particle)
     }
 
     return particleEffect
 }
 
-function createCircleExplosionParticle(renderer: Renderer, position: Vector = new Vector(0, 0), projectedAngle: number = 0, circleExplosionOptions: CircleExplosionOptions = defaultCircleExplosionOptions) {
+function createCircleExplosionParticle(position: Vector = new Vector(0, 0), projectedAngle: number = 0, circleExplosionOptions: CircleExplosionOptions = defaultCircleExplosionOptions) {
     const { 
         particleSize = defaultCircleExplosionOptions.particleSize, 
         startDistanceFromOrigin = defaultCircleExplosionOptions.startDistanceFromOrigin
@@ -32,7 +32,7 @@ function createCircleExplosionParticle(renderer: Renderer, position: Vector = ne
     particleOptions.body.dimensions = particleSize.copy()
     particleOptions.body.rotation= projectedAngle
 
-    return new Particle(renderer, particleOptions)
+    return new Particle(particleOptions)
 }
 
 

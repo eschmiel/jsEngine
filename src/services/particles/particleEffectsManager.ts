@@ -5,11 +5,9 @@ import { createCircleExplosionEffect, CircleExplosionOptions } from "./effects/c
 import { ParticleEffect } from "./particleEffect.js"
 
 export class ParticleEffectsManager {
-    renderer: Renderer
     particleEffects: ParticleEffect[]
 
-    constructor(renderer: Renderer) {
-        this.renderer = renderer
+    constructor() {
         this.particleEffects = []
     }
 
@@ -27,7 +25,7 @@ export class ParticleEffectsManager {
     }
 
     createCircleExplosionEffect(position: Vector, options: CircleExplosionOptions) {
-        const particleEffect = createCircleExplosionEffect(this.renderer, position, options)
+        const particleEffect = createCircleExplosionEffect(position, options)
         this.add(particleEffect)
     }
 

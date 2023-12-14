@@ -15,8 +15,8 @@ export class Particle {
     timer: number;
     transparency: number;
 
-    constructor(renderer: Renderer, options: ParticleOptions) {
-        this.renderer = renderer
+    constructor(options: ParticleOptions) {
+        this.renderer = new Renderer()
         const { 
             body = defaultParticleOptions.body,
             color = defaultParticleOptions.color, 

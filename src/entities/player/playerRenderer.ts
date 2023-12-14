@@ -10,15 +10,13 @@ import { ShipRenderer } from "../ship/shipRenderer.js"
 
 export class PlayerRenderer {
     renderer: Renderer
-    particleEffectsManager: ParticleEffectsManager
     player: Player
     shipRenderer: ShipRenderer
     bulletRenderers: BulletRenderer[]
     observable: Observable
 
-    constructor(renderer: Renderer, particleEffectsManager: ParticleEffectsManager, player: Player){
-        this.renderer = renderer
-        this.particleEffectsManager = particleEffectsManager
+    constructor(player: Player){
+        this.renderer = new Renderer()
         this.player = player
         this.shipRenderer = new ShipRenderer(this.renderer, this.player.ship)
         this.bulletRenderers = []

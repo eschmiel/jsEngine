@@ -1,7 +1,6 @@
 import { createCircleExplosionEffect } from "./effects/circleExplosion.js";
 var ParticleEffectsManager = /** @class */ (function () {
-    function ParticleEffectsManager(renderer) {
-        this.renderer = renderer;
+    function ParticleEffectsManager() {
         this.particleEffects = [];
     }
     ParticleEffectsManager.prototype.run = function () {
@@ -17,7 +16,7 @@ var ParticleEffectsManager = /** @class */ (function () {
         this.particleEffects = this.particleEffects.filter(function (particleEffect) { return particleEffect !== particleEffectToRemove; });
     };
     ParticleEffectsManager.prototype.createCircleExplosionEffect = function (position, options) {
-        var particleEffect = createCircleExplosionEffect(this.renderer, position, options);
+        var particleEffect = createCircleExplosionEffect(position, options);
         this.add(particleEffect);
     };
     ParticleEffectsManager.prototype.onNotify = function (event, data) {

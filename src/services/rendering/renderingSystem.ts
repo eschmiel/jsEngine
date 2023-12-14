@@ -10,9 +10,9 @@ export class RenderingSystem2 {
     
     constructor(gameState: GameState) {
         this.renderer = new Renderer()
-        this.particleEffectManager = new ParticleEffectsManager(this.renderer)
+        this.particleEffectManager = new ParticleEffectsManager()
 
-        this.playerRenderer = new PlayerRenderer(this.renderer, this.particleEffectManager, gameState.player)
+        this.playerRenderer = new PlayerRenderer(gameState.player)
         
         this.playerRenderer.addObserver(this.particleEffectManager)
     }

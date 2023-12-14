@@ -1,11 +1,11 @@
-import { PlayerRenderer } from "../../entities/playerRenderer.js";
+import { PlayerRenderer } from "../../entities/player/playerRenderer.js";
 import { ParticleEffectsManager } from "../particles/particleEffectsManager.js";
 import { Renderer } from "./render.js";
 var RenderingSystem2 = /** @class */ (function () {
     function RenderingSystem2(gameState) {
         this.renderer = new Renderer();
-        this.particleEffectManager = new ParticleEffectsManager(this.renderer);
-        this.playerRenderer = new PlayerRenderer(this.renderer, this.particleEffectManager, gameState.player);
+        this.particleEffectManager = new ParticleEffectsManager();
+        this.playerRenderer = new PlayerRenderer(gameState.player);
         this.playerRenderer.addObserver(this.particleEffectManager);
     }
     RenderingSystem2.prototype.run = function () {

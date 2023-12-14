@@ -1,5 +1,5 @@
 import { BulletManager } from "./entities/bullets/bulletManager.js";
-import { Player } from "./entities/player.js";
+import { Player } from "./entities/player/player.js";
 import { TimeTracker } from "./services/timeTracker.js";
 import { Vector } from "./services/math/vector.js";
 var GameState = /** @class */ (function () {
