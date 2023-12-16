@@ -24,6 +24,13 @@ export class Timer {
         }
     }
 
+    deactivate(){
+        if(this.active) {
+            this.active = false
+            this.currentTime = 0
+        }
+    }
+
     update() {
         if(this.active){
             this.currentTime--
@@ -37,4 +44,8 @@ export class Timer {
     addObserver(observer: Observer) {
         this.observable.add(observer)
     }
+}
+
+export enum TimerEvents {
+    Done = 'done'
 }

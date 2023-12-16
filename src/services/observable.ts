@@ -3,6 +3,7 @@ import { BulletManagerEventData, BulletManagerEvents } from "../entities/bullets
 import { ShipEvents } from "../entities/ship/ship.js"
 import { ParticleEffectsManagerEventData, ParticleEffectsManagerEvents } from "./particles/particleEffectsManager.js"
 import { RespawnerEvents } from "./respawner.js"
+import { TimerEvents } from "./timer.js"
 
 export class Observable {
     observers: Observer[]
@@ -25,7 +26,7 @@ export class Observable {
 }
 
 export type ObserverEventData = ParticleEffectsManagerEventData | BulletManagerEventData
-export type ObserverEventType = ParticleEffectsManagerEvents | BulletManagerEvents | RespawnerEvents | ShipEvents | BulletEvents
+export type ObserverEventType = ParticleEffectsManagerEvents | BulletManagerEvents | RespawnerEvents | ShipEvents | BulletEvents | TimerEvents
 
 
 export type Observer = {

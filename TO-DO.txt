@@ -24,10 +24,10 @@
 
 -[DONE] Matrix Math util
 
--Temporary invincibility on respawn. Blink while invincible.
--On screen life counter
+-[DONE]Temporary invincibility on respawn. Blink while invincible.
+-[NEXT] On screen life counter
 
 *****
 
 ~Adapting to new rendering system
-- Get particle effects rendering with new rendering system
+-[DONE] Get particle effects rendering with new rendering system

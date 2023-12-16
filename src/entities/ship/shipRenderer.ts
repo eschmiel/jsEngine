@@ -1,19 +1,44 @@
 import { Renderer } from "../../services/rendering/render.js";
 import { rotatePoint } from "../../services/math/transformations.js";
 import { Vector } from "../../services/math/vector.js";
-import Ship from "./ship.js";
+import Ship, { ShipEvents } from "./ship.js";
+import { Timer, TimerEvents } from "../../services/timer.js";
 
 export class ShipRenderer {
     renderer: Renderer
     ship: Ship
+    flashTimer: Timer
+    visible: boolean
 
     constructor(renderer: Renderer, ship: Ship) {
         this.renderer = renderer
+        this.visible = true
+
         this.ship = ship
+        this.ship.addObserver(this)
+
+        this.flashTimer = new Timer(7, TimerEvents.Done)
+        this.flashTimer.addObserver(this)
+        if(this.ship.respawning) this.flashTimer.activate()
+    }
+
+    onNotify(eventType) {
+        switch(eventType) {
+            case TimerEvents.Done:
+                this.visible = !this.visible
+                this.flashTimer.activate()
+                break;
+            case ShipEvents.doneSpawning:
+                this.visible = true
+                this.flashTimer.deactivate()
+                break
+            default:
+        }
     }
 
     run(){
-        if(this.ship.alive) {
+        this.flashTimer.update()
+        if(this.ship.alive && this.visible) {
             const trianglePoints = this.getTrianglePoints()
             this.renderer.renderFillTriangle(trianglePoints)
         }

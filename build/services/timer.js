@@ -14,6 +14,12 @@ var Timer = /** @class */ (function () {
             this.active = true;
         }
     };
+    Timer.prototype.deactivate = function () {
+        if (this.active) {
+            this.active = false;
+            this.currentTime = 0;
+        }
+    };
     Timer.prototype.update = function () {
         if (this.active) {
             this.currentTime--;
@@ -29,4 +35,8 @@ var Timer = /** @class */ (function () {
     return Timer;
 }());
 export { Timer };
+export var TimerEvents;
+(function (TimerEvents) {
+    TimerEvents["Done"] = "done";
+})(TimerEvents || (TimerEvents = {}));
 //# sourceMappingURL=timer.js.map

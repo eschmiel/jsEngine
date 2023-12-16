@@ -135,6 +135,7 @@ export default class Ship {
         switch(eventType) {
             case ShipEvents.doneSpawning:
                 this.respawning = false
+                this.observable.notify(ShipEvents.doneSpawning)
                 break;
             default:
         }
