@@ -71,5 +71,5 @@ var Canvas = /** @class */ (function () {
     };
     return Canvas;
 }());
-export default Canvas;
+export default new Canvas();
 //# sourceMappingURL=canvas.js.map

@@ -1,23 +1,22 @@
-import GameState from './gameState.js'
 import update from './update.js'
-import { RenderingSystem2 } from './services/rendering/renderingSystem.js'
-
-
+import { init } from './init.js'
+import { startGame } from './startGame.js'
+import draw from './draw.js'
 
 (() => {
-  const gameState = new GameState()
-  const renderingSystem2 = new RenderingSystem2(gameState)
-  const {timeTracker} = gameState
+  const {gameEntities, particleEffectManager, timeTracker, gameState} = init()
+  startGame(gameEntities, gameState)
+  
   function game(time = 0) {
       window.requestAnimationFrame(game)
 
       timeTracker.trackTime(time)
       
       while(timeTracker.isTimeBetweenUpdatesOverTimeLimit()) {
-        update(gameState)
-        renderingSystem2.run()
+        update(gameEntities, particleEffectManager, gameState)
         timeTracker.logUpdate()
       }
+      draw(gameEntities, gameState, particleEffectManager)
   }
 
   game()

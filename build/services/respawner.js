@@ -1,35 +1,36 @@
-import { Observable } from "./observable.js";
-var Respawner = /** @class */ (function () {
-    function Respawner(timeBetweenRespawns) {
-        this.timeBetweenRespawns = timeBetweenRespawns;
-        this.respawnCountDown = 0;
-        this.active = false;
-        this.observable = new Observable();
-    }
-    Respawner.prototype.activate = function () {
-        if (!this.active) {
-            this.respawnCountDown = this.timeBetweenRespawns;
-            this.active = true;
-        }
-    };
-    Respawner.prototype.update = function () {
-        if (this.active) {
-            this.respawnCountDown--;
-            if (this.respawnCountDown <= 0) {
-                this.active = false;
-                this.observable.notify(RespawnerEvents.respawn);
-            }
-        }
-    };
-    Respawner.prototype.addObserver = function (observer) {
-        this.observable.add(observer);
-    };
-    return Respawner;
-}());
-export { Respawner };
-// Types and Enums
-export var RespawnerEvents;
-(function (RespawnerEvents) {
-    RespawnerEvents["respawn"] = "respawn";
-})(RespawnerEvents || (RespawnerEvents = {}));
+// import { Observable, Observer } from "./observable.js"
+// export class Respawner {
+//     timeBetweenRespawns: number
+//     respawnCountDown: number
+//     active: boolean
+//     observable: Observable
+//     constructor(timeBetweenRespawns) {
+//         this.timeBetweenRespawns = timeBetweenRespawns
+//         this.respawnCountDown = 0
+//         this.active = false
+//         this.observable = new Observable()
+//     }
+//     activate() {
+//         if(!this.active) {
+//             this.respawnCountDown = this.timeBetweenRespawns
+//             this.active = true
+//         }
+//     }
+//     update() {
+//         if(this.active){
+//             this.respawnCountDown--
+//             if(this.respawnCountDown <= 0) {
+//                 this.active = false
+//                 this.observable.notify(RespawnerEvents.respawn)
+//             }
+//         }
+//     }
+//     addObserver(observer: Observer) {
+//         this.observable.add(observer)
+//     }
+// }
+// // Types and Enums
+// export enum RespawnerEvents {
+//     respawn = 'respawn'
+// }
 //# sourceMappingURL=respawner.js.map

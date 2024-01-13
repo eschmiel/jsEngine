@@ -4,7 +4,9 @@ import { Vector } from "../math/vector.js";
 import { Particle } from "./particle.js";
 import { ParticleEffect } from "./particleEffect.js";
 
-export function renderParticleEffect(renderer: Renderer, particleEffect: ParticleEffect){
+export function renderParticleEffect(particleEffect: ParticleEffect){
+    const renderer = new Renderer()
+
     particleEffect.particles.forEach((particle) => {
         const trianglePoints = getTrianglePoints(particle)
         renderer.renderStrokeTriangle(trianglePoints, `rgb(0 0 0 / ${particle.transparency})`)

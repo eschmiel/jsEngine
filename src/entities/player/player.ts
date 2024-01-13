@@ -1,69 +1,52 @@
-import { Vector } from "../../services/math/vector.js"
-import { BulletManager, isBullet } from "../bullets/bulletManager.js"
-import Ship, { CreateShipOptions, ShipEvents } from "../ship/ship.js"
-import { Respawner, RespawnerEvents } from "../../services/respawner.js"
-import { Observable, Observer } from "../../services/observable.js"
-import { BulletEvents } from "../bullets/bullet.js"
+// import { Vector } from "../../services/math/vector.js"
+// import { BulletManager } from "../bullets/bulletManager.js"
+// import Ship, { CreateShipOptions } from "../ship/ship.js"
+// import { Respawner } from "../../services/respawner.js"
 
-export class Player {
-    id: number
-    lives: number
-    ship?: Ship
-    bulletManager?: BulletManager
-    respawner: Respawner
-    observable: Observable
+// export class Player {
+//     id: number
+//     lives: number
+//     ship?: Ship
+//     bulletManager?: BulletManager
+//     respawning: boolean
+//     respawner: Respawner
 
-    constructor(id: number) {
-        this.id = id
-        this.lives = 5
-        this.respawner = new Respawner(60)
-        this.observable = new Observable()
+//     constructor(id: number) {
+//         this.id = id
+//         this.lives = 5
+//         this.respawning = false
+//         this.respawner = new Respawner(60)
+//     }
 
-        this.respawner.addObserver(this)
-    }
+//     createShip(position: Vector, options?: CreateShipOptions) {
+//         const [x, y] = position.values
+//         this.bulletManager = new BulletManager()
+//         this.ship = new Ship(new Vector(x, y), options)
+//     }
 
-    createShip(position: Vector, options?: CreateShipOptions) {
-        const [x, y] = position.values
-        this.bulletManager = new BulletManager()
-        this.ship = new Ship(x, y, options)
-        
-        this.bulletManager.addObserver(this)
-        this.ship.addObserver(this)
-    }
+//     update(){
+//         this.ship?.update()
+//         this.bulletManager?.update()
+//         this.respawner.update()
 
-    update(){
-        this.ship?.update()
-        this.bulletManager?.update()
-        this.respawner.update()
-    }
+//         if(!this.ship.alive && !this.respawning){
+//             this.loseALife()
+//         }
 
-    onNotify(eventType, eventData){
-        switch(eventType) {
-            case ShipEvents.death:
-                this.lives--
-                if(this.lives>0) {
-                    this.respawner.activate()
-                }
-                this.ship = null
-                break;
-            case RespawnerEvents.respawn:
-                this.createShip(new Vector(200, 400), {respawn: true})
-                break;
-            case ShipEvents.shoot:
-                if(isBullet(eventData)) this.bulletManager.add(eventData)
-                break;
-            case BulletEvents.hit:
-                if(isBullet(eventData)) this.bulletManager.remove(eventData)
-                break
-            default:
-        }
+//         if(this.respawning && !this.respawner.active){
+//             this.createShip(new Vector(200, 400), {respawn: true})
+//         }
+//     }
 
-        this.observable.notify(eventType, eventData)
-    }
-
-    addObserver(observer: Observer) {
-        this.observable.add(observer)
-    }
-}
-
-
+//     loseALife(){
+//         this.lives--
+//         if(this.lives>0) {
+//             this.respawning = true
+//             this.respawner.activate()
+//         }
+//         this.ship = null
+//     }
+//             // case BulletEvents.hit:
+//             //     if(isBullet(eventData)) this.bulletManager.remove(eventData)
+//             //     break
+// }

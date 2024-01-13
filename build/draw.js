@@ -1,6 +1,8 @@
-import { renderGameObjects } from './services/rendering/renderGameObjects.js';
-export default (function (gameState, renderingSystem) {
-    renderingSystem.clearScreen();
-    renderGameObjects(gameState, renderingSystem);
+import { renderEntities } from "./entities/renderEntities.js";
+import { Renderer } from "./services/rendering/render.js";
+export default (function (gameEntities, gameState, particleEffectsManager) {
+    new Renderer().clearScreen();
+    renderEntities(gameEntities);
+    particleEffectsManager.render();
 });
 //# sourceMappingURL=draw.js.map

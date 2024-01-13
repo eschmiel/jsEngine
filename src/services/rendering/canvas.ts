@@ -94,4 +94,4 @@ class Canvas {
       }
 }
 
-export default Canvas
+export default new Canvas()
