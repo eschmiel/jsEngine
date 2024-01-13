@@ -1,17 +1,5 @@
 import { Lerp } from "./lerp.js"
 
-export enum AcceleratorDirection {
-    Forward = 'forward',
-    Backward = 'backward',
-    Stop = 'stop'
-}
-
-export type AcceleratorSettings = {
-    maxSpeed?: number,
-    accelerationRate?: number,
-    startingSpeed?: number,
-    direction?: AcceleratorDirection
-}
 export class Accelerator {
     maxSpeed: number
     direction: AcceleratorDirection
@@ -54,4 +42,21 @@ export class Accelerator {
 
         this.direction = newDirection
     }
+}
+
+
+
+///// Types and Enums
+
+export enum AcceleratorDirection {
+    Forward = 'forward',
+    Backward = 'backward',
+    Stop = 'stop'
+}
+
+export type AcceleratorSettings = {
+    maxSpeed?: number,
+    accelerationRate?: number,
+    startingSpeed?: number,
+    direction?: AcceleratorDirection
 }

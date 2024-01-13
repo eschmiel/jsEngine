@@ -31,3 +31,15 @@
 
 ~Adapting to new rendering system
 -[DONE] Get particle effects rendering with new rendering system
+
+---------
+
+update
+- handleInput()
+- updateEntities()
+- updateParticleEffects()
+
+render
+- renderEntities()
+- renderParticleEffects()
+- renderUI

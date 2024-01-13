@@ -1,19 +1,19 @@
-import GameState from './gameState.js';
 import update from './update.js';
-import { RenderingSystem2 } from './services/rendering/renderingSystem.js';
+import { init } from './init.js';
+import { startGame } from './startGame.js';
+import draw from './draw.js';
 (function () {
-    var gameState = new GameState();
-    var renderingSystem2 = new RenderingSystem2(gameState);
-    var timeTracker = gameState.timeTracker;
+    var _a = init(), gameEntities = _a.gameEntities, particleEffectManager = _a.particleEffectManager, timeTracker = _a.timeTracker, gameState = _a.gameState;
+    startGame(gameEntities, gameState);
     function game(time) {
         if (time === void 0) { time = 0; }
         window.requestAnimationFrame(game);
         timeTracker.trackTime(time);
         while (timeTracker.isTimeBetweenUpdatesOverTimeLimit()) {
-            update(gameState);
-            renderingSystem2.run();
+            update(gameEntities, particleEffectManager, gameState);
             timeTracker.logUpdate();
         }
+        draw(gameEntities, gameState, particleEffectManager);
     }
     game();
 })();

@@ -1,3 +1,6 @@
+// We tried building the system greatly relying on observables once. Ultimately we
+// we decided to pull them out. But the observable class is still here in case we
+// we want to use some again in a more limited capacity.
 var Observable = /** @class */ (function () {
     function Observable() {
         this.observers = [];

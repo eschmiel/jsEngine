@@ -2,7 +2,6 @@ import { Vector, createDirection } from "../../math/vector.js"
 import { Particle } from "../particle.js";
 import { getCircleExplosionParticleConfig } from '../configs/circleExplosionParticleConfig.js'
 import { ParticleEffect } from "../particleEffect.js";
-import { Renderer } from "../../rendering/render.js";
 
 export const createCircleExplosionEffect = (position: Vector, options: CircleExplosionOptions = defaultCircleExplosionOptions) => {
     const { particleNumber } = options

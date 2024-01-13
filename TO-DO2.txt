@@ -1,0 +1,16 @@
+- trigger respawn with a button press
+- flash while respawning and be invincible. Run along walls but dont crash till done respawning
+- slow down rotation while shooting
+- randomize directions bullet explosions go
+
+-----
+
+- gamepad controller support
+- start screen. Go fullscreen on start
+- title screen
+- player ready screen
+- game over screen
+
+-----
+
+- Show player lives on active game screen
