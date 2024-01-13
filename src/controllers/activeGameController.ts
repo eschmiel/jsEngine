@@ -10,17 +10,17 @@ import Controller from './controller.js'
 export function activeGameController(gameEntities: GameEntities) {
     gameEntities.players.forEach((active, playerIndex) => {
         if(!active) return
-        const { ship, bulletManager, lives, respawnDelayTimer} = gameEntities.getPlayerEntities(playerIndex)
+        const { ship, bulletManager, lives, respawnDelayTimer, disableShootTimer} = gameEntities.getPlayerEntities(playerIndex)
 
         if(ship) {
-            shipController(ship, bulletManager)
+            shipController(ship, bulletManager, disableShootTimer)
         } else if(lives && !respawnDelayTimer?.active) {
             respawnController(playerIndex, gameEntities)
         }
     })
 }
 
-function shipController(ship: Ship, bulletManager: BulletManager) {    
+function shipController(ship: Ship, bulletManager: BulletManager, disableShootTimer) {    
     if(Controller.ArrowUp) ship.accelerate()
     if(Controller.ArrowDown) ship.reverse()
     if(Controller.ArrowLeft) ship.rotate(Direction.Left)
@@ -31,7 +31,7 @@ function shipController(ship: Ship, bulletManager: BulletManager) {
     if(Controller.s) ship.boost(Direction.Backward)
     if(Controller.a) ship.boost(Direction.Left)
     if(Controller.d) ship.boost(Direction.Right) 
-    if(Controller[' ']) {
+    if(Controller[' '] && !disableShootTimer?.active) {
         const [shipWidth, shipHeight] = ship.body.getDimensions()
         const bullet1ShipOffset = new Vector(shipWidth/2 - 16, 6)
         const bullet2ShipOffset = new Vector(shipWidth/2 - 16, -6)
@@ -48,6 +48,8 @@ function respawnController(player: number, gameEntities: GameEntities){
     if(Controller[' ']) {
         gameEntities.removeLife(player)
         gameEntities.addShip(player, new Vector(220, 220))
+        const disableShootTimer = gameEntities.addDisableShootTimer(player)
+        disableShootTimer.activate()
     }
 }
 

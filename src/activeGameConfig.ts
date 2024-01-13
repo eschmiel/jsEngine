@@ -1,3 +1,4 @@
 export const activeGameConfig = {
-    respawnDelay: 30
+    respawnDelay: 30,
+    disableShootOnRespawnTime: 10
 }

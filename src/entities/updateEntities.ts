@@ -4,7 +4,7 @@ import { ParticleEffectsManager } from "../services/particles/particleEffectsMan
 import GameEntities from "./gameEntities.js";
 
 export function updateGameEntities(gameEntities: GameEntities, particleEffectManager: ParticleEffectsManager) {
-    const { ships, bulletManagers, respawnTimers, respawnDelayTimers } = gameEntities
+    const { ships, bulletManagers, respawnTimers, respawnDelayTimers, disableShootTimers } = gameEntities
     
     ships.forEach((ship) => ship?.update())
     bulletManagers.forEach((manager) => manager?.update())
@@ -20,17 +20,13 @@ export function updateGameEntities(gameEntities: GameEntities, particleEffectMan
             timer.update()
         }
     })
-    // handleRespawns(gameEntities)
+
+    disableShootTimers.forEach((timer, player) => {
+        if(!timer) return
+        if(!timer.active) {
+            gameEntities.removeDisableShootTimer(player)
+        } else {
+            timer.update()
+        }
+    })
 }
-
-// function handleRespawns(gameEntities: GameEntities) {
-//     gameEntities.players.forEach((player, playerIndex) => {
-//         if(!player) return
-//         const {ship, lives, respawnTimer} =  gameEntities.getPlayerEntities(playerIndex)
-
-//         if(!ship && lives && !respawnTimer.active) {
-//             gameEntities.addShip(playerIndex, new Vector(45, 45))
-//             gameEntities.removeLife(playerIndex)
-//         }
-//     } )
-// } 

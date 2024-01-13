@@ -11,6 +11,7 @@ export default class GameEntities {
     lives: number[]
     respawnTimers: Timer[]
     respawnDelayTimers: Timer[]
+    disableShootTimers: Timer[]
 
     constructor() {
         this.players = []
@@ -19,6 +20,7 @@ export default class GameEntities {
         this.lives = []
         this.respawnTimers = []
         this.respawnDelayTimers = []
+        this.disableShootTimers = []
     }
 
     addShip(player: number, position: Vector) {
@@ -36,6 +38,12 @@ export default class GameEntities {
     addRespawnDelayTimer(player: number) {
         const newTimer = new Timer(activeGameConfig.respawnDelay)
         this.respawnDelayTimers[player] = newTimer
+        return newTimer
+    }
+
+    addDisableShootTimer(player: number) {
+        const newTimer = new Timer(activeGameConfig.disableShootOnRespawnTime)
+        this.disableShootTimers[player] = newTimer
         return newTimer
     }
 
@@ -59,13 +67,18 @@ export default class GameEntities {
         this.respawnDelayTimers[player] = null
     }
 
+    removeDisableShootTimer(player: number) {
+        this.disableShootTimers[player] = null
+    }
+
     getPlayerEntities(player:number){
         return {
             ship: this.ships[player],
             bulletManager: this.bulletManagers[player],
             lives: this.lives[player],
             respawnTimer: this.respawnTimers[player],
-            respawnDelayTimer: this.respawnDelayTimers[player]
+            respawnDelayTimer: this.respawnDelayTimers[player],
+            disableShootTimer: this.disableShootTimers[player]
         }
     }
 }
