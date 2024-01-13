@@ -4,14 +4,22 @@ import { ParticleEffectsManager } from "../services/particles/particleEffectsMan
 import GameEntities from "./gameEntities.js";
 
 export function updateGameEntities(gameEntities: GameEntities, particleEffectManager: ParticleEffectsManager) {
-    const { ships, bulletManagers, respawnTimers } = gameEntities
+    const { ships, bulletManagers, respawnTimers, respawnDelayTimers } = gameEntities
     
     ships.forEach((ship) => ship?.update())
     bulletManagers.forEach((manager) => manager?.update())
     
     handleWallCollisions(gameEntities, particleEffectManager)
     
-    respawnTimers.forEach((timer) => timer.update())
+    respawnTimers.forEach((timer) => timer?.update())
+    respawnDelayTimers.forEach((timer, player) => {
+        if(!timer) return
+        if(!timer.active) {
+            gameEntities.removeRespawnDelayTimer(player)
+        } else {
+            timer.update()
+        }
+    })
     // handleRespawns(gameEntities)
 }
 

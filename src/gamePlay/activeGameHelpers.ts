@@ -3,6 +3,8 @@ import { Vector } from "../services/math/vector.js";
 
 export function killPlayer(player: number, gameEntities: GameEntities) {
     gameEntities.removeShip(player)
+    const respawnDelayTimer = gameEntities.addRespawnDelayTimer(player)
+    respawnDelayTimer.activate()
 }
 
 export function createCircleExplosion(position, particleEffectManager) {

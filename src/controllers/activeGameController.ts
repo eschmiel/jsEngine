@@ -10,11 +10,11 @@ import Controller from './controller.js'
 export function activeGameController(gameEntities: GameEntities) {
     gameEntities.players.forEach((active, playerIndex) => {
         if(!active) return
-        const { ship, bulletManager, lives} = gameEntities.getPlayerEntities(playerIndex)
+        const { ship, bulletManager, lives, respawnDelayTimer} = gameEntities.getPlayerEntities(playerIndex)
 
         if(ship) {
             shipController(ship, bulletManager)
-        } else if(lives) {
+        } else if(lives && !respawnDelayTimer?.active) {
             respawnController(playerIndex, gameEntities)
         }
     })
