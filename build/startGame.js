@@ -1,6 +1,6 @@
 import { BulletManager } from "./entities/bullets/bulletManager.js";
 import Ship from "./entities/ship/ship.js";
-import { GameStateEnum } from "./gameState.js";
+import { GameStateEnum } from "./constants.js";
 import { Vector } from "./services/math/vector.js";
 import { Timer } from "./services/timer.js";
 export function startGame(gameEntities, gameState) {

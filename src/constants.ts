@@ -4,3 +4,8 @@ export enum Direction {
     Forward = 'forward',
     Backward = 'backward'
 }
+
+export enum GameStateEnum {
+    startGame = 'start game',
+    activeGame = 'active game'
+}

@@ -1,5 +1,5 @@
 import GameEntities from "../entities/gameEntities.js";
-import { GameStateEnum } from "../gameState.js";
+import { GameStateEnum } from "../constants.js";
 import { activeGameController } from "./activeGameController.js";
 
 export function handleInputs(gameEntities: GameEntities, gameState: GameStateEnum) {

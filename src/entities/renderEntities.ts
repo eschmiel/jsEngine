@@ -3,7 +3,9 @@ import GameEntities from "./gameEntities.js";
 import { renderShip } from "./ship/renderShip.js";
 
 export function renderEntities({ships, bulletManagers}: GameEntities) {
-    ships.forEach(renderShip)
+    ships.forEach((ship) => {
+        if(ship) renderShip(ship)
+    })
     bulletManagers.forEach((manager) => {
         manager.forEachBullet(renderBullet)
     })

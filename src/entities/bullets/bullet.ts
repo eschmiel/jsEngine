@@ -27,19 +27,6 @@ export class Bullet {
     colliding(otherCollisionBox: CollisionBox) {
         return colliding(this.collisionBox, otherCollisionBox)
     }
-
-    // hit(){
-    //     const options: CircleExplosionEventData = {
-    //         position: this.body.position.copy(),
-    //         options: {
-    //             particleSize:  new Vector(10, 10),
-    //             particleNumber: 7,
-    //             startDistanceFromOrigin: 5
-    //         }
-    //     }
-    //     this.observable.notify(ParticleEffectsManagerEvents.CircleExplosion, options)
-    //     this.observable.notify(BulletEvents.hit, this)
-    // }
 }
 
 

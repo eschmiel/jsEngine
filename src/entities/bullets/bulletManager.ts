@@ -1,4 +1,4 @@
-import { CreateBulletOptions, Bullet } from "./bullet.js"
+import { Bullet } from "./bullet.js"
 
 export class BulletManager {    
     bullets: Bullet[]

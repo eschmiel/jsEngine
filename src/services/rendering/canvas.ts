@@ -29,6 +29,20 @@ class Canvas {
         this.context.translate(-x, -y)
     }
 
+    drawLine(origin: Vector, end: Vector, color = 'black') {
+        const [originX, originY] = origin.values
+        const [endX, endY] = end.values
+        this.context.strokeStyle = color
+
+        this.context.beginPath()
+
+        this.context.moveTo(originX, originY);
+        this.context.lineTo(endX, endY);
+
+        this.context.closePath()
+        this.context.stroke()
+    }
+
     fillTriangle(points: Vector[], color = 'black') {
         this.context.fillStyle = color
 

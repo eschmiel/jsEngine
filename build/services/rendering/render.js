@@ -30,6 +30,12 @@ var Renderer = /** @class */ (function () {
         Canvas.drawRectangle(position, dimensions, color);
         Canvas.restore();
     };
+    Renderer.prototype.renderLine = function (origin, end, color) {
+        if (color === void 0) { color = 'black'; }
+        Canvas.save();
+        Canvas.drawLine(origin, end, color);
+        Canvas.restore();
+    };
     Renderer.prototype.clearScreen = function () {
         Canvas.clearScreen();
     };

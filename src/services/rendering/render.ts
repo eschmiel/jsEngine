@@ -32,6 +32,13 @@ export class Renderer {
         Canvas.restore()
     }
 
+    renderLine(origin: Vector, end: Vector, color: string = 'black') {
+        Canvas.save()
+        Canvas.drawLine(origin, end, color)
+        Canvas.restore()
+    }
+     
+
     clearScreen(){
         Canvas.clearScreen()
     }

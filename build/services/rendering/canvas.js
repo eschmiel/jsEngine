@@ -17,6 +17,17 @@ var Canvas = /** @class */ (function () {
         this.context.rotate(radians);
         this.context.translate(-x, -y);
     };
+    Canvas.prototype.drawLine = function (origin, end, color) {
+        if (color === void 0) { color = 'black'; }
+        var _a = origin.values, originX = _a[0], originY = _a[1];
+        var _b = end.values, endX = _b[0], endY = _b[1];
+        this.context.strokeStyle = color;
+        this.context.beginPath();
+        this.context.moveTo(originX, originY);
+        this.context.lineTo(endX, endY);
+        this.context.closePath();
+        this.context.stroke();
+    };
     Canvas.prototype.fillTriangle = function (points, color) {
         if (color === void 0) { color = 'black'; }
         this.context.fillStyle = color;

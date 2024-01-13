@@ -2,6 +2,8 @@ import { createCircleExplosion, killPlayer } from "./activeGameHelpers.js";
 export function handleWallCollisions(gameEntities, particleEffectManager) {
     var ships = gameEntities.ships, bulletManagers = gameEntities.bulletManagers;
     ships.forEach(function (ship, player) {
+        if (!ship)
+            return;
         if (collidedWithWall(ship)) {
             killPlayer(player, gameEntities);
             createCircleExplosion(ship.body.position, particleEffectManager);

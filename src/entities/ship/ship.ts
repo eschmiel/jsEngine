@@ -69,7 +69,7 @@ export default class Ship {
                 this.booster.activate(90)
                 break;
             default:
-                throw new Error(`ship.bosst(direction) failed - no acceptable direction parameter was provided. direction: ${direction}`)
+                throw new Error(`ship.boost(direction) failed - no acceptable direction parameter was provided. direction: ${direction}`)
         }
     }
 }

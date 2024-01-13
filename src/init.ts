@@ -1,5 +1,5 @@
 import GameEntities from "./entities/gameEntities.js";
-import { GameStateEnum } from "./gameState.js";
+import { GameStateEnum } from "./constants.js";
 import { ParticleEffectsManager } from "./services/particles/particleEffectsManager.js";
 import { TimeTracker } from "./services/timeTracker.js";
 

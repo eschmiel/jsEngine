@@ -7,6 +7,7 @@ export function handleWallCollisions(gameEntities: GameEntities, particleEffectM
     const {ships, bulletManagers} = gameEntities
 
     ships.forEach((ship, player) => {
+        if(!ship) return
         if(collidedWithWall(ship)){
             killPlayer(player, gameEntities)
             createCircleExplosion(ship.body.position, particleEffectManager)

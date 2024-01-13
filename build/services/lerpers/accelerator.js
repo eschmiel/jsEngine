@@ -1,10 +1,4 @@
 import { Lerp } from "./lerp.js";
-export var AcceleratorDirection;
-(function (AcceleratorDirection) {
-    AcceleratorDirection["Forward"] = "forward";
-    AcceleratorDirection["Backward"] = "backward";
-    AcceleratorDirection["Stop"] = "stop";
-})(AcceleratorDirection || (AcceleratorDirection = {}));
 var Accelerator = /** @class */ (function () {
     function Accelerator(startingSpeed, maxSpeed, accelerationRate, direction) {
         if (startingSpeed === void 0) { startingSpeed = 0; }
@@ -45,4 +39,11 @@ var Accelerator = /** @class */ (function () {
     return Accelerator;
 }());
 export { Accelerator };
+///// Types and Enums
+export var AcceleratorDirection;
+(function (AcceleratorDirection) {
+    AcceleratorDirection["Forward"] = "forward";
+    AcceleratorDirection["Backward"] = "backward";
+    AcceleratorDirection["Stop"] = "stop";
+})(AcceleratorDirection || (AcceleratorDirection = {}));
 //# sourceMappingURL=accelerator.js.map
