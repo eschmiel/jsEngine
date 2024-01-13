@@ -1,0 +1,1 @@
+{"version":3,"file":"renderCollisionBox.js","sourceRoot":"","sources":["../../../src/services/collisions/renderCollisionBox.ts"],"names":[],"mappings":"AAGA,MAAM,UAAU,kBAAkB,CAAC,eAAyB,EAAE,YAA0B;IACpF,eAAe,CAAC,eAAe,CAAC,YAAY,CAAC,MAAM,CAAC,QAAQ,EAAE,YAAY,CAAC,MAAM,CAAC,UAAU,EAAE,KAAK,CAAC,CAAA;AACxG,CAAC"}
