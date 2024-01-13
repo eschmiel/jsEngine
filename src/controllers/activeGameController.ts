@@ -1,6 +1,8 @@
 import { Direction } from '../constants.js'
 import { Bullet } from '../entities/bullets/bullet.js'
+import { BulletManager } from '../entities/bullets/bulletManager.js'
 import GameEntities from '../entities/gameEntities.js'
+import Ship from '../entities/ship/ship.js'
 import { rotatePoint } from '../services/math/transformations.js'
 import { Vector, createDirection } from '../services/math/vector.js'
 import Controller from './controller.js'
@@ -8,17 +10,17 @@ import Controller from './controller.js'
 export function activeGameController(gameEntities: GameEntities) {
     gameEntities.players.forEach((active, playerIndex) => {
         if(!active) return
+        const { ship, bulletManager, lives} = gameEntities.getPlayerEntities(playerIndex)
 
-        handlePlayerInput(gameEntities, playerIndex)
+        if(ship) {
+            shipController(ship, bulletManager)
+        } else if(lives) {
+            respawnController(playerIndex, gameEntities)
+        }
     })
 }
 
-function handlePlayerInput(gameEntities: GameEntities, player: number) {
-    const ship = gameEntities.ships[player]
-    const bulletManager = gameEntities.bulletManagers[player]
-
-    if(!ship) return
-    
+function shipController(ship: Ship, bulletManager: BulletManager) {    
     if(Controller.ArrowUp) ship.accelerate()
     if(Controller.ArrowDown) ship.reverse()
     if(Controller.ArrowLeft) ship.rotate(Direction.Left)
@@ -39,6 +41,13 @@ function handlePlayerInput(gameEntities: GameEntities, player: number) {
 
         bulletManager.add(bullet1)
         bulletManager.add(bullet2)
+    }
+}
+
+function respawnController(player: number, gameEntities: GameEntities){
+    if(Controller[' ']) {
+        gameEntities.removeLife(player)
+        gameEntities.addShip(player, new Vector(220, 220))
     }
 }
 
