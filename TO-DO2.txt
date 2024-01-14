@@ -2,7 +2,7 @@
 - [DONE] Slight delay on triggering respawn. Don't shoot on respawn.
 - [DONE] flash while respawning and be invincible. Run along walls but dont crash till done respawning
 - [DONE] slow down rotation while shooting
-- randomize directions bullet explosions go
+- [DONE] randomize directions bullet explosions go
 
 -----
 

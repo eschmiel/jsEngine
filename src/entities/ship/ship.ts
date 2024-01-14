@@ -36,7 +36,11 @@ export default class Ship {
     update() {
         this.body.update()
         this.booster.update()
-        this.body.speed = this.accelerator.run()
+        let newSpeed = this.accelerator.run()
+        if(this.shooting && Math.abs(newSpeed) > Math.abs(activeGameConfig.shipMaxSpeedWhileShooting)) {
+            newSpeed = activeGameConfig.shipMaxSpeedWhileShooting * Math.sign(newSpeed) 
+        }
+        this.body.speed = newSpeed
     }
 
     rotate(direction: Direction) {
