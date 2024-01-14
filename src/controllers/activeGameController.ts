@@ -47,9 +47,16 @@ function shipController(ship: Ship, bulletManager: BulletManager, disableShootTi
 function respawnController(player: number, gameEntities: GameEntities){
     if(Controller[' ']) {
         gameEntities.removeLife(player)
+
         gameEntities.addShip(player, new Vector(220, 220))
+
         const disableShootTimer = gameEntities.addDisableShootTimer(player)
+        const invincibleTimer = gameEntities.addInvincibleTimer(player)
+        const flashTimer = gameEntities.addFlashTimer(player)
+        
         disableShootTimer.activate()
+        invincibleTimer.activate()
+        flashTimer.activate()
     }
 }
 

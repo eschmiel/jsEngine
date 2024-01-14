@@ -12,6 +12,8 @@ export default class GameEntities {
     respawnTimers: Timer[]
     respawnDelayTimers: Timer[]
     disableShootTimers: Timer[]
+    invincibleTimers: Timer[]
+    flashTimers: Timer[]
 
     constructor() {
         this.players = []
@@ -21,6 +23,8 @@ export default class GameEntities {
         this.respawnTimers = []
         this.respawnDelayTimers = []
         this.disableShootTimers = []
+        this.invincibleTimers = []
+        this.flashTimers = []
     }
 
     addShip(player: number, position: Vector) {
@@ -47,12 +51,28 @@ export default class GameEntities {
         return newTimer
     }
 
+    addInvincibleTimer(player: number) {
+        const newTimer = new Timer(activeGameConfig.invincibleOnSpawnTime)
+        this.invincibleTimers[player] = newTimer
+        return newTimer
+    }
+
+    addFlashTimer(player: number) {
+        const newTimer = new Timer(activeGameConfig.invincibleFlashTime)
+        this.flashTimers[player] = newTimer
+        return newTimer
+    }
+
     removePlayer(player:number){
         this.players[player] = false
         this.ships[player] =  null
         this.bulletManagers[player] =  null
         this.lives[player] =  null
         this.respawnTimers[player] =  null
+        this.respawnDelayTimers[player] = null
+        this.disableShootTimers[player] = null
+        this.invincibleTimers[player] = null
+        this.flashTimers[player] = null
     }
 
     removeShip(player: number) {
@@ -63,14 +83,6 @@ export default class GameEntities {
         this.lives[player]--
     }
 
-    removeRespawnDelayTimer(player: number) {
-        this.respawnDelayTimers[player] = null
-    }
-
-    removeDisableShootTimer(player: number) {
-        this.disableShootTimers[player] = null
-    }
-
     getPlayerEntities(player:number){
         return {
             ship: this.ships[player],
@@ -78,7 +90,15 @@ export default class GameEntities {
             lives: this.lives[player],
             respawnTimer: this.respawnTimers[player],
             respawnDelayTimer: this.respawnDelayTimers[player],
-            disableShootTimer: this.disableShootTimers[player]
+            disableShootTimer: this.disableShootTimers[player],
+            invincibleTimer: this.invincibleTimers[player],
+            flashTimer: this.flashTimers[player]
         }
     }
+}
+
+export enum Timers {
+    RespawnDelay = 'respawnDelayTimers',
+    DisableShoot = 'disableShootTimers',
+    Invincible = 'invincibleTimers'
 }

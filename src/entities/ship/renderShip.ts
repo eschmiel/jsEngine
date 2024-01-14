@@ -6,6 +6,7 @@ import Ship from "./ship";
 // Render ship as a different color based on player
 // Don't render ship if ship.visible === false
 export function renderShip(ship: Ship, player?: number) {
+    if(!ship.visible) return
     const renderer = new Renderer()
 
     const trianglePoints = getShipTrianglePoints(ship)

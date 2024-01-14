@@ -13,6 +13,7 @@ export default class Ship {
     accelerator: Accelerator;
     booster: Booster;
     collisionBox: CollisionBox
+    visible: boolean
 
     constructor(position: Vector) {
         
@@ -25,6 +26,7 @@ export default class Ship {
         this.body = new EntityBody(entityBodyOptions)
         this.accelerator = new Accelerator(0, 15, .04)
         this.booster = new Booster(this, 30, 100) 
+        this.visible = true
 
         this.collisionBox = new CollisionBox(new Vector(0,0), dimensions.copy(), this.body)
     }
