@@ -2,6 +2,7 @@ import { Vector, createDirection } from "../../math/vector.js"
 import { Particle } from "../particle.js";
 import { getCircleExplosionParticleConfig } from '../configs/circleExplosionParticleConfig.js'
 import { ParticleEffect } from "../particleEffect.js";
+import { getRandomWholeNumberInRange } from "../../../utilities/util.js";
 
 export const createCircleExplosionEffect = (position: Vector, options: CircleExplosionOptions = defaultCircleExplosionOptions) => {
     const { particleNumber } = options
@@ -10,7 +11,7 @@ export const createCircleExplosionEffect = (position: Vector, options: CircleExp
     const particleEffect = new ParticleEffect()
 
     for ( let i = 1; i <= particleNumber; i++ ) {
-        const projectedAngle = particleDegreeGap * i
+        const projectedAngle = particleDegreeGap * i + getRandomWholeNumberInRange(0, 100)
         const particle = createCircleExplosionParticle(position, projectedAngle, options)
         particleEffect.add(particle)
     }
