@@ -7,12 +7,23 @@ export function killPlayer(player: number, gameEntities: GameEntities) {
     respawnDelayTimer.activate()
 }
 
-export function createCircleExplosion(position, particleEffectManager) {
+export function createShipExplosion(position, particleEffectManager) {
     particleEffectManager.createCircleExplosionEffect(position.copy(),
         {
             particleSize:  new Vector(10, 10),
             particleNumber: 7,
             startDistanceFromOrigin: 5
+        }
+    )
+}
+
+export function createBulletExplosion(position, particleEffectManager) {
+    particleEffectManager.createCircleExplosionEffect(position.copy(),
+        {
+            particleSize:  new Vector(10, 10),
+            particleNumber: 7,
+            startDistanceFromOrigin: 5,
+            randomnessInParticleAngles: 100 
         }
     )
 }

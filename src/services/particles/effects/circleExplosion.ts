@@ -5,13 +5,17 @@ import { ParticleEffect } from "../particleEffect.js";
 import { getRandomWholeNumberInRange } from "../../../utilities/util.js";
 
 export const createCircleExplosionEffect = (position: Vector, options: CircleExplosionOptions = defaultCircleExplosionOptions) => {
-    const { particleNumber } = options
+    const { 
+        particleNumber = defaultCircleExplosionOptions.particleNumber, 
+        randomnessInParticleAngles = defaultCircleExplosionOptions.randomnessInParticleAngles 
+    } = options
+    
     const particleDegreeGap = 360/particleNumber
 
     const particleEffect = new ParticleEffect()
 
     for ( let i = 1; i <= particleNumber; i++ ) {
-        const projectedAngle = particleDegreeGap * i + getRandomWholeNumberInRange(0, 100)
+        const projectedAngle = particleDegreeGap * i + getRandomWholeNumberInRange(0, randomnessInParticleAngles)
         const particle = createCircleExplosionParticle(position, projectedAngle, options)
         particleEffect.add(particle)
     }
@@ -49,11 +53,13 @@ export type CircleExplosionOptions = {
     particleSize?: Vector
     particleNumber?: number  
     startDistanceFromOrigin?: number
+    randomnessInParticleAngles?: number
 }
 
 const defaultCircleExplosionOptions: CircleExplosionOptions = {
     type: ParticleTypes.Triangle, 
     particleSize: new Vector(1,1), 
     particleNumber:  5,  
-    startDistanceFromOrigin: 1 
+    startDistanceFromOrigin: 1,
+    randomnessInParticleAngles: 0
 }

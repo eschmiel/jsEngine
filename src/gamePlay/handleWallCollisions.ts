@@ -1,7 +1,7 @@
 import { EntityBody } from "../entities/entityBody.js"
 import GameEntities from "../entities/gameEntities.js"
 import { ParticleEffectsManager } from "../services/particles/particleEffectsManager.js"
-import { createCircleExplosion, killPlayer } from "./activeGameHelpers.js"
+import { createBulletExplosion, createShipExplosion, killPlayer } from "./activeGameHelpers.js"
 
 export function handleWallCollisions(gameEntities: GameEntities, particleEffectManager: ParticleEffectsManager) {
     const {ships, bulletManagers, invincibleTimers} = gameEntities
@@ -13,7 +13,7 @@ export function handleWallCollisions(gameEntities: GameEntities, particleEffectM
                 stopOnWall(ship)
             } else {
                 killPlayer(player, gameEntities)
-                createCircleExplosion(ship.body.position, particleEffectManager)
+                createShipExplosion(ship.body.position, particleEffectManager)
             }
         }
     })
@@ -22,7 +22,7 @@ export function handleWallCollisions(gameEntities: GameEntities, particleEffectM
         manager.forEachBullet((bullet) => {
             if(collidedWithWall(bullet)) {
                 manager.remove(bullet)
-                createCircleExplosion(bullet.body.position, particleEffectManager)
+                createBulletExplosion(bullet.body.position, particleEffectManager)
             }
         })
     })

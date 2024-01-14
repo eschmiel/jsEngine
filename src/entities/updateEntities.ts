@@ -22,7 +22,7 @@ export function updateGameEntities(gameEntities: GameEntities, particleEffectMan
         // Stop flashing it
         if(!invincibleTimers[player]) {
             flashTimers[player] = null
-            ship.visible = true
+            if(ship) ship.visible = true
             return
         }
 
