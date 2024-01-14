@@ -4,6 +4,7 @@ import { EntityBody } from '../entityBody.js';
 import { Accelerator, AcceleratorDirection } from '../../services/lerpers/accelerator.js';
 import { Booster } from './booster.js';
 import { Direction } from '../../constants.js';
+import { activeGameConfig } from '../../activeGameConfig.js';
 
 // Vector tutorial
 // https://www.gamedev.net/tutorials/programming/math-and-physics/vector-maths-for-game-dev-beginners-r5442/
@@ -14,6 +15,7 @@ export default class Ship {
     booster: Booster;
     collisionBox: CollisionBox
     visible: boolean
+    shooting: boolean
 
     constructor(position: Vector) {
         
@@ -24,7 +26,7 @@ export default class Ship {
             dimensions: dimensions.copy()
         }
         this.body = new EntityBody(entityBodyOptions)
-        this.accelerator = new Accelerator(0, 15, .04)
+        this.accelerator = new Accelerator(0, activeGameConfig.shipMaxSpeed, activeGameConfig.shipAccelerationRate)
         this.booster = new Booster(this, 30, 100) 
         this.visible = true
 
@@ -39,7 +41,7 @@ export default class Ship {
 
     rotate(direction: Direction) {
         if(direction !== Direction.Left && direction !== Direction.Right) return
-        let rotation = 11
+        let rotation = this.shooting ? activeGameConfig.rotateWhileShootingSpeed : activeGameConfig.normalRotateSpeed
         if(direction === Direction.Left) rotation *= -1
         this.body.adjustRotation(rotation)
     }

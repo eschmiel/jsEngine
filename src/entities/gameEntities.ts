@@ -68,7 +68,7 @@ export default class GameEntities {
         this.ships[player] =  null
         this.bulletManagers[player] =  null
         this.lives[player] =  null
-        this.respawnTimers[player] =  null
+        // this.respawnTimers[player] =  null
         this.respawnDelayTimers[player] = null
         this.disableShootTimers[player] = null
         this.invincibleTimers[player] = null
@@ -88,7 +88,7 @@ export default class GameEntities {
             ship: this.ships[player],
             bulletManager: this.bulletManagers[player],
             lives: this.lives[player],
-            respawnTimer: this.respawnTimers[player],
+            // respawnTimer: this.respawnTimers[player],
             respawnDelayTimer: this.respawnDelayTimers[player],
             disableShootTimer: this.disableShootTimers[player],
             invincibleTimer: this.invincibleTimers[player],

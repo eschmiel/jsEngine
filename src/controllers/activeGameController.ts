@@ -32,6 +32,7 @@ function shipController(ship: Ship, bulletManager: BulletManager, disableShootTi
     if(Controller.a) ship.boost(Direction.Left)
     if(Controller.d) ship.boost(Direction.Right) 
     if(Controller[' '] && !disableShootTimer?.active) {
+        ship.shooting = true
         const [shipWidth, shipHeight] = ship.body.getDimensions()
         const bullet1ShipOffset = new Vector(shipWidth/2 - 16, 6)
         const bullet2ShipOffset = new Vector(shipWidth/2 - 16, -6)
@@ -41,7 +42,7 @@ function shipController(ship: Ship, bulletManager: BulletManager, disableShootTi
 
         bulletManager.add(bullet1)
         bulletManager.add(bullet2)
-    }
+    } else { ship.shooting = false}
 }
 
 function respawnController(player: number, gameEntities: GameEntities){

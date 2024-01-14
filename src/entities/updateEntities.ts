@@ -3,7 +3,7 @@ import { ParticleEffectsManager } from "../services/particles/particleEffectsMan
 import GameEntities, { Timers } from "./gameEntities.js";
 
 export function updateGameEntities(gameEntities: GameEntities, particleEffectManager: ParticleEffectsManager) {
-    const { ships, bulletManagers, respawnTimers, respawnDelayTimers, disableShootTimers, flashTimers, invincibleTimers } = gameEntities
+    const { ships, bulletManagers, flashTimers, invincibleTimers } = gameEntities
     
     ships.forEach((ship) => ship?.update())
     bulletManagers.forEach((manager) => manager?.update())
