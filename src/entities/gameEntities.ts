@@ -20,7 +20,7 @@ export default class GameEntities {
         this.ships = []
         this.bulletManagers = []
         this.lives = []
-        this.respawnTimers = []
+        // this.respawnTimers = []
         this.respawnDelayTimers = []
         this.disableShootTimers = []
         this.invincibleTimers = []

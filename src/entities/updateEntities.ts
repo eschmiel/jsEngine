@@ -1,5 +1,4 @@
 import { handleWallCollisions } from "../gamePlay/handleWallCollisions.js";
-import { Vector } from "../services/math/vector.js";
 import { ParticleEffectsManager } from "../services/particles/particleEffectsManager.js";
 import GameEntities, { Timers } from "./gameEntities.js";
 

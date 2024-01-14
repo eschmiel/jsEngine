@@ -4,13 +4,17 @@ import { ParticleEffectsManager } from "../services/particles/particleEffectsMan
 import { createCircleExplosion, killPlayer } from "./activeGameHelpers.js"
 
 export function handleWallCollisions(gameEntities: GameEntities, particleEffectManager: ParticleEffectsManager) {
-    const {ships, bulletManagers} = gameEntities
+    const {ships, bulletManagers, invincibleTimers} = gameEntities
 
     ships.forEach((ship, player) => {
         if(!ship) return
         if(collidedWithWall(ship)){
-            killPlayer(player, gameEntities)
-            createCircleExplosion(ship.body.position, particleEffectManager)
+            if(invincibleTimers[player]?.active) {
+                stopOnWall(ship)
+            } else {
+                killPlayer(player, gameEntities)
+                createCircleExplosion(ship.body.position, particleEffectManager)
+            }
         }
     })
 
@@ -31,6 +35,15 @@ function collidedWithWall(entity: HasEntityBody) {
     || y < 0 
     || y > 600 ) return true
     return false
+}
+
+function stopOnWall(entity: HasEntityBody) {
+    const entityPositionCoordinates = entity.body.position.values
+    const [x, y] = entityPositionCoordinates
+    if(x < 0) entityPositionCoordinates[0] = 0
+    if(x > 1000) entityPositionCoordinates[0] = 1000
+    if(y < 0) entityPositionCoordinates[1] = 0
+    if(y > 600) entityPositionCoordinates[1] = 600
 }
 
 type HasEntityBody = {
