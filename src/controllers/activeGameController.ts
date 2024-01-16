@@ -5,9 +5,9 @@ import GameEntities from '../entities/gameEntities.js'
 import Ship from '../entities/ship/ship.js'
 import { rotatePoint } from '../services/math/transformations.js'
 import { Vector, createDirection } from '../services/math/vector.js'
-import Controller from './controller.js'
+import { Controller, GamepadController } from './controller.js'
 
-export function activeGameController(gameEntities: GameEntities) {
+export function activeGameController(gameEntities: GameEntities, controllerSystem: GamepadController) {
     gameEntities.players.forEach((active, playerIndex) => {
         if(!active) return
         const { ship, bulletManager, lives, respawnDelayTimer, disableShootTimer} = gameEntities.getPlayerEntities(playerIndex)
