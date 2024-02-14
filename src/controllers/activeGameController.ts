@@ -20,7 +20,6 @@ export function activeGameController(gameEntities: GameEntities, controllerSyste
         } = gameEntities.getPlayerEntities(playerIndex)
 
         const gamepadState = controllerSystem.gamepadStates[playerController]
-        console.log(gamepadState.axes)
         if(ship) {
             shipController(gamepadState, ship, bulletManager, disableShootTimer)
         } else if(lives && !respawnDelayTimer?.active) {
@@ -39,8 +38,8 @@ function shipController(gamepadState: GamepadState, ship: Ship, bulletManager: B
 
     if(pressedButtons.includes(ControllerButton.LTrigger)) ship.accelerate()
     if(pressedButtons.includes(ControllerButton.LBumper)) ship.reverse()
-    if(lStickX < -0.05) ship.rotate(Direction.Left, lStickX)
-    if(lStickX > 0.05) ship.rotate(Direction.Right, lStickX)
+    if(lStickX < -0.1) ship.rotate(Direction.Left, lStickX)
+    if(lStickX > 0.1) ship.rotate(Direction.Right, lStickX)
     if(
         !pressedButtons.includes(ControllerButton.LBumper)
         && !pressedButtons.includes(ControllerButton.LTrigger)

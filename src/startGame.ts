@@ -7,6 +7,7 @@ import { activeGameConfig } from "./activeGameConfig.js";
 
 export function startGame(gameEntities: GameEntities, gameState:GameStateEnum){
     gameEntities.addPlayer(0)
+    gameEntities.addPlayer(2)
     const {players, ships, bulletManagers, lives, playerControllers} = gameEntities
     gameState = GameStateEnum.activeGame
     

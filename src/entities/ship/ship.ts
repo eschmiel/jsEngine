@@ -52,7 +52,6 @@ export default class Ship {
     }
 
     accelerate(){
-        console.log('d')
         this.accelerator.setDirection(AcceleratorDirection.Forward)
     }
 
@@ -61,7 +60,6 @@ export default class Ship {
     }
 
     comeToRest(){
-        console.log('b')
         this.accelerator.setDirection(AcceleratorDirection.Stop)
     }
 
