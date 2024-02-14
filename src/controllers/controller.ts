@@ -18,10 +18,7 @@ class KeyboardController {
 export const Controller = new KeyboardController()
 
 export class GamepadController {
-    gamepadStates: {
-        pressedButtons: number[],
-        axes: number[]
-    }[]
+    gamepadStates: GamepadState[]
 
     // constructor() {
     //     this.connectedGamepads = []
@@ -68,4 +65,9 @@ export class GamepadController {
     //     return buttonsPressed
     // }
 
+}
+
+export type GamepadState = {
+    pressedButtons: number[],
+    axes: number[]
 }

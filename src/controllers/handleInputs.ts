@@ -4,7 +4,7 @@ import { activeGameController } from "./activeGameController.js";
 import { GamepadController } from "./controller.js";
 
 export function handleInputs(gameEntities: GameEntities, gameState: GameStateEnum, controllerSystem: GamepadController) {
-    const beep = controllerSystem.getGamepadStates()
+    controllerSystem.getGamepadStates()
 
     switch (gameState) {
         case GameStateEnum.activeGame: 
