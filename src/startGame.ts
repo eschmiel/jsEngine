@@ -3,10 +3,12 @@ import GameEntities from "./entities/gameEntities.js";
 import Ship from "./entities/ship/ship.js";
 import { GameStateEnum } from "./constants.js";
 import { Vector } from "./services/math/vector.js";
+import { activeGameConfig } from "./activeGameConfig.js";
 
 export function startGame(gameEntities: GameEntities, gameState:GameStateEnum){
     gameEntities.addPlayer(0)
-    const {players, ships, bulletManagers, lives} = gameEntities
+    gameEntities.addPlayer(2)
+    const {players, ships, bulletManagers, lives, playerControllers} = gameEntities
     gameState = GameStateEnum.activeGame
     
     players.forEach((active, playerIndex) => {
@@ -14,6 +16,7 @@ export function startGame(gameEntities: GameEntities, gameState:GameStateEnum){
 
         ships[playerIndex] = new Ship(new Vector(30 + 30 * playerIndex, 30 + 30 * playerIndex))
         bulletManagers[playerIndex] = new BulletManager()
-        lives[playerIndex] = 5
+        lives[playerIndex] = activeGameConfig.lives
+        playerControllers[playerIndex] = playerIndex
     })
 }

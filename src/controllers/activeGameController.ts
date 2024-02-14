@@ -1,37 +1,55 @@
-import { Direction } from '../constants.js'
+import { Direction, ControllerButton, ControllerAxis } from '../constants.js'
 import { Bullet } from '../entities/bullets/bullet.js'
 import { BulletManager } from '../entities/bullets/bulletManager.js'
 import GameEntities from '../entities/gameEntities.js'
 import Ship from '../entities/ship/ship.js'
 import { rotatePoint } from '../services/math/transformations.js'
 import { Vector, createDirection } from '../services/math/vector.js'
-import Controller from './controller.js'
+import { Controller, GamepadController, GamepadState } from './controller.js'
 
-export function activeGameController(gameEntities: GameEntities) {
+export function activeGameController(gameEntities: GameEntities, controllerSystem: GamepadController) {
     gameEntities.players.forEach((active, playerIndex) => {
         if(!active) return
-        const { ship, bulletManager, lives, respawnDelayTimer, disableShootTimer} = gameEntities.getPlayerEntities(playerIndex)
+        const { 
+            ship, 
+            bulletManager, 
+            lives, 
+            respawnDelayTimer, 
+            disableShootTimer, 
+            playerController
+        } = gameEntities.getPlayerEntities(playerIndex)
 
+        const gamepadState = controllerSystem.gamepadStates[playerController]
         if(ship) {
-            shipController(ship, bulletManager, disableShootTimer)
+            shipController(gamepadState, ship, bulletManager, disableShootTimer)
         } else if(lives && !respawnDelayTimer?.active) {
-            respawnController(playerIndex, gameEntities)
+            respawnController(gamepadState, playerIndex, gameEntities)
         }
     })
 }
 
-function shipController(ship: Ship, bulletManager: BulletManager, disableShootTimer) {    
-    if(Controller.ArrowUp) ship.accelerate()
-    if(Controller.ArrowDown) ship.reverse()
-    if(Controller.ArrowLeft) ship.rotate(Direction.Left)
-    if(Controller.ArrowRight) ship.rotate(Direction.Right)
-    if(!Controller.ArrowDown && !Controller.ArrowUp) ship.comeToRest()
+function shipController(gamepadState: GamepadState, ship: Ship, bulletManager: BulletManager, disableShootTimer) {    
+    const {pressedButtons, axes} = gamepadState
 
-    if(Controller.w) ship.boost(Direction.Forward)
-    if(Controller.s) ship.boost(Direction.Backward)
-    if(Controller.a) ship.boost(Direction.Left)
-    if(Controller.d) ship.boost(Direction.Right) 
-    if(Controller[' '] && !disableShootTimer?.active) {
+    const lStickX = axes[ControllerAxis.LStickX]
+    const lStickY = axes[ControllerAxis.LStickY]
+    const rStickX = axes[ControllerAxis.RStickX]
+    const rStickY = axes[ControllerAxis.RStickY]
+
+    if(pressedButtons.includes(ControllerButton.LTrigger)) ship.accelerate()
+    if(pressedButtons.includes(ControllerButton.LBumper)) ship.reverse()
+    if(lStickX < -0.1) ship.rotate(Direction.Left, lStickX)
+    if(lStickX > 0.1) ship.rotate(Direction.Right, lStickX)
+    if(
+        !pressedButtons.includes(ControllerButton.LBumper)
+        && !pressedButtons.includes(ControllerButton.LTrigger)
+    ) {ship.comeToRest()}
+
+    if(rStickY > 0.5) ship.boost(Direction.Backward)
+    if(rStickY < -0.5) ship.boost(Direction.Forward)
+    if(rStickX < -0.5) ship.boost(Direction.Left)
+    if(rStickX > 0.5) ship.boost(Direction.Right) 
+    if(pressedButtons.includes(ControllerButton.RTrigger) && !disableShootTimer?.active) {
         ship.shooting = true
         const [shipWidth, shipHeight] = ship.body.getDimensions()
         const bullet1ShipOffset = new Vector(shipWidth/2 - 16, 6)
@@ -45,8 +63,8 @@ function shipController(ship: Ship, bulletManager: BulletManager, disableShootTi
     } else { ship.shooting = false}
 }
 
-function respawnController(player: number, gameEntities: GameEntities){
-    if(Controller[' ']) {
+function respawnController(gamepadState: GamepadState, player: number, gameEntities: GameEntities){
+    if(gamepadState.pressedButtons.includes(ControllerButton.RTrigger)) {
         gameEntities.removeLife(player)
 
         gameEntities.addShip(player, new Vector(220, 220))

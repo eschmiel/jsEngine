@@ -1,9 +1,10 @@
 import { EntityBody } from "../entities/entityBody.js"
 import GameEntities from "../entities/gameEntities.js"
+import { colliding } from "../services/collisions/collisions.js"
 import { ParticleEffectsManager } from "../services/particles/particleEffectsManager.js"
 import { createBulletExplosion, createShipExplosion, killPlayer } from "./activeGameHelpers.js"
 
-export function handleWallCollisions(gameEntities: GameEntities, particleEffectManager: ParticleEffectsManager) {
+export function handleCollisions(gameEntities: GameEntities, particleEffectManager: ParticleEffectsManager) {
     const {ships, bulletManagers, invincibleTimers} = gameEntities
 
     ships.forEach((ship, player) => {
@@ -18,8 +19,21 @@ export function handleWallCollisions(gameEntities: GameEntities, particleEffectM
         }
     })
 
-    bulletManagers.forEach((manager) => {
+    bulletManagers.forEach((manager, bulletPlayer) => {
         manager.forEachBullet((bullet) => {
+            if(!bullet) return
+            ships.forEach((ship, shipPlayer) => {
+                if(!ship) return
+                if(
+                    bulletPlayer !== shipPlayer
+                    && !invincibleTimers[shipPlayer]?.active
+                    && colliding(ship.collisionBox, bullet.collisionBox)
+                ){
+                    manager.remove(bullet)
+                    killPlayer(shipPlayer, gameEntities)
+                    createShipExplosion(ship.body.position, particleEffectManager)
+                }
+            })
             if(collidedWithWall(bullet)) {
                 manager.remove(bullet)
                 createBulletExplosion(bullet.body.position, particleEffectManager)

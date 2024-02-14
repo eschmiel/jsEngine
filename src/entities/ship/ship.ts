@@ -43,10 +43,11 @@ export default class Ship {
         this.body.speed = newSpeed
     }
 
-    rotate(direction: Direction) {
+    rotate(direction: Direction, stickPercent) {
         if(direction !== Direction.Left && direction !== Direction.Right) return
         let rotation = this.shooting ? activeGameConfig.rotateWhileShootingSpeed : activeGameConfig.normalRotateSpeed
-        if(direction === Direction.Left) rotation *= -1
+        rotation = rotation * stickPercent
+        // if(direction === Direction.Left) rotation *= -1
         this.body.adjustRotation(rotation)
     }
 

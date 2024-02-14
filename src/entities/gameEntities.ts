@@ -1,4 +1,5 @@
 import { activeGameConfig } from "../activeGameConfig.js"
+import { GamepadController } from "../controllers/controller.js"
 import { Vector } from "../services/math/vector.js"
 import { Timer } from "../services/timer.js"
 import { BulletManager } from "./bullets/bulletManager.js"
@@ -14,6 +15,7 @@ export default class GameEntities {
     disableShootTimers: Timer[]
     invincibleTimers: Timer[]
     flashTimers: Timer[]
+    playerControllers: number[]
 
     constructor() {
         this.players = []
@@ -25,6 +27,7 @@ export default class GameEntities {
         this.disableShootTimers = []
         this.invincibleTimers = []
         this.flashTimers = []
+        this.playerControllers = []
     }
 
     addShip(player: number, position: Vector) {
@@ -92,7 +95,8 @@ export default class GameEntities {
             respawnDelayTimer: this.respawnDelayTimers[player],
             disableShootTimer: this.disableShootTimers[player],
             invincibleTimer: this.invincibleTimers[player],
-            flashTimer: this.flashTimers[player]
+            flashTimer: this.flashTimers[player],
+            playerController: this.playerControllers[player]
         }
     }
 }

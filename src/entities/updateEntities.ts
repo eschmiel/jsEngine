@@ -1,4 +1,4 @@
-import { handleWallCollisions } from "../gamePlay/handleWallCollisions.js";
+import { handleCollisions } from "../gamePlay/handleCollisions.js";
 import { ParticleEffectsManager } from "../services/particles/particleEffectsManager.js";
 import GameEntities, { Timers } from "./gameEntities.js";
 
@@ -8,7 +8,7 @@ export function updateGameEntities(gameEntities: GameEntities, particleEffectMan
     ships.forEach((ship) => ship?.update())
     bulletManagers.forEach((manager) => manager?.update())
     
-    handleWallCollisions(gameEntities, particleEffectManager)
+    handleCollisions(gameEntities, particleEffectManager)
     
     runTimerThenDispose(Timers.RespawnDelay, gameEntities)
     runTimerThenDispose(Timers.DisableShoot, gameEntities)
