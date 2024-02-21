@@ -6,7 +6,7 @@
 
 -----
 
-- gamepad controller support
+- [DONE] gamepad controller support
 - start screen. Go fullscreen on start. Increase size of play field
 - title screen
 - player ready screen
