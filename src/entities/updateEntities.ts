@@ -1,5 +1,5 @@
-import { handleCollisions } from "../gamePlay/handleCollisions.js";
-import { ParticleEffectsManager } from "../services/particles/particleEffectsManager.js";
+import { handleCollisions } from "../gameStates/activeGame/handleCollisions.js";
+import { ParticleEffectsManager } from "../../schmielJS/particles/particleEffectsManager.js";
 import GameEntities, { Timers } from "./gameEntities.js";
 
 export function updateGameEntities(gameEntities: GameEntities, particleEffectManager: ParticleEffectsManager) {

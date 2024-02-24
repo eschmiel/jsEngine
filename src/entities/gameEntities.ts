@@ -1,7 +1,6 @@
-import { activeGameConfig } from "../activeGameConfig.js"
-import { GamepadController } from "../controllers/controller.js"
-import { Vector } from "../services/math/vector.js"
-import { Timer } from "../services/timer.js"
+import { activeGameConfig } from "../gameStates/activeGame/activeGameConfig.js"
+import { Vector } from "../../schmielJS/math/vector.js"
+import { Timer } from "../../schmielJS/timer.js"
 import { BulletManager } from "./bullets/bulletManager.js"
 import Ship from "./ship/ship.js"
 

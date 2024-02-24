@@ -1,7 +1,7 @@
-import { CollisionBox } from "../../services/collisions/collisionBox.js";
-import { colliding } from "../../services/collisions/collisions.js";
-import { Vector } from "../../services/math/vector.js";
-import { EntityBody, EntityBodyOptions } from "../entityBody.js";
+import { CollisionBox } from "../../../schmielJS/collisions/collisionBox.js";
+import { colliding } from "../../../schmielJS/collisions/collisions.js";
+import { Vector } from "../../../schmielJS/math/vector.js";
+import { EntityBody, EntityBodyOptions } from "../../../schmielJS/entityBody.js";
 
 export class Bullet {
     body: EntityBody;

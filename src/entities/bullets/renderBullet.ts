@@ -1,4 +1,4 @@
-import { Renderer } from "../../services/rendering/render.js"
+import { Renderer } from "../../../schmielJS/rendering/render.js"
 import { Bullet } from "./bullet.js"
 
 export function renderBullet(bullet: Bullet, player: number) {

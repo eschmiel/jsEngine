@@ -1,6 +1,6 @@
-import { rotatePoint } from "../../services/math/transformations.js";
-import { Vector } from "../../services/math/vector.js";
-import { Renderer } from "../../services/rendering/render.js";
+import { rotatePoint } from "../../../schmielJS/math/transformations.js";
+import { Vector } from "../../../schmielJS/math/vector.js";
+import { Renderer } from "../../../schmielJS/rendering/render.js";
 import Ship from "./ship";
 
 // Render ship as a different color based on player

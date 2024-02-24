@@ -1,10 +1,10 @@
-import { Vector } from '../../services/math/vector.js';
-import { CollisionBox } from '../../services/collisions/collisionBox.js';
-import { EntityBody } from '../entityBody.js';
-import { Accelerator, AcceleratorDirection } from '../../services/lerpers/accelerator.js';
+import { Vector } from '../../../schmielJS/math/vector.js';
+import { CollisionBox } from '../../../schmielJS/collisions/collisionBox.js';
+import { EntityBody } from '../../../schmielJS/entityBody.js';
+import { Accelerator, AcceleratorDirection } from '../../../schmielJS/lerpers/accelerator.js';
 import { Booster } from './booster.js';
 import { Direction } from '../../constants.js';
-import { activeGameConfig } from '../../activeGameConfig.js';
+import { activeGameConfig } from '../../gameStates/activeGame/activeGameConfig.js';
 
 // Vector tutorial
 // https://www.gamedev.net/tutorials/programming/math-and-physics/vector-maths-for-game-dev-beginners-r5442/

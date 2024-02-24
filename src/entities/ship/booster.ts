@@ -1,6 +1,6 @@
-import { Accelerator, AcceleratorDirection } from "../../services/lerpers/accelerator.js"
-import { Vector, createDirection } from "../../services/math/vector.js"
-import { EntityBody } from "../entityBody.js"
+import { Accelerator, AcceleratorDirection } from "../../../schmielJS/lerpers/accelerator.js"
+import { Vector, createDirection } from "../../../schmielJS/math/vector.js"
+import { EntityBody } from "../../../schmielJS/entityBody.js"
 
 type Boostable = {
     body: EntityBody

@@ -5,9 +5,10 @@ export enum Direction {
     Backward = 'backward'
 }
 
-export enum GameStateEnum {
-    startGame = 'start game',
-    activeGame = 'active game'
+export enum GAME_STATE {
+    TITLE_SCREEN = 'title screen',
+    READY_SCREEN = 'ready screen',
+    ACTIVE_GAME = 'active game'
 }
 
 export enum ControllerButton {

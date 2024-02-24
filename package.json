@@ -2,14 +2,16 @@
   "name": "jsengine",
   "version": "1.0.0",
   "description": "",
-  "main": "./public/gamePage.html",
+  "browser": "./public/index.html",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "tsc && nodemon -verbose"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "nodemon": "^3.1.0",
     "typescript": "^5.3.3"
   }
 }
