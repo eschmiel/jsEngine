@@ -12,7 +12,7 @@ export function startGame(gameEntities: GameEntities){
     players.forEach((active, playerIndex) => {
         if(!active) return
 
-        ships[playerIndex] = new Ship(new Vector(30 + 30 * playerIndex, 30 + 30 * playerIndex))
+        ships[playerIndex] = new Ship(new Vector(Math.floor(Math.random() * 1400) +50, Math.floor(Math.random() * 600) + 50))
         bulletManagers[playerIndex] = new BulletManager()
         lives[playerIndex] = activeGameConfig.lives
         playerControllers[playerIndex] = playerIndex

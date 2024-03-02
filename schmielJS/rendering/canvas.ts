@@ -12,8 +12,8 @@ class Canvas {
         this.canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
         this.context = this.canvas.getContext("2d");
 
-        this.width = 1000
-        this.height = 600
+        this.width = 1600
+        this.height = 750
 
         this.canvas.setAttribute("width", this.width.toString())
         this.canvas.setAttribute("height", this.height.toString())
@@ -108,6 +108,12 @@ class Canvas {
         this.context.textAlign = fillTextOptions?.textAlign ?? defaultFillTextOptions.textAlign
 
         this.context.fillText(text, x, y)
+    }
+
+    drawImage(image: HTMLImageElement, position: Vector, dimensions: Vector) {
+        const [x, y] = position.values
+        const [width, height] = dimensions.values
+        this.context.drawImage(image, x, y, width, height)
     }
 
     save() {

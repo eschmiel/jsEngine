@@ -31,6 +31,8 @@ export class Booster {
             this.coolDownTimer = this.coolDownTime
             this.accelerator.setDirection(AcceleratorDirection.Forward) 
             this.direction = createDirection(this.target.body.rotation + angle)
+            const intro = new Audio('../../../public/audio/boost.wav')
+                intro.play()
         }
     }
 

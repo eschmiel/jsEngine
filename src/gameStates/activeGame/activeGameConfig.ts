@@ -8,5 +8,5 @@ export const activeGameConfig = {
     shipMaxSpeed: 15, // was 15 during most of dev // placeholder: 12
     shipMaxSpeedWhileShooting: 10,
     shipAccelerationRate: .04, // was .04 during most of dev
-    lives: 5000 // Demo safe lives
+    lives: 5 
 }

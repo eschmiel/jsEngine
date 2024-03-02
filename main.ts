@@ -5,10 +5,10 @@ import ReadyState from './src/gameStates/ready/readyState.js'
 
 (() => {
   const timeTracker = new TimeTracker()
-  const startingState = new ReadyState()
+  const startingState = new TitleState()
 
   const game = new Game(startingState)
-
+   
   function mainLoop(time = 0) {
       window.requestAnimationFrame(mainLoop)
 

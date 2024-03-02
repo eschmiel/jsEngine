@@ -15,6 +15,7 @@ export default class GameEntities {
     invincibleTimers: Timer[]
     flashTimers: Timer[]
     playerControllers: number[]
+    color: string[]
 
     constructor() {
         this.players = []
@@ -27,6 +28,7 @@ export default class GameEntities {
         this.invincibleTimers = []
         this.flashTimers = []
         this.playerControllers = []
+        this.color = ['black', 'red', 'red']
     }
 
     addShip(player: number, position: Vector) {
@@ -53,8 +55,9 @@ export default class GameEntities {
         return newTimer
     }
 
-    addInvincibleTimer(player: number) {
-        const newTimer = new Timer(activeGameConfig.invincibleOnSpawnTime)
+    addInvincibleTimer(player: number, type) {
+        const timeLimit = type == 'spawn' ? activeGameConfig.invincibleOnSpawnTime : 10
+        const newTimer = new Timer(timeLimit)
         this.invincibleTimers[player] = newTimer
         return newTimer
     }

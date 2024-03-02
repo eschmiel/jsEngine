@@ -63,20 +63,29 @@ export default class Ship {
         this.accelerator.setDirection(AcceleratorDirection.Stop)
     }
 
-    boost(direction:Direction){
+    boost(direction:Direction, gameEntities, player){
         switch(direction){
             case Direction.Forward:
-                this.booster.activate()
-                break;
+               { this.booster.activate()
+                
+                const invincibleTimer = gameEntities.addInvincibleTimer(player)
+                invincibleTimer.activate()
+                break;}
             case Direction.Backward:
-                this.booster.activate(180)
-                break;
+                {this.booster.activate(180)
+                const invincibleTimer = gameEntities.addInvincibleTimer(player)
+                invincibleTimer.activate()
+                break;}
             case Direction.Left: 
-                this.booster.activate(270)
-                break;
+                {this.booster.activate(270)
+                const invincibleTimer = gameEntities.addInvincibleTimer(player)
+                invincibleTimer.activate()
+                break;}
             case Direction.Right: 
-                this.booster.activate(90)
-                break;
+                {this.booster.activate(90)
+                const invincibleTimer = gameEntities.addInvincibleTimer(player)
+                invincibleTimer.activate()
+                break;}
             default:
                 throw new Error(`ship.boost(direction) failed - no acceptable direction parameter was provided. direction: ${direction}`)
         }

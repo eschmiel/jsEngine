@@ -1,6 +1,7 @@
 import Canvas, { FillTextOptions } from "./canvas.js";
 import { Vector } from "../math/vector.js";
 import { TEXT_ALIGN } from "./renderConstants.js";
+import canvas from "./canvas.js";
 
 export class Renderer {
     Canvas: typeof Canvas
@@ -45,6 +46,15 @@ export class Renderer {
         Canvas.restore()
     }
      
+    renderImage(imagePath: string, position: Vector, dimensions: Vector = new Vector()){
+        Canvas.save()
+        const [width, height] = dimensions.values
+        const image = new Image(width, height)
+        image.src = imagePath
+
+        // Canvas.drawImage(image, position)
+        canvas.restore()
+    }
 
     clearScreen(){
         Canvas.clearScreen()

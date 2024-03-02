@@ -6,8 +6,10 @@ import Ship from '../../entities/ship/ship.js'
 import { rotatePoint } from '../../../schmielJS/math/transformations.js'
 import { Vector, createDirection } from '../../../schmielJS/math/vector.js'
 import { GamepadState } from '../../../schmielJS/controller.js'
+import TitleState from '../title/titleState.js'
+import { State } from '../../game.js'
 
-export function activeGameController(gameEntities: GameEntities, gamepadStates: GamepadState[]) {
+export function activeGameController(gameEntities: GameEntities, gamepadStates: GamepadState[]): void | State {
     gameEntities.players.forEach((active, playerIndex) => {
         if(!active) return
         const { 
@@ -21,20 +23,23 @@ export function activeGameController(gameEntities: GameEntities, gamepadStates: 
 
         const gamepadState = gamepadStates[playerController]
         if(ship) {
-            shipController(gamepadState, ship, bulletManager, disableShootTimer)
+            const newState = shipController(gamepadState, ship, bulletManager, disableShootTimer, gameEntities, playerIndex)
+            // if (newState) return newState
         } else if(lives && !respawnDelayTimer?.active) {
             respawnController(gamepadState, playerIndex, gameEntities)
         }
     })
 }
 
-function shipController(gamepadState: GamepadState, ship: Ship, bulletManager: BulletManager, disableShootTimer) {    
+function shipController(gamepadState: GamepadState, ship: Ship, bulletManager: BulletManager, disableShootTimer, gameEntities, player) {    
     const {pressedButtons, axes} = gamepadState
 
     const lStickX = axes[ControllerAxis.LStickX]
     const lStickY = axes[ControllerAxis.LStickY]
     const rStickX = axes[ControllerAxis.RStickX]
     const rStickY = axes[ControllerAxis.RStickY]
+
+    // if (pressedButtons.includes(ControllerButton.Start)) return new TitleState()
 
     if(pressedButtons.includes(ControllerButton.LTrigger)) ship.accelerate()
     if(pressedButtons.includes(ControllerButton.LBumper)) ship.reverse()
@@ -45,10 +50,10 @@ function shipController(gamepadState: GamepadState, ship: Ship, bulletManager: B
         && !pressedButtons.includes(ControllerButton.LTrigger)
     ) {ship.comeToRest()}
 
-    if(rStickY > 0.5) ship.boost(Direction.Backward)
-    if(rStickY < -0.5) ship.boost(Direction.Forward)
-    if(rStickX < -0.5) ship.boost(Direction.Left)
-    if(rStickX > 0.5) ship.boost(Direction.Right) 
+    if(rStickY > 0.5) ship.boost(Direction.Backward, gameEntities, player)
+    if(rStickY < -0.5) ship.boost(Direction.Forward, gameEntities, player)
+    if(rStickX < -0.5) ship.boost(Direction.Left, gameEntities, player)
+    if(rStickX > 0.5) ship.boost(Direction.Right, gameEntities, player) 
     if(pressedButtons.includes(ControllerButton.RTrigger) && !disableShootTimer?.active) {
         ship.shooting = true
         const [shipWidth, shipHeight] = ship.body.getDimensions()
@@ -60,6 +65,9 @@ function shipController(gamepadState: GamepadState, ship: Ship, bulletManager: B
 
         bulletManager.add(bullet1)
         bulletManager.add(bullet2)
+
+        const intro = new Audio('../../../public/audio/shoot.wav')
+        intro.play()
     } else { ship.shooting = false}
 }
 
@@ -67,10 +75,10 @@ function respawnController(gamepadState: GamepadState, player: number, gameEntit
     if(gamepadState.pressedButtons.includes(ControllerButton.RTrigger)) {
         gameEntities.removeLife(player)
 
-        gameEntities.addShip(player, new Vector(220, 220))
+        gameEntities.addShip(player, new Vector(Math.floor(Math.random() * 1400) +50, Math.floor(Math.random() * 600) + 50))
 
         const disableShootTimer = gameEntities.addDisableShootTimer(player)
-        const invincibleTimer = gameEntities.addInvincibleTimer(player)
+        const invincibleTimer = gameEntities.addInvincibleTimer(player, 'spawn')
         const flashTimer = gameEntities.addFlashTimer(player)
         
         disableShootTimer.activate()

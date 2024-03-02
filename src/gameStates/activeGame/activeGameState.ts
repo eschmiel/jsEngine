@@ -6,6 +6,8 @@ import { updateGameEntities } from "../../entities/updateEntities.js";
 import { ParticleEffectsManager } from "../../../schmielJS/particles/particleEffectsManager.js";
 import { Renderer } from "../../../schmielJS/rendering/render.js";
 import { startGame } from "../../startGame.js";
+import { FONT_WEIGHT, TEXT_ALIGN } from "../../../schmielJS/rendering/renderConstants.js";
+import { Vector } from "../../../schmielJS/math/vector.js";
 
 export default class ActiveGameState {
     gameEntities: GameEntities
@@ -15,10 +17,15 @@ export default class ActiveGameState {
         this.gameEntities = new GameEntities(),
         this.particleEffectsManager = new ParticleEffectsManager()
         startGame(this.gameEntities)
+        const song = new Audio('../../../public/audio/Skull_Break.wav')
+        song.play()
+        const intro = new Audio('../../../public/audio/startMatch.wav')
+        intro.play()
     }
 
     update(gamepadStates: GamepadState[]) {
-        activeGameController(this.gameEntities, gamepadStates)
+        const newState = activeGameController(this.gameEntities, gamepadStates)
+        // if(newState) return newState
         updateGameEntities(this.gameEntities, this.particleEffectsManager)
         this.particleEffectsManager.update()
     }
@@ -29,5 +36,14 @@ export default class ActiveGameState {
         renderer.clearScreen()
         renderEntities(this.gameEntities)
         this.particleEffectsManager.render()
+        
+        renderer.renderText(`${this.gameEntities.lives[0]}`, new Vector(790, 675), {textAlign: TEXT_ALIGN.CENTER, fontSize: '23px', color: `${this.gameEntities.color[0]}`})
+        renderer.renderText(`${this.gameEntities.lives[2]}`, new Vector(810, 675), {textAlign: TEXT_ALIGN.CENTER, fontSize: '23px', color: `${this.gameEntities.color[2]}`})
+        if(this.gameEntities.lives[0] <= 0 && !this.gameEntities.ships[0]) {   
+            renderer.renderText(`Red Triangle WINS`, new Vector(800, 350), {textAlign: TEXT_ALIGN.CENTER, fontSize: '59px', color: `${this.gameEntities.color[2]}`, fontWeight: FONT_WEIGHT.BOLD})
+        }
+        if(this.gameEntities.lives[2] <= 0 && !this.gameEntities.ships[2]) {   
+            renderer.renderText(`Black Triangle WINS`, new Vector(800, 350), {textAlign: TEXT_ALIGN.CENTER, fontSize: '59px', color: `${this.gameEntities.color[0]}`, fontWeight: FONT_WEIGHT.BOLD})
+        }
     }
 }
